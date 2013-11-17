@@ -16,4 +16,4 @@ Members:
 Documentation
 ========
 
-Documentation is available on our [wiki](/SoftLab-IS/ermex-pm/wiki "Visit our wiki page") page.
+Documentation is available on our [wiki]() page.
