@@ -1,2 +1,2 @@
 [x] done_1
-* a jel rocko
+* a jel rodjo
