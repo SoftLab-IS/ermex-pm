@@ -9,7 +9,7 @@ Members:
 
 * ITesic
 * igolub
-* milan-samardzic
+* milansamardzic
 * milankr
 * ArekX
 
