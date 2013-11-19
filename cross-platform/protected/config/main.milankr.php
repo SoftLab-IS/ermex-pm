@@ -50,7 +50,7 @@ return array(
 
         'db' =>
         array(
-            'connectionString' => 'mysql:host=localhost;dbname=ermex',
+            'connectionString' => 'mysql:host=localhost;dbname=krunic_ermex',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',
