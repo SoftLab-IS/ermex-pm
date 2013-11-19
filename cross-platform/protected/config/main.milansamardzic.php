@@ -55,10 +55,4 @@ return array(
                 ),
             ),
         ),
-
-        // Yii::app()->params['paramName']
-        'params' =>
-        array(
-            'adminEmail' => 'softlabistocnosarajevo@gmail.com',
-        ),
 );
