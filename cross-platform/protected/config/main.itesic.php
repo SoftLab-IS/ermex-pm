@@ -50,10 +50,10 @@ return array(
 
         'db' =>
         array(
-            'connectionString' => 'mysql:host=localhost;dbname=ermex',
+            'connectionString' => 'mysql:host=localhost;dbname=ermex-pm',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => '',
+            'password' => 'icefire007',
             'charset' => 'utf8',
         ),
         
