@@ -10,8 +10,3 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
-
-$envConfig=include dirname(__FILE__).'/protected/config/main.milansamardzic.php';
-$config=CMap::mergeArray($mainConfig, $envConfig);
-
-Yii::createWebApplication($config)->run();
