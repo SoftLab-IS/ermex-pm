@@ -5,13 +5,13 @@ Project Management solution for Ermex Printing House
 
 Author: SoftLab East Sarajevo
 
-Members:
+Project Team members:
 
-* ITesic
-* igolub
-* milansamardzic
-* milankr
-* ArekX
+* @ITesic, **Project Manager**, **Development Team**
+* @igolub, **Development Team**
+* @milansamardzic, D**evelopment Team**
+* @milankr, **Development Team**
+* @ArekX, **Scrum Master**, **Development Team**
 
 Documentation
 ========
