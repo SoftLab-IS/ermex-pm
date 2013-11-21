@@ -54,7 +54,7 @@ return array(
                             '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                         ),
                 ),
-            /*ime,user,pass dbase*/
+            /*ime,user,pass db*/
             'db' =>
                 array(
                     'connectionString' => 'mysql:host=localhost;dbname=ermex-pm',
