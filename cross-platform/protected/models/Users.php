@@ -1,15 +1,9 @@
 <?php
 
 /**
-<<<<<<< HEAD
  * This is the model class for table "epm_users".
  *
  * The followings are the available columns in table 'epm_users':
-=======
- * This is the model class for table "{{users}}".
- *
- * The followings are the available columns in table '{{users}}':
->>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property integer $usId
  * @property string $username
  * @property string $password
@@ -22,10 +16,7 @@
  * The followings are the available model relations:
  * @property Deliveries[] $deliveries
  * @property WorkAccounts[] $workAccounts
-<<<<<<< HEAD
  * @property WorkAccounts[] $workAccounts1
-=======
->>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  */
 class Users extends CActiveRecord
 {
@@ -34,11 +25,7 @@ class Users extends CActiveRecord
 	 */
 	public function tableName()
 	{
-<<<<<<< HEAD
 		return 'epm_users';
-=======
-		return '{{users}}';
->>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**
@@ -68,12 +55,8 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'deliveries' => array(self::HAS_MANY, 'Deliveries', 'authorId'),
-<<<<<<< HEAD
 			'workAccounts' => array(self::HAS_MANY, 'WorkAccounts', 'reconciledId'),
 			'workAccounts1' => array(self::HAS_MANY, 'WorkAccounts', 'authorId'),
-=======
-			'workAccounts' => array(self::HAS_MANY, 'WorkAccounts', 'authorId'),
->>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
