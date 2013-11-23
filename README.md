@@ -5,13 +5,13 @@ Project Management solution for Ermex Printing House
 
 Author: SoftLab East Sarajevo
 
-Members:
+Project Team members:
 
-* ITesic
-* igolub
-* milansamardzic
-* milankr
-* ArekX
+* [ITesic](//github.com/ITesic "Visit Ilija Tesic's Github Page"), **Project Manager**, **Development Team**
+* [igolub](//github.com/igolub "Visit Igor Golub's Github Page"), **Development Team**
+* [milansamardzic](//github.com/milansamardzic "Visit Milan Samardzic's Github Page"), **Development Team**
+* [milankr](//github.com/milankr "Visit Milan Krunic's Github Page"), **Development Team**
+* [ArekX](//github.com/ArekX "Visit Aleksandar Panic's Github Page"), **Scrum Master**, **Development Team**
 
 Documentation
 ========
