@@ -27,42 +27,38 @@
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="browsehappy">Koristite <strong>stari</strong> browser. Molimo <a href="http://browsehappy.com/">ažurirajte vaš browser</a> da poboljšate vaše iskustvo.</p>
+            <p class="browsehappy">Koristite <strong>stari</strong> pretraživač. Molimo <a href="http://browsehappy.com/">ažurirajte vaš browser</a> da poboljšate vaše iskustvo.</p>
         <![endif]-->
-        
-        <div class="row">
-        	<div class="large-12 columns">
-	        	<h1><?php echo CHtml::encode(Yii::app()->name); ?></h1>
-            <div id="mainmenu">
-              <?php $this->widget('zii.widgets.CMenu', 
-                array(
-                'items'=>
-                array(
-                  array('label' => 'Home', 'url' => array('/site/index')),
-                  array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-                  array('label' => 'Contact', 'url' => array('/site/contact')),
-                  array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                  array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => ! Yii::app()->user->isGuest)
-                ),
-              )); ?>
-            </div>
-            <div id="breadcrumbs">
-                <?php if(isset($this->breadcrumbs)): ?>
-                <?php $this->widget('zii.widgets.CBreadcrumbs', 
-                array(
-                  'links' => $this->breadcrumbs,
-                )); ?>
-                <?php endif; ?>
-            </div>
-	        	
-            <?php echo $content; ?>
 
-        	</div>
-        </div>
 
-        <div id="footer">
-            Copyright &copy; <?php echo date('Y'); ?> by Softlab.<br/>
-            Sva prva pridržana.<br/>
+        <div class="main-wrapper clearfix">
+        	<aside class="large-2 columns">
+                <nav class="main-menu">
+                  <?php $this->widget('zii.widgets.CMenu',
+                    array(
+                        'items'=>
+                        array(
+                            array('label' => 'Novi radni nalog', 'url' => array('/radniNalozi/novi')),
+                            array('label' => 'Nova otpremnica', 'url' => array('/otpremnice/novi')),
+                            array('label' => 'Radni nalozi', 'url' => array('/radniNalozi')),
+                            array('label' => 'Otpremnice', 'url' => array('/otpremnice')),
+                            array('label' => 'Proizvodi', 'url' => array('/proizvodi')),
+                            array('label' => 'Materijal', 'url' => array('/materijal')),
+                            array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => ! Yii::app()->user->isGuest)
+                    ),
+                  )); ?>
+                </nav>
+        	</aside>
+            <section class="large-10 columns">
+               <?php echo $content; ?>
+            </section>
+
+
+            <footer class="large-12 columns">
+                Copyright &copy; <?php echo date('Y'); ?> by Softlab.<br/>
+                Sva prva pridržana.<br/>
+            </footer>
+
         </div>
 
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/vendor/jquery-1.10.2.min.js"></script>
