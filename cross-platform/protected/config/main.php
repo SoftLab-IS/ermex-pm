@@ -62,6 +62,7 @@ return array(
                     'username' => 'root',
                     'password' => 'icefire007',
                     'charset' => 'utf8',
+                    'tablePrefix' => 'epm_',
                 ),
 
             'errorHandler' =>

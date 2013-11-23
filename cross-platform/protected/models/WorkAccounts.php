@@ -1,14 +1,24 @@
 <?php
 
 /**
+<<<<<<< HEAD
  * This is the model class for table "epm_work_accounts".
  *
  * The followings are the available columns in table 'epm_work_accounts':
+=======
+ * This is the model class for table "{{work_accounts}}".
+ *
+ * The followings are the available columns in table '{{work_accounts}}':
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property integer $woId
  * @property string $workAccountSerial
  * @property string $name
  * @property string $description
  * @property string $payeeName
+<<<<<<< HEAD
+=======
+ * @property string $payeeAddress
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property string $payeeContactPerson
  * @property string $payeeContactInfo
  * @property string $creationDate
@@ -16,19 +26,31 @@
  * @property integer $amount
  * @property double $price
  * @property string $note
+<<<<<<< HEAD
  * @property string $additional
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property integer $invalid
  * @property integer $reconciled
  * @property integer $payeeId
  * @property integer $authorId
+<<<<<<< HEAD
  * @property integer $reconciledId
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  *
  * The followings are the available model relations:
  * @property Deliveries[] $deliveries
  * @property UsedMaterials[] $usedMaterials
+<<<<<<< HEAD
  * @property Users $reconciled0
  * @property Payees $payee
  * @property Users $author
+=======
+ * @property Payees $payee
+ * @property Users $author
+ * @property WorkAccountsExtra[] $workAccountsExtras
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  */
 class WorkAccounts extends CActiveRecord
 {
@@ -37,7 +59,11 @@ class WorkAccounts extends CActiveRecord
 	 */
 	public function tableName()
 	{
+<<<<<<< HEAD
 		return 'epm_work_accounts';
+=======
+		return '{{work_accounts}}';
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**
@@ -48,6 +74,7 @@ class WorkAccounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+<<<<<<< HEAD
 			array('workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, invalid, reconciled, payeeId, authorId, reconciledId', 'required'),
 			array('amount, invalid, reconciled, payeeId, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
@@ -59,6 +86,19 @@ class WorkAccounts extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('woId, workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, additional, invalid, reconciled, payeeId, authorId, reconciledId', 'safe', 'on'=>'search'),
+=======
+			array('workAccountSerial, name, description, payeeName, payeeAddress, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, invalid, reconciled, payeeId, authorId', 'required'),
+			array('amount, invalid, reconciled, payeeId, authorId', 'numerical', 'integerOnly'=>true),
+			array('price', 'numerical'),
+			array('workAccountSerial', 'length', 'max'=>90),
+			array('name', 'length', 'max'=>255),
+			array('payeeName, payeeAddress, payeeContactPerson, payeeContactInfo', 'length', 'max'=>45),
+			array('creationDate, deadlineDate', 'length', 'max'=>21),
+			array('note', 'safe'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('woId, workAccountSerial, name, description, payeeName, payeeAddress, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, invalid, reconciled, payeeId, authorId', 'safe', 'on'=>'search'),
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -72,9 +112,15 @@ class WorkAccounts extends CActiveRecord
 		return array(
 			'deliveries' => array(self::HAS_MANY, 'Deliveries', 'workAccountId'),
 			'usedMaterials' => array(self::HAS_MANY, 'UsedMaterials', 'workAccountId'),
+<<<<<<< HEAD
 			'reconciled0' => array(self::BELONGS_TO, 'Users', 'reconciledId'),
 			'payee' => array(self::BELONGS_TO, 'Payees', 'payeeId'),
 			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
+=======
+			'payee' => array(self::BELONGS_TO, 'Payees', 'payeeId'),
+			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
+			'workAccountsExtras' => array(self::HAS_MANY, 'WorkAccountsExtra', 'workAccountId'),
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -89,6 +135,10 @@ class WorkAccounts extends CActiveRecord
 			'name' => 'Name',
 			'description' => 'Description',
 			'payeeName' => 'Payee Name',
+<<<<<<< HEAD
+=======
+			'payeeAddress' => 'Payee Address',
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 			'payeeContactPerson' => 'Payee Contact Person',
 			'payeeContactInfo' => 'Payee Contact Info',
 			'creationDate' => 'Creation Date',
@@ -96,12 +146,18 @@ class WorkAccounts extends CActiveRecord
 			'amount' => 'Amount',
 			'price' => 'Price',
 			'note' => 'Note',
+<<<<<<< HEAD
 			'additional' => 'Additional',
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 			'invalid' => 'Invalid',
 			'reconciled' => 'Reconciled',
 			'payeeId' => 'Payee',
 			'authorId' => 'Author',
+<<<<<<< HEAD
 			'reconciledId' => 'Reconciled',
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -128,6 +184,10 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('payeeName',$this->payeeName,true);
+<<<<<<< HEAD
+=======
+		$criteria->compare('payeeAddress',$this->payeeAddress,true);
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		$criteria->compare('payeeContactPerson',$this->payeeContactPerson,true);
 		$criteria->compare('payeeContactInfo',$this->payeeContactInfo,true);
 		$criteria->compare('creationDate',$this->creationDate,true);
@@ -135,12 +195,18 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('amount',$this->amount);
 		$criteria->compare('price',$this->price);
 		$criteria->compare('note',$this->note,true);
+<<<<<<< HEAD
 		$criteria->compare('additional',$this->additional,true);
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		$criteria->compare('invalid',$this->invalid);
 		$criteria->compare('reconciled',$this->reconciled);
 		$criteria->compare('payeeId',$this->payeeId);
 		$criteria->compare('authorId',$this->authorId);
+<<<<<<< HEAD
 		$criteria->compare('reconciledId',$this->reconciledId);
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

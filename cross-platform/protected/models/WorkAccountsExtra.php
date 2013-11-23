@@ -1,35 +1,25 @@
 <?php
 
 /**
-<<<<<<< HEAD
- * This is the model class for table "epm_used_materials".
+ * This is the model class for table "{{work_accounts_extra}}".
  *
- * The followings are the available columns in table 'epm_used_materials':
-=======
- * This is the model class for table "{{used_materials}}".
- *
- * The followings are the available columns in table '{{used_materials}}':
->>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
- * @property integer $amount
- * @property integer $materialId
+ * The followings are the available columns in table '{{work_accounts_extra}}':
+ * @property integer $woId
+ * @property string $name
+ * @property string $description
  * @property integer $workAccountId
  *
  * The followings are the available model relations:
- * @property Materials $material
  * @property WorkAccounts $workAccount
  */
-class UsedMaterials extends CActiveRecord
+class WorkAccountsExtra extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-<<<<<<< HEAD
-		return 'epm_used_materials';
-=======
-		return '{{used_materials}}';
->>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
+		return '{{work_accounts_extra}}';
 	}
 
 	/**
@@ -40,11 +30,12 @@ class UsedMaterials extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('amount, materialId, workAccountId', 'required'),
-			array('amount, materialId, workAccountId', 'numerical', 'integerOnly'=>true),
+			array('name, description, workAccountId', 'required'),
+			array('workAccountId', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('amount, materialId, workAccountId', 'safe', 'on'=>'search'),
+			array('woId, name, description, workAccountId', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +47,6 @@ class UsedMaterials extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'material' => array(self::BELONGS_TO, 'Materials', 'materialId'),
 			'workAccount' => array(self::BELONGS_TO, 'WorkAccounts', 'workAccountId'),
 		);
 	}
@@ -67,8 +57,9 @@ class UsedMaterials extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'amount' => 'Amount',
-			'materialId' => 'Material',
+			'woId' => 'Wo',
+			'name' => 'Name',
+			'description' => 'Description',
 			'workAccountId' => 'Work Account',
 		);
 	}
@@ -91,8 +82,9 @@ class UsedMaterials extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('amount',$this->amount);
-		$criteria->compare('materialId',$this->materialId);
+		$criteria->compare('woId',$this->woId);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('workAccountId',$this->workAccountId);
 
 		return new CActiveDataProvider($this, array(
@@ -104,7 +96,7 @@ class UsedMaterials extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return UsedMaterials the static model class
+	 * @return WorkAccountsExtra the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
