@@ -56,9 +56,8 @@ class WorkAccounts extends CActiveRecord
 			array('payeeName, payeeContactPerson, payeeContactInfo', 'length', 'max'=>45),
 			array('creationDate, deadlineDate', 'length', 'max'=>21),
 			array('note, additional', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('woId, workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, additional, invalid, reconciled, payeeId, authorId, reconciledId', 'safe', 'on'=>'search'),
+
+			array('workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, additional, invalid, reconciled, payeeId, authorId, reconciledId', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,24 +83,20 @@ class WorkAccounts extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'woId' => 'Wo',
-			'workAccountSerial' => 'Work Account Serial',
-			'name' => 'Name',
-			'description' => 'Description',
-			'payeeName' => 'Payee Name',
-			'payeeContactPerson' => 'Payee Contact Person',
-			'payeeContactInfo' => 'Payee Contact Info',
-			'creationDate' => 'Creation Date',
-			'deadlineDate' => 'Deadline Date',
-			'amount' => 'Amount',
-			'price' => 'Price',
-			'note' => 'Note',
-			'additional' => 'Additional',
-			'invalid' => 'Invalid',
-			'reconciled' => 'Reconciled',
-			'payeeId' => 'Payee',
-			'authorId' => 'Author',
-			'reconciledId' => 'Reconciled',
+			'workAccountSerial' => 'Broj Naloga',
+			'name' => 'Ime',
+			'description' => 'Opis',
+			'payeeName' => 'Naručilac',
+			'payeeContactPerson' => 'Kontakt Osoba',
+			'payeeContactInfo' => 'Kontakt Informacije',
+			'creationDate' => 'Datum kreiranja',
+			'deadlineDate' => 'Rok',
+			'amount' => 'Količina',
+			'price' => 'Cijena',
+			'note' => 'Napomena',
+			'additional' => 'Dodatne Informacije',
+			'invalid' => 'Stornirano',
+			'reconciled' => 'Zaključeno',
 		);
 	}
 
@@ -123,7 +118,6 @@ class WorkAccounts extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('woId',$this->woId);
 		$criteria->compare('workAccountSerial',$this->workAccountSerial,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
@@ -138,9 +132,6 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('additional',$this->additional,true);
 		$criteria->compare('invalid',$this->invalid);
 		$criteria->compare('reconciled',$this->reconciled);
-		$criteria->compare('payeeId',$this->payeeId);
-		$criteria->compare('authorId',$this->authorId);
-		$criteria->compare('reconciledId',$this->reconciledId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

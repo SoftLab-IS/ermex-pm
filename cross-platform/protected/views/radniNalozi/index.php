@@ -1,10 +1,12 @@
 <?php
-/* @var $this RadniNaloziController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Work Accounts',
-);
+/**
+ * View za prikaz radnih naloga
+ *
+ * @author Aleksndar Panic
+ *
+ * @var $this RadniNalozicontroller Kontroler radnih naloga.
+ * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
+ */
 
 $this->menu=array(
 	array('label'=>'Create WorkAccounts', 'url'=>array('create')),
@@ -12,9 +14,23 @@ $this->menu=array(
 );
 ?>
 
-<h1>Work Accounts</h1>
+<h1>Radni Nalozi</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+                                                       'id'=>'work-accounts-grid',
+                                                       'dataProvider'=> $dataProvider,
+                                                       'columns'=>array(
+
+                                                           'workAccountSerial',
+                                                           'name',
+                                                           'payeeName',
+                                                           'creationDate',
+                                                           'deadlineDate',
+                                                           'invalid',
+                                                           'reconciled',
+
+                                                           array(
+                                                               'class'=>'CButtonColumn',
+                                                           ),
+                                                       ),
+                                                  )); ?>
