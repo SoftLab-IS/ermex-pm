@@ -1,6 +1,13 @@
 <?php
 
 /**
+<<<<<<< HEAD
+ * This is the model class for table "epm_payees".
+ *
+ * The followings are the available columns in table 'epm_payees':
+ * @property integer $paId
+ * @property string $name
+=======
  * This is the model class for table "{{payees}}".
  *
  * The followings are the available columns in table '{{payees}}':
@@ -8,6 +15,7 @@
  * @property string $name
  * @property string $address
  * @property string $contactPerson
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property string $contactInfo
  *
  * The followings are the available model relations:
@@ -20,7 +28,11 @@ class Payees extends CActiveRecord
 	 */
 	public function tableName()
 	{
+<<<<<<< HEAD
+		return 'epm_payees';
+=======
 		return '{{payees}}';
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**
@@ -31,11 +43,19 @@ class Payees extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+<<<<<<< HEAD
+			array('name, contactInfo', 'required'),
+			array('name', 'length', 'max'=>255),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('paId, name, contactInfo', 'safe', 'on'=>'search'),
+=======
 			array('name, address, contactPerson, contactInfo', 'required'),
 			array('name, address, contactPerson, contactInfo', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('paId, name, address, contactPerson, contactInfo', 'safe', 'on'=>'search'),
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -59,8 +79,11 @@ class Payees extends CActiveRecord
 		return array(
 			'paId' => 'Pa',
 			'name' => 'Name',
+<<<<<<< HEAD
+=======
 			'address' => 'Address',
 			'contactPerson' => 'Contact Person',
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 			'contactInfo' => 'Contact Info',
 		);
 	}
@@ -85,8 +108,11 @@ class Payees extends CActiveRecord
 
 		$criteria->compare('paId',$this->paId);
 		$criteria->compare('name',$this->name,true);
+<<<<<<< HEAD
+=======
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('contactPerson',$this->contactPerson,true);
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		$criteria->compare('contactInfo',$this->contactInfo,true);
 
 		return new CActiveDataProvider($this, array(

@@ -1,9 +1,15 @@
 <?php
 
 /**
+<<<<<<< HEAD
+ * This is the model class for table "epm_used_materials".
+ *
+ * The followings are the available columns in table 'epm_used_materials':
+=======
  * This is the model class for table "{{used_materials}}".
  *
  * The followings are the available columns in table '{{used_materials}}':
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property integer $amount
  * @property integer $materialId
  * @property integer $workAccountId
@@ -19,7 +25,11 @@ class UsedMaterials extends CActiveRecord
 	 */
 	public function tableName()
 	{
+<<<<<<< HEAD
+		return 'epm_used_materials';
+=======
 		return '{{used_materials}}';
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**

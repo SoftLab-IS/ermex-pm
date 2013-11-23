@@ -1,11 +1,20 @@
 <?php
 
 /**
+<<<<<<< HEAD
+ * This is the model class for table "epm_config".
+ *
+ * The followings are the available columns in table 'epm_config':
+ * @property integer $coId
+ * @property integer $workAccountIncrement
+ * @property integer $lastSystemLoginId
+=======
  * This is the model class for table "{{config}}".
  *
  * The followings are the available columns in table '{{config}}':
  * @property integer $coId
  * @property integer $workAccountIncrement
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  */
 class Config extends CActiveRecord
 {
@@ -14,7 +23,11 @@ class Config extends CActiveRecord
 	 */
 	public function tableName()
 	{
+<<<<<<< HEAD
+		return 'epm_config';
+=======
 		return '{{config}}';
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**
@@ -25,10 +38,17 @@ class Config extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+<<<<<<< HEAD
+			array('workAccountIncrement, lastSystemLoginId', 'numerical', 'integerOnly'=>true),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('coId, workAccountIncrement, lastSystemLoginId', 'safe', 'on'=>'search'),
+=======
 			array('workAccountIncrement', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('coId, workAccountIncrement', 'safe', 'on'=>'search'),
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -51,6 +71,10 @@ class Config extends CActiveRecord
 		return array(
 			'coId' => 'Co',
 			'workAccountIncrement' => 'Work Account Increment',
+<<<<<<< HEAD
+			'lastSystemLoginId' => 'Last System Login',
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -74,6 +98,10 @@ class Config extends CActiveRecord
 
 		$criteria->compare('coId',$this->coId);
 		$criteria->compare('workAccountIncrement',$this->workAccountIncrement);
+<<<<<<< HEAD
+		$criteria->compare('lastSystemLoginId',$this->lastSystemLoginId);
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

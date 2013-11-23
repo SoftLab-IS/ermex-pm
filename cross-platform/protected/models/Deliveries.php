@@ -1,9 +1,15 @@
 <?php
 
 /**
+<<<<<<< HEAD
+ * This is the model class for table "epm_deliveries".
+ *
+ * The followings are the available columns in table 'epm_deliveries':
+=======
  * This is the model class for table "{{deliveries}}".
  *
  * The followings are the available columns in table '{{deliveries}}':
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  * @property integer $deId
  * @property string $deliveryDate
  * @property double $price
@@ -15,8 +21,13 @@
  * @property integer $workAccountId
  *
  * The followings are the available model relations:
+<<<<<<< HEAD
+ * @property WorkAccounts $workAccount
+ * @property Users $author
+=======
  * @property Users $author
  * @property WorkAccounts $workAccount
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  */
 class Deliveries extends CActiveRecord
 {
@@ -25,7 +36,11 @@ class Deliveries extends CActiveRecord
 	 */
 	public function tableName()
 	{
+<<<<<<< HEAD
+		return 'epm_deliveries';
+=======
 		return '{{deliveries}}';
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**
@@ -54,8 +69,13 @@ class Deliveries extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+<<<<<<< HEAD
+			'workAccount' => array(self::BELONGS_TO, 'WorkAccounts', 'workAccountId'),
+			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
+=======
 			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
 			'workAccount' => array(self::BELONGS_TO, 'WorkAccounts', 'workAccountId'),
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 

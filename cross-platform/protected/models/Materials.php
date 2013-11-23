@@ -1,6 +1,17 @@
 <?php
 
 /**
+<<<<<<< HEAD
+ * This is the model class for table "epm_materials".
+ *
+ * The followings are the available columns in table 'epm_materials':
+ * @property integer $maId
+ * @property string $name
+ * @property string $description
+ * @property double $amount
+ * @property string $enterDate
+ * @property string $dimensionUnit
+=======
  * This is the model class for table "{{materials}}".
  *
  * The followings are the available columns in table '{{materials}}':
@@ -9,6 +20,7 @@
  * @property string $description
  * @property integer $amount
  * @property string $enterDate
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
  *
  * The followings are the available model relations:
  * @property UsedMaterials[] $usedMaterials
@@ -20,7 +32,11 @@ class Materials extends CActiveRecord
 	 */
 	public function tableName()
 	{
+<<<<<<< HEAD
+		return 'epm_materials';
+=======
 		return '{{materials}}';
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 	}
 
 	/**
@@ -31,6 +47,16 @@ class Materials extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+<<<<<<< HEAD
+			array('name, description, amount, enterDate, dimensionUnit', 'required'),
+			array('amount', 'numerical'),
+			array('name', 'length', 'max'=>255),
+			array('enterDate', 'length', 'max'=>21),
+			array('dimensionUnit', 'length', 'max'=>45),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('maId, name, description, amount, enterDate, dimensionUnit', 'safe', 'on'=>'search'),
+=======
 			array('name, description, amount, enterDate', 'required'),
 			array('amount', 'numerical', 'integerOnly'=>true),
 			array('name, description', 'length', 'max'=>255),
@@ -38,6 +64,7 @@ class Materials extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('maId, name, description, amount, enterDate', 'safe', 'on'=>'search'),
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -64,6 +91,10 @@ class Materials extends CActiveRecord
 			'description' => 'Description',
 			'amount' => 'Amount',
 			'enterDate' => 'Enter Date',
+<<<<<<< HEAD
+			'dimensionUnit' => 'Dimension Unit',
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 		);
 	}
 
@@ -90,6 +121,10 @@ class Materials extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('amount',$this->amount);
 		$criteria->compare('enterDate',$this->enterDate,true);
+<<<<<<< HEAD
+		$criteria->compare('dimensionUnit',$this->dimensionUnit,true);
+=======
+>>>>>>> 44d3659f0c52dd7387bda5be17edd30d2ea69145
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

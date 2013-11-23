@@ -1,3 +1,4 @@
+
 -- -----------------------------------------------------
 -- Table `ermex_pm`.`epm_users`
 -- -----------------------------------------------------
@@ -21,6 +22,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_config` (
   `coId` INT NOT NULL AUTO_INCREMENT,
   `workAccountIncrement` INT NOT NULL DEFAULT 0,
+  `lastSystemLoginId` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`coId`))
 ENGINE = InnoDB;
 
@@ -30,10 +32,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_payees` (
   `paId` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
-  `contactPerson` VARCHAR(45) NOT NULL,
-  `contactInfo` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `contactInfo` TEXT NOT NULL,
   PRIMARY KEY (`paId`))
 ENGINE = InnoDB;
 
@@ -47,7 +47,6 @@ CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_work_accounts` (
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
   `payeeName` VARCHAR(45) NOT NULL,
-  `payeeAddress` VARCHAR(45) NOT NULL,
   `payeeContactPerson` VARCHAR(45) NOT NULL,
   `payeeContactInfo` VARCHAR(45) NOT NULL,
   `creationDate` BIGINT(21) NOT NULL,
@@ -55,14 +54,17 @@ CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_work_accounts` (
   `amount` INT NOT NULL,
   `price` FLOAT NULL,
   `note` TEXT NULL,
+  `additional` TEXT NULL,
   `invalid` INT(1) NOT NULL,
   `reconciled` INT(1) NOT NULL,
   `payeeId` INT NOT NULL,
   `authorId` INT NOT NULL,
+  `reconciledId` INT NOT NULL,
   PRIMARY KEY (`woId`),
   UNIQUE INDEX `workAccountSerial_UNIQUE` (`workAccountSerial` ASC),
   INDEX `payees_id_fk_index` (`payeeId` ASC),
   INDEX `users_id_fk_index` (`authorId` ASC),
+  INDEX `users_reconcield_id_fk_index` (`reconciledId` ASC),
   CONSTRAINT `payees_id_fk`
     FOREIGN KEY (`payeeId`)
     REFERENCES `ermex_pm`.`epm_payees` (`paId`)
@@ -72,23 +74,10 @@ CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_work_accounts` (
     FOREIGN KEY (`authorId`)
     REFERENCES `ermex_pm`.`epm_users` (`usId`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `ermex_pm`.`epm_work_accounts_extra`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_work_accounts_extra` (
-  `woId` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `description` TEXT NOT NULL,
-  `workAccountId` INT NOT NULL,
-  PRIMARY KEY (`woId`),
-  INDEX `work_accounts_fk_index` (`workAccountId` ASC),
-  CONSTRAINT `work_accounts_fk`
-    FOREIGN KEY (`workAccountId`)
-    REFERENCES `ermex_pm`.`epm_work_accounts` (`woId`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `users_reconcield_id_fk`
+    FOREIGN KEY (`reconciledId`)
+    REFERENCES `ermex_pm`.`epm_users` (`usId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -100,9 +89,10 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_materials` (
   `maId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NOT NULL,
-  `amount` INT NOT NULL,
+  `description` TEXT NOT NULL,
+  `amount` FLOAT NOT NULL,
   `enterDate` BIGINT(21) NOT NULL,
+  `dimensionUnit` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`maId`))
 ENGINE = InnoDB;
 
