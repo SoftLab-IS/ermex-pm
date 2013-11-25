@@ -63,6 +63,15 @@ class WorkAccounts extends CActiveRecord
 		);
 	}
 
+    public function scopes()
+    {
+        return array(
+            'proizvodi' => array(
+                'condition' => $this->tableAlias . '.reconciled = 1',
+            ),
+        );
+    }
+
 	/**
 	 * @return array relational rules.
 	 */
