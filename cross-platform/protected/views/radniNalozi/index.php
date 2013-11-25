@@ -22,7 +22,7 @@ $this->menu=array(
                                                        'columns'=>array(
                                                            'woId' =>
                                                            array(
-                                                               //'header' => 'R. broj',
+                                                               'header' => 'R. broj',
                                                                'value'  => '$row + 1',
                                                            ),
                                                            'workAccountSerial',
