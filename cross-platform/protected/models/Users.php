@@ -10,13 +10,13 @@
  * @property string $realName
  * @property string $realSurname
  * @property string $registerDate
- * @property integer $isLoggedBy
  * @property integer $privilegeLevel
  *
  * The followings are the available model relations:
  * @property Deliveries[] $deliveries
  * @property WorkAccounts[] $workAccounts
  * @property WorkAccounts[] $workAccounts1
+ * @property Workers[] $workers
  */
 class Users extends CActiveRecord
 {
@@ -37,12 +37,12 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password, realName, realSurname, registerDate', 'required'),
-			array('isLoggedBy, privilegeLevel', 'numerical', 'integerOnly'=>true),
+			array('privilegeLevel', 'numerical', 'integerOnly'=>true),
 			array('username, password, realName, realSurname', 'length', 'max'=>45),
 			array('registerDate', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('usId, username, password, realName, realSurname, registerDate, isLoggedBy, privilegeLevel', 'safe', 'on'=>'search'),
+			array('usId, username, password, realName, realSurname, registerDate, privilegeLevel', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +57,7 @@ class Users extends CActiveRecord
 			'deliveries' => array(self::HAS_MANY, 'Deliveries', 'authorId'),
 			'workAccounts' => array(self::HAS_MANY, 'WorkAccounts', 'reconciledId'),
 			'workAccounts1' => array(self::HAS_MANY, 'WorkAccounts', 'authorId'),
+			'workers' => array(self::HAS_MANY, 'Workers', 'userId'),
 		);
 	}
 
@@ -72,7 +73,6 @@ class Users extends CActiveRecord
 			'realName' => 'Real Name',
 			'realSurname' => 'Real Surname',
 			'registerDate' => 'Register Date',
-			'isLoggedBy' => 'Is Logged By',
 			'privilegeLevel' => 'Privilege Level',
 		);
 	}
@@ -101,7 +101,6 @@ class Users extends CActiveRecord
 		$criteria->compare('realName',$this->realName,true);
 		$criteria->compare('realSurname',$this->realSurname,true);
 		$criteria->compare('registerDate',$this->registerDate,true);
-		$criteria->compare('isLoggedBy',$this->isLoggedBy);
 		$criteria->compare('privilegeLevel',$this->privilegeLevel);
 
 		return new CActiveDataProvider($this, array(
