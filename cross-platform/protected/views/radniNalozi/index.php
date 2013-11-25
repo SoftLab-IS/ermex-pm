@@ -65,9 +65,8 @@ $form = $this->beginWidget('CActiveForm',
 ?>
 
 <div class="row buttons">
-    <?php echo CHtml::submitButton('Obriši odabrane'); ?>
-    <?php echo CHtml::submitButton('Zaključi odabrane'); ?>
-    <?php echo CHtml::submitButton('Zaključi sve'); ?>
+    <?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane')); ?>
+    <?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane')); ?>
 </div>
 
 <?php $this->endWidget(); ?>

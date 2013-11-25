@@ -122,6 +122,27 @@ class RadniNaloziController extends Controller
 	 */
 	public function actionIndex()
 	{
+        if(isset($_POST['workAccountId']))
+        {
+            $safePks = array();
+
+            // FIXME: Provjeriti privilegiju iz sesije prije ovog.
+
+            foreach($_POST['workAccountId'] as $i)
+                $safePks[] = (int)$i;
+
+            if (isset($_POST['stornirajOdabrane']))
+                WorkAccounts::model()->updateByPk($safePks,
+                    array(
+                         'invalid' => '1'
+                    ));
+            else if (isset($_POST['zakljuciOdabrane']))
+                WorkAccounts::model()->updateByPk($safePks,
+                    array(
+                         'reconciled' => '1'
+                    ));
+        }
+
 		$dataProvider=new CActiveDataProvider('WorkAccounts');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
