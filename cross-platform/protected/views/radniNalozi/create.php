@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create WorkAccounts</h1>
+<h1>Kreirenje novog radnog naloga</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

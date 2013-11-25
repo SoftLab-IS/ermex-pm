@@ -84,7 +84,7 @@ class WorkAccounts extends CActiveRecord
 	{
 		return array(
 			'workAccountSerial' => 'Broj Naloga',
-			'name' => 'Ime',
+			'name' => 'Naziv',
 			'description' => 'Opis',
 			'payeeName' => 'Naručilac',
 			'payeeContactPerson' => 'Kontakt Osoba',

@@ -15,16 +15,16 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Polja označena sa <span class="required">*</span> su obavezna.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'workAccountSerial'); ?>
 		<?php echo $form->textField($model,'workAccountSerial',array('size'=>60,'maxlength'=>90)); ?>
 		<?php echo $form->error($model,'workAccountSerial'); ?>
 	</div>
-
+	-->
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
@@ -42,13 +42,13 @@
 		<?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'payeeName'); ?>
 	</div>
-
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'payeeContactPerson'); ?>
 		<?php echo $form->textField($model,'payeeContactPerson',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'payeeContactPerson'); ?>
 	</div>
-
+	-->
 	<div class="row">
 		<?php echo $form->labelEx($model,'payeeContactInfo'); ?>
 		<?php echo $form->textField($model,'payeeContactInfo',array('size'=>45,'maxlength'=>45)); ?>
@@ -90,7 +90,7 @@
 		<?php echo $form->textArea($model,'additional',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'additional'); ?>
 	</div>
-
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'invalid'); ?>
 		<?php echo $form->textField($model,'invalid'); ?>
@@ -120,7 +120,7 @@
 		<?php echo $form->textField($model,'reconciledId'); ?>
 		<?php echo $form->error($model,'reconciledId'); ?>
 	</div>
-
+	-->
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
