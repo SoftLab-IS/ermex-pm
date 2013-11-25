@@ -29,10 +29,6 @@
 	<?php echo CHtml::encode($data->registerDate); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('isLoggedBy')); ?>:</b>
-	<?php echo CHtml::encode($data->isLoggedBy); ?>
-	<br />
-
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('privilegeLevel')); ?>:</b>
 	<?php echo CHtml::encode($data->privilegeLevel); ?>

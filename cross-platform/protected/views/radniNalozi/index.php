@@ -20,8 +20,9 @@ $this->menu=array(
                                                        'id'=>'work-accounts-grid',
                                                        'dataProvider'=> $dataProvider,
                                                        'columns'=>array(
+                                                           'woId' =>
                                                            array(
-                                                               'header' => 'R. broj',
+                                                               //'header' => 'R. broj',
                                                                'value'  => '$row + 1',
                                                            ),
                                                            'workAccountSerial',
