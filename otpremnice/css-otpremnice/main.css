@@ -1,27 +1,29 @@
-/*#wrapper{
+#wrapper{
     width: 500px;
     margin: 0 auto;
-}*/
+    overflow-y: scroll;
+}
+
 
 .header{
-    position: fixed ;
+    position: absolute ;
     left: 20%;
-    top: 10%;
+    top: 2%;
     width: 60%;
     border-bottom:3px solid #000;
 
 }
 
 .logo-ptica{
-    position: fixed ;
+    position: absolute ;
     left: 20%;
-    top: 10%;
+    top: 2%;
 }
 
 .logo{
-    position: fixed ;
-    left: 28%;
-    top: 15%;
+    position: absolute ;
+    left: 12%;
+    top: 20%;
 }
 
 p{
@@ -30,26 +32,27 @@ p{
 
 }
 .heder-text{
-    position: fixed ;
-    right: 20%;
-    top: 10%;
+    position: absolute ;
+    left: 50%;
+    top: 2%;
 }
 
 .under-line{
-    position: fixed;
-    width: 95%;
+    position: absolute;
+    width: 70%;
+    left: 15%;
     text-align: center;
-    top: 25%;
+    top: 17%;
 
 }
 
 .big-square{
-    position: fixed;
+    position: absolute;
     display: block;
     left: 20%;
     right: 20%;
     width: 60%;
-    top:35%;
+    top:27%;
     height: 150px;
     border-top: 3px solid #000000;
     border-bottom: 3px solid #000000;
@@ -69,7 +72,7 @@ p{
 .delivery-no {
     position: fixed;
     display: block;
-    top:35%;
+    top:27%;
     right: 20%;
     width: 30%;
     border-bottom: 1px solid #000000;
@@ -80,7 +83,7 @@ p{
 .date{
     position: fixed;
     display: block;
-    top:40%;
+    top:32%;
     right: 20%;
     width: 30%;
     border-bottom: 1px solid #000000;
@@ -90,7 +93,7 @@ p{
 .autor{
     position: fixed;
     display: block;
-    top:45%;
+    top:37%;
     right: 20%;
     width: 30%;
     border-bottom: 1px solid #000000;
@@ -100,8 +103,91 @@ p{
 .paing-system{
     position: fixed;
     display: block;
-    top:50%;
+    top:42%;
     right: 20%;
     width: 30%;
     border-left: 1px solid #000000;
+}
+
+
+.table2{
+	position: fixed;
+    display: block;
+    
+    left: 20%;
+    right: 20%;
+    width: 30%;
+    top:50%;
+    
+    
+	
+}
+
+.table2, td, th
+{
+	border-spacing:0em;
+border:1px solid black;
+}
+
+.opis{
+	width:100%
+}
+
+.annotation{
+	position: fixed;
+    display: block;
+    left: 20%;
+    right: 20%;
+    width: 60%;
+    top:80%;
+    height: 70px;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+	
+}
+
+/*date-1, autor-1, signature*/
+
+.date-1{
+	position: fixed;
+    display: inline-block;
+    bottom: 2%;
+    left: 20%;
+    right: 20%;
+    width: 150px;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+}
+
+.autor-1{
+	position: fixed;
+    display: inline-block;
+    bottom: 2%;
+    left: 40%;
+    right: 20%;
+    width: 200px;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+	
+}
+
+.signature{
+	position: fixed;
+    display: inline-block;
+    bottom: 2%;
+    left: 62.5%;
+    
+    width: 250px;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+	
+	
 }
