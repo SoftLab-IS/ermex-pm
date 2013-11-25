@@ -1,31 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "epm_users".
+ * This is the model class for table "epm_workers".
  *
- * The followings are the available columns in table 'epm_users':
- * @property integer $usId
- * @property string $username
- * @property string $password
- * @property string $realName
- * @property string $realSurname
- * @property string $registerDate
- * @property integer $privilegeLevel
+ * The followings are the available columns in table 'epm_workers':
+ * @property integer $woId
+ * @property integer $workAccountId
+ * @property integer $userId
+ * @property string $assignDate
+ * @property string $dueDate
+ * @property string $role
+ * @property integer $done
  *
  * The followings are the available model relations:
- * @property Deliveries[] $deliveries
- * @property WorkAccounts[] $workAccounts
- * @property WorkAccounts[] $workAccounts1
- * @property Workers[] $workers
+ * @property WorkAccounts $workAccount
+ * @property Users $user
  */
-class Users extends CActiveRecord
+class Workers extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'epm_users';
+		return 'epm_workers';
 	}
 
 	/**
@@ -36,13 +34,13 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, realName, realSurname, registerDate', 'required'),
-			array('privilegeLevel', 'numerical', 'integerOnly'=>true),
-			array('username, password, realName, realSurname', 'length', 'max'=>45),
-			array('registerDate', 'length', 'max'=>21),
+			array('workAccountId, userId, assignDate, role', 'required'),
+			array('workAccountId, userId, done', 'numerical', 'integerOnly'=>true),
+			array('assignDate, dueDate', 'length', 'max'=>21),
+			array('role', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('usId, username, password, realName, realSurname, registerDate, privilegeLevel', 'safe', 'on'=>'search'),
+			array('woId, workAccountId, userId, assignDate, dueDate, role, done', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,10 +52,8 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'deliveries' => array(self::HAS_MANY, 'Deliveries', 'authorId'),
-			'workAccounts' => array(self::HAS_MANY, 'WorkAccounts', 'reconciledId'),
-			'workAccounts1' => array(self::HAS_MANY, 'WorkAccounts', 'authorId'),
-			'workers' => array(self::HAS_MANY, 'Workers', 'userId'),
+			'workAccount' => array(self::BELONGS_TO, 'WorkAccounts', 'workAccountId'),
+			'user' => array(self::BELONGS_TO, 'Users', 'userId'),
 		);
 	}
 
@@ -67,13 +63,13 @@ class Users extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'usId' => 'Us',
-			'username' => 'Username',
-			'password' => 'Password',
-			'realName' => 'Real Name',
-			'realSurname' => 'Real Surname',
-			'registerDate' => 'Register Date',
-			'privilegeLevel' => 'Privilege Level',
+			'woId' => 'Wo',
+			'workAccountId' => 'Work Account',
+			'userId' => 'User',
+			'assignDate' => 'Assign Date',
+			'dueDate' => 'Due Date',
+			'role' => 'Role',
+			'done' => 'Done',
 		);
 	}
 
@@ -95,13 +91,13 @@ class Users extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('usId',$this->usId);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('realName',$this->realName,true);
-		$criteria->compare('realSurname',$this->realSurname,true);
-		$criteria->compare('registerDate',$this->registerDate,true);
-		$criteria->compare('privilegeLevel',$this->privilegeLevel);
+		$criteria->compare('woId',$this->woId);
+		$criteria->compare('workAccountId',$this->workAccountId);
+		$criteria->compare('userId',$this->userId);
+		$criteria->compare('assignDate',$this->assignDate,true);
+		$criteria->compare('dueDate',$this->dueDate,true);
+		$criteria->compare('role',$this->role,true);
+		$criteria->compare('done',$this->done);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -112,7 +108,7 @@ class Users extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return Workers the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

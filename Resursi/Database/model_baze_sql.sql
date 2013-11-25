@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Table `epm_users`
 -- -----------------------------------------------------
@@ -9,7 +8,6 @@ CREATE TABLE IF NOT EXISTS `epm_users` (
   `realName` VARCHAR(45) NOT NULL,
   `realSurname` VARCHAR(45) NOT NULL,
   `registerDate` BIGINT(21) NOT NULL,
-  `isLoggedBy` INT(1) NOT NULL DEFAULT 0,
   `privilegeLevel` INT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`usId`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
@@ -48,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `epm_work_accounts` (
   `description` TEXT NOT NULL,
   `payeeName` VARCHAR(45) NOT NULL,
   `payeeContactPerson` VARCHAR(45) NOT NULL,
-  `payeeContactInfo` VARCHAR(45) NOT NULL,
+  `payeeContactInfo` TEXT NOT NULL,
   `creationDate` BIGINT(21) NOT NULL,
   `deadlineDate` BIGINT(21) NOT NULL,
   `amount` INT NOT NULL,
@@ -57,9 +55,9 @@ CREATE TABLE IF NOT EXISTS `epm_work_accounts` (
   `additional` TEXT NULL,
   `invalid` INT(1) NOT NULL,
   `reconciled` INT(1) NOT NULL,
-  `payeeId` INT NOT NULL,
+  `payeeId` INT NULL,
   `authorId` INT NOT NULL,
-  `reconciledId` INT NOT NULL,
+  `reconciledId` INT NULL,
   PRIMARY KEY (`woId`),
   UNIQUE INDEX `workAccountSerial_UNIQUE` (`workAccountSerial` ASC),
   INDEX `payees_id_fk_index` (`payeeId` ASC),
@@ -143,6 +141,33 @@ CREATE TABLE IF NOT EXISTS `epm_used_materials` (
   CONSTRAINT `work_accounts_fk2`
     FOREIGN KEY (`workAccountId`)
     REFERENCES `epm_work_accounts` (`woId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `epm_workers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `epm_workers` (
+  `woId` INT NOT NULL AUTO_INCREMENT,
+  `workAccountId` INT NOT NULL,
+  `userId` INT NOT NULL,
+  `assignDate` BIGINT(21) NOT NULL,
+  `dueDate` BIGINT(21) NULL,
+  `role` VARCHAR(255) NOT NULL,
+  `done` INT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`woId`),
+  INDEX `work_account_id_fk_index` (`workAccountId` ASC),
+  INDEX `users_id_fk_index` (`userId` ASC),
+  CONSTRAINT `work_accounts_fk_1`
+    FOREIGN KEY (`workAccountId`)
+    REFERENCES `epm_work_accounts` (`woId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `users_fk_1`
+    FOREIGN KEY (`userId`)
+    REFERENCES `epm_users` (`usId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

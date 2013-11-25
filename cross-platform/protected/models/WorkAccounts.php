@@ -26,9 +26,10 @@
  * The followings are the available model relations:
  * @property Deliveries[] $deliveries
  * @property UsedMaterials[] $usedMaterials
- * @property Users $reconciled0
  * @property Payees $payee
+ * @property Users $reconciled0
  * @property Users $author
+ * @property Workers[] $workers
  */
 class WorkAccounts extends CActiveRecord
 {
@@ -48,16 +49,17 @@ class WorkAccounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, invalid, reconciled, payeeId, authorId, reconciledId', 'required'),
+			array('workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, invalid, reconciled, authorId', 'required'),
 			array('amount, invalid, reconciled, payeeId, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
 			array('workAccountSerial', 'length', 'max'=>90),
 			array('name', 'length', 'max'=>255),
-			array('payeeName, payeeContactPerson, payeeContactInfo', 'length', 'max'=>45),
+			array('payeeName, payeeContactPerson', 'length', 'max'=>45),
 			array('creationDate, deadlineDate', 'length', 'max'=>21),
 			array('note, additional', 'safe'),
-
-			array('workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, additional, invalid, reconciled, payeeId, authorId, reconciledId', 'safe', 'on'=>'search'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('woId, workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, additional, invalid, reconciled, payeeId, authorId, reconciledId', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,9 +73,10 @@ class WorkAccounts extends CActiveRecord
 		return array(
 			'deliveries' => array(self::HAS_MANY, 'Deliveries', 'workAccountId'),
 			'usedMaterials' => array(self::HAS_MANY, 'UsedMaterials', 'workAccountId'),
-			'reconciled0' => array(self::BELONGS_TO, 'Users', 'reconciledId'),
 			'payee' => array(self::BELONGS_TO, 'Payees', 'payeeId'),
+			'reconciled0' => array(self::BELONGS_TO, 'Users', 'reconciledId'),
 			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
+			'workers' => array(self::HAS_MANY, 'Workers', 'workAccountId'),
 		);
 	}
 
@@ -83,14 +86,14 @@ class WorkAccounts extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workAccountSerial' => 'Broj Naloga',
+			'workAccountSerial' => 'Serijski Broj',
 			'name' => 'Naziv',
 			'description' => 'Opis',
 			'payeeName' => 'Naručilac',
 			'payeeContactPerson' => 'Kontakt Osoba',
 			'payeeContactInfo' => 'Kontakt Informacije',
-			'creationDate' => 'Datum kreiranja',
-			'deadlineDate' => 'Rok',
+			'creationDate' => 'Datum Kreiranja',
+			'deadlineDate' => 'Datum Roka',
 			'amount' => 'Količina',
 			'price' => 'Cijena',
 			'note' => 'Napomena',
@@ -118,6 +121,7 @@ class WorkAccounts extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('woId',$this->woId);
 		$criteria->compare('workAccountSerial',$this->workAccountSerial,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
@@ -132,6 +136,9 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('additional',$this->additional,true);
 		$criteria->compare('invalid',$this->invalid);
 		$criteria->compare('reconciled',$this->reconciled);
+		$criteria->compare('payeeId',$this->payeeId);
+		$criteria->compare('authorId',$this->authorId);
+		$criteria->compare('reconciledId',$this->reconciledId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
