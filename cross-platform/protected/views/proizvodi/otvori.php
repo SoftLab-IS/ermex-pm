@@ -1,14 +1,36 @@
 <?php
-/* @var $this ProizvodiController */
+/**
+ * View za prikaz jednog radnog naloga
+ *
+ * @author Aleksndar Panic
+ *
+ * @var $this ProizvodiController Kontroler proizvoda.
+ * @var $model WorkAccounts Model proizvoda
+ */
 
-$this->breadcrumbs=array(
-	'Proizvodi'=>array('/proizvodi'),
-	'Otvori',
-);
 ?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+<h1><?php echo $model->name; ?></h1>
 
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+<?php $this->widget('zii.widgets.CDetailView', array(
+                                                    'data'=>$model,
+                                                    'attributes'=>array(
+                                                        'woId',
+                                                        'workAccountSerial',
+                                                        'name',
+                                                        'description',
+                                                        'payeeName',
+                                                        'payeeContactPerson',
+                                                        'payeeContactInfo',
+                                                        'creationDate',
+                                                        'deadlineDate',
+                                                        'amount',
+                                                        'price',
+                                                        'note',
+                                                        'additional',
+                                                        'invalid',
+                                                        'reconciled',
+                                                        'payeeId',
+                                                        'authorId',
+                                                        'reconciledId',
+                                                    ),
+                                               )); ?>

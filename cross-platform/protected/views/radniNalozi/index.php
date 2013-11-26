@@ -28,7 +28,7 @@ $form = $this->beginWidget('CActiveForm',
        'id'=>'work-accounts-grid',
        'dataProvider'=> $dataProvider,
        'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
-       'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} naloga.',
+       'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} radnih naloga.',
        'columns' =>
        array(
          array(
