@@ -75,12 +75,16 @@ class SiteController extends Controller
 
 	/**
 	 * Displays the login page
+     *
+     * @author Aleksandar Panic
+     *
 	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
+		$model = new LoginForm;
 
-		// if it is ajax validation request
+        $notActive = false;
+
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
 		{
 			echo CActiveForm::validate($model);
@@ -94,9 +98,15 @@ class SiteController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
 				$this->redirect(Yii::app()->user->returnUrl);
+
+            $notActive = $model->notActive;
 		}
-		// display the login form
-		$this->render('login',array('model'=>$model));
+
+		$this->render('login',
+        array(
+            'model' => $model,
+            'notActive' => $notActive,
+        ));
 	}
 
 	/**

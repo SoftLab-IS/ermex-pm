@@ -10,6 +10,12 @@
  */
 class Config extends CActiveRecord
 {
+    /**
+     * FIXME: Set this into active configuration.
+     * @var int Current table configuration ID
+     */
+    private $currentConfigId = 1;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -43,6 +49,21 @@ class Config extends CActiveRecord
 		return array(
 		);
 	}
+
+    /**
+     * Updates configuration table and sets ID od the logined user
+     *
+     * @author Aleksandar Panic
+     *
+     * @param $userId int ID of the user that just got logged in
+     */
+    public function setLoginedByUserId($userId)
+    {
+        $this->updateByPk($this->currentConfigId,
+        array(
+           'lastSystemLoginId' => $userId,
+        ));
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)

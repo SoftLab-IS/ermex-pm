@@ -7,29 +7,44 @@
  */
 class UserIdentity extends CUserIdentity
 {
+    /**
+     * @var bool Specifies whether or not user is active.
+     */
+    public $notActive = false;
+
+
 	/**
 	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
-	 * are both 'demo'.
-	 * In practical applications, this should be changed to authenticate
-	 * against some persistent user identity storage (e.g. database).
+     *
+     * @author Aleksandar Panic
+     *
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate()
 	{
+        $user = Users::model()->getUser($this->username, $this->password);
 
-        $users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
+        if ($user == null)
+        {
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+            return false;
+        }
+        else
+        {
+            if ($user->privilegeLevel == 0)
+            {
+                $this->errorCode = 3;
+                return false;
+            }
 
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
+            Yii::app()->session['id'] = $user->usId;
+            Yii::app()->session['level'] = $user->privilegeLevel;
+            Yii::app()->session['fullname'] = $user->realName + " " + $user->realSurname;
+
+            Config::model()->setLoginedByUserId($user->usId);
+
+            $this->errorCode = self::ERROR_NONE;
+            return true;
+        }
 	}
 }

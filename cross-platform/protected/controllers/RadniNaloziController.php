@@ -126,8 +126,6 @@ class RadniNaloziController extends Controller
         {
             $safePks = array();
 
-            // FIXME: Provjeriti privilegiju iz sesije prije ovog.
-
             foreach($_POST['workAccountId'] as $i)
                 $safePks[] = (int)$i;
 

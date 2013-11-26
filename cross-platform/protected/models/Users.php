@@ -46,6 +46,27 @@ class Users extends CActiveRecord
 		);
 	}
 
+    /**
+     * getUser($userId)
+     *
+     * Adds criteria to get user specified by username and password.
+     *
+     * @author Aleksandar Panic
+     *
+     * @param string $username Username to be searched
+     * @param string $password Password to be searched (will be MD5-ed)
+     *
+     * @return Users Reference to this model with found user or null if the user doesn't exist
+     */
+    public function getUser($username, $password)
+    {
+        return $this->findByAttributes(
+        array(
+           "username" => $username,
+           "password" => md5($password),
+        ));
+    }
+
 	/**
 	 * @return array relational rules.
 	 */
