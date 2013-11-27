@@ -56,8 +56,8 @@ class Payees extends CActiveRecord
 	{
 		return array(
 			'paId' => 'Pa',
-			'name' => 'Name',
-			'contactInfo' => 'Contact Info',
+			'name' => 'Ime',
+			'contactInfo' => 'Kontakt informacije',
 		);
 	}
 

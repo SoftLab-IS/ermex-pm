@@ -89,12 +89,12 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'usId' => 'Us',
-			'username' => 'Username',
-			'password' => 'Password',
-			'realName' => 'Real Name',
-			'realSurname' => 'Real Surname',
-			'registerDate' => 'Register Date',
-			'privilegeLevel' => 'Privilege Level',
+			'username' => 'Korisničko ime',
+			'password' => 'Šifra',
+			'realName' => 'Ime',
+			'realSurname' => 'Prezime',
+			'registerDate' => 'Datum registracije',
+			'privilegeLevel' => 'Nivo privilegija',
 		);
 	}
 

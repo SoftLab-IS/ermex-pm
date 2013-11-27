@@ -57,9 +57,9 @@ class UsedMaterials extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'amount' => 'Amount',
-			'materialId' => 'Material',
-			'workAccountId' => 'Work Account',
+			'amount' => 'Količina',
+			'materialId' => 'Materijal',
+			'workAccountId' => 'Radni nalog',
 		);
 	}
 
