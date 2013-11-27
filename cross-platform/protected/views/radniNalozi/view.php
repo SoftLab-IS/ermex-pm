@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View WorkAccounts #<?php echo $model->woId; ?></h1>
+<h1>Prikaz radnog naloga br. <?php echo $model->woId; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -28,14 +28,26 @@ $this->menu=array(
 		'payeeName',
 		'payeeContactPerson',
 		'payeeContactInfo',
-		'creationDate',
-		'deadlineDate',
+		array(
+			'name' => 'creationDate',
+			'value' => date('d.m.Y',$model->creationDate)//Yii :: app () -> format-> formatDate ($model->creationDate)	
+		),
+		array(
+			'name' => 'deadlineDate',
+			'value' => date('d.m.Y',$model->deadlineDate)	
+		),
 		'amount',
 		'price',
 		'note',
 		'additional',
-		'invalid',
-		'reconciled',
+		array(
+			'name' => 'invalid',
+			'value' => ($model->invalid == 0) ? 'Ne' : 'Da',
+		),
+		array(
+			'name' =>' reconciled',	
+			'value' => ($model->reconciled == 0) ? 'Ne' : 'Da',
+		),
 		'payeeId',
 		'authorId',
 		'reconciledId',

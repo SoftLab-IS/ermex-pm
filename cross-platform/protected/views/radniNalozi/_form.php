@@ -14,17 +14,19 @@
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
+	
+
 
 	<p class="note">Polja označena sa <span class="required">*</span> su obavezna.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-	<!--
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'workAccountSerial'); ?>
 		<?php echo $form->textField($model,'workAccountSerial',array('size'=>60,'maxlength'=>90)); ?>
 		<?php echo $form->error($model,'workAccountSerial'); ?>
 	</div>
-	-->
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
@@ -57,13 +59,51 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'creationDate'); ?>
-		<?php echo $form->textField($model,'creationDate',array('size'=>21,'maxlength'=>21)); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+			    'name'=>'WorkAccounts[creationDate]',
+			    'id'=>'WorkAccounts_creationDate',
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+			        'dayNamesMin'=> array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'), 
+					'dateFormat'=>"dd.mm.yy.",
+					'firstDay'=>1,
+					'monthNames'=>array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
+				 	'monthNamesShort'=>array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
+				 	'changeMonth'=>true,
+				 	'changeYear'=>true
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:2.3125rem;',
+			    ),
+			));
+		?>
 		<?php echo $form->error($model,'creationDate'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'deadlineDate'); ?>
-		<?php echo $form->textField($model,'deadlineDate',array('size'=>21,'maxlength'=>21)); ?>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+			    'name'=>'WorkAccounts[deadlineDate]',
+			    'id'=>'WorkAccounts_deadlineDate',
+			    // additional javascript options for the date picker plugin
+			    'options'=>array(
+			        'showAnim'=>'fold',
+			        'dayNamesMin'=> array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'), 
+					'dateFormat'=>"dd.mm.yy.",
+					'firstDay'=>1,
+					'monthNames'=>array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
+				 	'monthNamesShort'=>array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
+				 	'changeMonth'=>true,
+				 	'changeYear'=>true
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:2.3125rem;',
+			    ),
+			));
+		?>
 		<?php echo $form->error($model,'deadlineDate'); ?>
 	</div>
 
@@ -108,21 +148,22 @@
 		<?php echo $form->textField($model,'payeeId'); ?>
 		<?php echo $form->error($model,'payeeId'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'authorId'); ?>
-		<?php echo $form->textField($model,'authorId'); ?>
-		<?php echo $form->error($model,'authorId'); ?>
-	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'reconciledId'); ?>
 		<?php echo $form->textField($model,'reconciledId'); ?>
 		<?php echo $form->error($model,'reconciledId'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'authorId'); ?>
+		<?php echo $form->textField($model,'authorId'); ?>
+		<?php echo $form->error($model,'authorId'); ?>
+	</div>
 	-->
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj' : 'Sačuvaj'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
