@@ -27,17 +27,23 @@ $form = $this->beginWidget('CActiveForm',
     array(
        'id'=>'work-accounts-grid',
        'dataProvider'=> $dataProvider,
+       'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
+       'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} radnih naloga.',
        'columns' =>
        array(
          array(
-           'value'=>'CHtml::checkBox("workAccountId[]",null,array("value"=>$data->woId,"id"=>"cid_".$data->woId))',
-           'type'=>'raw',
+           'value' => 'CHtml::checkBox("workAccountId[]",null,array("value"=>$data->woId,"id"=>"cid_".$data->woId))',
+           'type' => 'raw',
          ),
          array(
             'header' => 'R. broj',
             'value'  => '$row + 1',
          ),
-         'workAccountSerial',
+         array(
+             'name' => 'workAccountSerial',
+             'value' => 'CHtml::link("$data->workAccountSerial", array("radniNalozi/view", "id" => $data->woId))',
+             'type' => 'raw',
+         ),
          'name',
          'payeeName',
          array(

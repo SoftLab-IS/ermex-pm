@@ -47,14 +47,17 @@ class ProizvodiController extends Controller
         ));
 	}
 
-	public function actionOtvori()
+	public function actionOtvori($id)
 	{
         $model = WorkAccounts::model()
                  ->with('workers')
                  ->proizvodi()
-                 ->findAll();
+                 ->findByPk($id);
 
 
-		$this->render('otvori');
+		$this->render('otvori',
+        array(
+             'model' => $model,
+        ));
 	}
 }

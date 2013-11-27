@@ -54,7 +54,7 @@
                             array('label' => 'Radni nalozi', 'url' => array('/radniNalozi/index')),
                             array('label' => 'Otpremnice', 'url' => array('/otpremnice/index')),
                             array('label' => 'Proizvodi', 'url' => array('/proizvodi/index')),
-                            array('label' => 'Materijal', 'url' => array('/materijal/index')),
+                            array('label' => 'Materijal', 'url' => array('/materijali/index')),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => ! Yii::app()->user->isGuest)
                     ),
                   )); ?>
