@@ -35,7 +35,7 @@ class Workers extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('workAccountId, userId, assignDate, role', 'required'),
+			array('workAccountId, userId, assignDate, role, position', 'required'),
 			array('workAccountId, userId, done, position', 'numerical', 'integerOnly'=>true),
 			array('assignDate, dueDate', 'length', 'max'=>21),
 			array('role', 'length', 'max'=>255),
