@@ -49,7 +49,7 @@ class WorkAccounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, invalid, reconciled, authorId', 'required'),
+			array('name, description, payeeName, payeeContactInfo, creationDate, deadlineDate, amount', 'required'),
 			array('amount, invalid, reconciled, payeeId, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
 			array('workAccountSerial', 'length', 'max'=>90),
@@ -95,6 +95,7 @@ class WorkAccounts extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'woId' =>'Br.',
 			'workAccountSerial' => 'Serijski Broj',
 			'name' => 'Naziv',
 			'description' => 'Opis',
@@ -109,6 +110,8 @@ class WorkAccounts extends CActiveRecord
 			'additional' => 'Dodatne Informacije',
 			'invalid' => 'Stornirano',
 			'reconciled' => 'Zaključeno',
+			'authorId' => 'Nalog sastavio',
+			'reconciledId' => 'Nalog zaključio'
 		);
 	}
 
