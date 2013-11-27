@@ -155,7 +155,7 @@ class WorkAccounts extends CActiveRecord
 			'reconciled' => 'Zaključeno',
 			'authorId' => 'Nalog sastavio',
 			'reconciledId' => 'Nalog zaključio'
-			);
+		);
 	}
 
 	/**
