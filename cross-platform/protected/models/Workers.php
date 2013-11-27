@@ -11,6 +11,7 @@
  * @property string $dueDate
  * @property string $role
  * @property integer $done
+ * @property integer $position
  *
  * The followings are the available model relations:
  * @property WorkAccounts $workAccount
@@ -35,7 +36,7 @@ class Workers extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('workAccountId, userId, assignDate, role', 'required'),
-			array('workAccountId, userId, done', 'numerical', 'integerOnly'=>true),
+			array('workAccountId, userId, done, position', 'numerical', 'integerOnly'=>true),
 			array('assignDate, dueDate', 'length', 'max'=>21),
 			array('role', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -70,6 +71,7 @@ class Workers extends CActiveRecord
 			'dueDate' => 'Rok',
 			'role' => 'Role',
 			'done' => 'Gotovo',
+			'position' => 'Pozicija',
 		);
 	}
 
@@ -98,6 +100,7 @@ class Workers extends CActiveRecord
 		$criteria->compare('dueDate',$this->dueDate,true);
 		$criteria->compare('role',$this->role,true);
 		$criteria->compare('done',$this->done);
+		$criteria->compare('position',$this->position);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
