@@ -43,7 +43,7 @@
                             array('label' => 'Radni nalozi', 'url' => array('/radniNalozi')),
                             array('label' => 'Otpremnice', 'url' => array('/otpremnice')),
                             array('label' => 'Proizvodi', 'url' => array('/proizvodi')),
-                            array('label' => 'Materijal', 'url' => array('/materijal')),
+                            array('label' => 'Materijal', 'url' => array('/materijali')),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => ! Yii::app()->user->isGuest)
                     ),
                   )); ?>
