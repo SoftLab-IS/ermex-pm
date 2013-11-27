@@ -206,3 +206,29 @@ border:1px solid black;
 	
 	
 }
+/*----------------------*/
+
+.tg-table-plain { 
+	position:fixed;
+	border-collapse: collapse;
+	 border-spacing: 0; 
+	 font-size: 100%; 
+	 font: inherit; 
+	 left: 20%;
+
+    width: 60%;
+    top:27%;
+    text-align: left;
+    font-weight:normal; 
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    border-left: 3px solid #000000;
+    border-right: 3px solid #000000;
+	 }
+
+.tg-table-plain td, .tg-table-plain th { 
+	
+	border: 1px #555 solid; 
+	padding: 10px; 
+	font-weight:lighter; 
+}
