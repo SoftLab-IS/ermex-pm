@@ -66,14 +66,14 @@ class Deliveries extends CActiveRecord
 	{
 		return array(
 			'deId' => 'De',
-			'deliveryDate' => 'Delivery Date',
-			'price' => 'Price',
-			'note' => 'Note',
-			'payType' => 'Pay Type',
-			'reconciled' => 'Reconciled',
-			'invalid' => 'Invalid',
-			'authorId' => 'Author',
-			'workAccountId' => 'Work Account',
+			'deliveryDate' => 'Datum dostave',
+			'price' => 'Cijena',
+			'note' => 'Napomena',
+			'payType' => 'Način plaćanja',
+			'reconciled' => 'Zaključen',
+			'invalid' => 'Nevažeći',
+			'authorId' => 'Autor',
+			'workAccountId' => 'Radni nalog',
 		);
 	}
 

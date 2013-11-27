@@ -64,12 +64,12 @@ class Workers extends CActiveRecord
 	{
 		return array(
 			'woId' => 'Wo',
-			'workAccountId' => 'Work Account',
-			'userId' => 'User',
-			'assignDate' => 'Assign Date',
-			'dueDate' => 'Due Date',
+			'workAccountId' => 'Radni nalog',
+			'userId' => 'Korisnik',
+			'assignDate' => 'Datum preuzimanja',
+			'dueDate' => 'Rok',
 			'role' => 'Role',
-			'done' => 'Done',
+			'done' => 'Gotovo',
 		);
 	}
 

@@ -62,11 +62,11 @@ class Materials extends CActiveRecord
 	{
 		return array(
 			'maId' => 'Ma',
-			'name' => 'Name',
-			'description' => 'Description',
-			'amount' => 'Amount',
-			'enterDate' => 'Enter Date',
-			'dimensionUnit' => 'Dimension Unit',
+			'name' => 'Ime',
+			'description' => 'Opis',
+			'amount' => 'Iznos',
+			'enterDate' => 'Unesite datum',
+			'dimensionUnit' => 'Jedinica mjere',
 		);
 	}
 
