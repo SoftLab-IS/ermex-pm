@@ -23,7 +23,9 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/normalize.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/foundation.css">
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modernizr.js"></script>
+
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -33,31 +35,40 @@
 
         <div class="main-wrapper clearfix">
         	<aside class="large-2 columns">
+                <div class="user-select">
+                    <form action="">
+                        <select name="" >
+                            <option value="1">Ilija</option>
+                            <option value="2">Aleksandar</option>
+                            <option value="3">Milan</option>
+                        </select>
+                    </form>
+                </div>
                 <nav class="main-menu">
                   <?php $this->widget('zii.widgets.CMenu',
                     array(
                         'items'=>
                         array(
-                            array('label' => 'Novi radni nalog', 'url' => array('/radniNalozi/novi')),
-                            array('label' => 'Nova otpremnica', 'url' => array('/otpremnice/novi')),
-                            array('label' => 'Radni nalozi', 'url' => array('/radniNalozi')),
-                            array('label' => 'Otpremnice', 'url' => array('/otpremnice')),
-                            array('label' => 'Proizvodi', 'url' => array('/proizvodi')),
-                            array('label' => 'Materijal', 'url' => array('/materijal')),
+                            array('label' => 'Novi radni nalog', 'url' => array('/radniNalozi/create')),
+                            array('label' => 'Nova otpremnica', 'url' => array('/otpremnice/create')),
+                            array('label' => 'Radni nalozi', 'url' => array('/radniNalozi/index')),
+                            array('label' => 'Otpremnice', 'url' => array('/otpremnice/index')),
+                            array('label' => 'Proizvodi', 'url' => array('/proizvodi/index')),
+                            array('label' => 'Materijal', 'url' => array('/materijal/index')),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => ! Yii::app()->user->isGuest)
                     ),
                   )); ?>
                 </nav>
+                <div class="copyright">
+                    Copyright &copy; <?php echo date('Y'); ?> by Softlab.<br/>
+                    Sva prva pridržana.<br/>
+                </div>
         	</aside>
-            <section class="large-10 columns">
+            <section class="large-10 columns main-content">
                <?php echo $content; ?>
             </section>
 
 
-            <footer class="large-12 columns">
-                Copyright &copy; <?php echo date('Y'); ?> by Softlab.<br/>
-                Sva prva pridržana.<br/>
-            </footer>
 
         </div>
 

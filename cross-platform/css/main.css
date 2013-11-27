@@ -97,28 +97,80 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* MAIN CONTENT */
 
 
 
+/* MAIN MENU */
 
+.main-menu {
 
+}
+    .main-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+        .main-menu ul li {
+            font-size: 1.1em;
+        }
+            .main-menu ul li a {
+                display: block;
+                padding: 7px 15px;
+                color: #fefefe;
+                border-top: 1px solid transparent;
+                border-bottom: 1px solid transparent;
+            }
+                .main-menu ul li a:hover {
+                    background: #222;
+                    color: #ccc;
+                    border-top: 1px solid #111;
+                    border-bottom: 1px solid #444;
+                }
+                .main-menu ul li.active a {
+                    background: #222;
+                    color: #ccc;
+                    border-top: 1px solid #111;
+                    border-bottom: 1px solid #444;
+                }
 
+/* COPYRIGHT */
 
-
-
-
-
-
-
+.copyright {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    color: #ccc;
+}
 
 /* ==========================================================================
    Main grid
    ========================================================================== */
 
-aside {
-
+.main-wrapper {
+    min-height: 100%;
+    background: #333;
 }
 
+.main-content {
+    min-height: 700px;
+height: auto; /* TODO Popraviti visinu */
+    background: #fff;
+}
+
+aside.columns {
+    min-height: 700px;
+height: auto; /* TODO Popraviti visinu */
+    padding: 0;
+}
 
 /* ==========================================================================
    Helper classes
