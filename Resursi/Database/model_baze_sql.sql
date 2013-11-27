@@ -157,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `epm_workers` (
   `dueDate` BIGINT(21) NULL,
   `role` VARCHAR(255) NOT NULL,
   `done` INT(1) NOT NULL DEFAULT 0,
+  `position` INT NOT NULL,
   PRIMARY KEY (`woId`),
   INDEX `work_account_id_fk_index` (`workAccountId` ASC),
   INDEX `users_id_fk_index` (`userId` ASC),
