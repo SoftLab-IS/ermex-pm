@@ -139,11 +139,13 @@ class RadniNaloziController extends Controller
                     array(
                          'reconciled' => '1'
                     ));
+            
         }
 
-		$dataProvider=new CActiveDataProvider('WorkAccounts');
+		$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=> $data,
 		));
 	}
 

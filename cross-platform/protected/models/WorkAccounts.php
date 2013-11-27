@@ -60,16 +60,59 @@ class WorkAccounts extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('woId, workAccountSerial, name, description, payeeName, payeeContactPerson, payeeContactInfo, creationDate, deadlineDate, amount, price, note, additional, invalid, reconciled, payeeId, authorId, reconciledId', 'safe', 'on'=>'search'),
-		);
+			);
 	}
 
-    public function scopes()
+	public function scopes()
+	{
+		return array(
+			'proizvodi' => array(
+				'condition' => $this->tableAlias . '.reconciled = 1',
+				),
+			);
+	}
+
+    /**
+     * forUser($userId)
+     *
+     * Finds all work accounts which that user needs to do.
+     *
+     * @author Aleksandar Panic
+     *
+     * @param integer $id Id of the user
+     *
+     * @return WorkAccounts Reference to this model with set criteria
+     */
+    public function forUser($id)
     {
-        return array(
-            'proizvodi' => array(
-                'condition' => $this->tableAlias . '.reconciled = 1',
-            ),
-        );
+    	$id = (int)$id;
+
+    	$this->getDbCriteria()->mergeWith(array(
+    		'together' => true,
+    		'with' =>
+    		array(
+    			'workers' => 
+    			array(
+    				'with' => array('user'),
+    				'alias' => 'wrk',
+    				'condition' => "wrk.userId = $id AND (
+    					wrk.position = (
+    						SELECT MAX(position) + 1 FROM epm_workers 
+    						WHERE done = 1 AND workAccountId = wrk.workAccountId
+    						)
+		    			OR wrk.position = (
+		    				SELECT position FROM epm_workers 
+		    				WHERE done = 1 AND workAccountId = wrk.workAccountId AND position = wrk.position
+		    				)
+    					OR wrk.position = 1)",
+    				'joinType' => 'JOIN',
+    			),
+    		),
+    		'alias' => 'wau',
+    		'condition' => "wau.reconciled = 0",
+    	));
+
+    	return $this;
     }
 
 	/**
@@ -86,7 +129,7 @@ class WorkAccounts extends CActiveRecord
 			'reconciled0' => array(self::BELONGS_TO, 'Users', 'reconciledId'),
 			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
 			'workers' => array(self::HAS_MANY, 'Workers', 'workAccountId'),
-		);
+			);
 	}
 
 	/**
@@ -112,7 +155,7 @@ class WorkAccounts extends CActiveRecord
 			'reconciled' => 'Zaključeno',
 			'authorId' => 'Nalog sastavio',
 			'reconciledId' => 'Nalog zaključio'
-		);
+			);
 	}
 
 	/**
@@ -154,7 +197,7 @@ class WorkAccounts extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-		));
+			));
 	}
 
 	/**

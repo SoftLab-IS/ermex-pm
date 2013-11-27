@@ -64,6 +64,16 @@ $form = $this->beginWidget('CActiveForm',
          ),
 
          array(
+            'header' => 'Sledeći Radnik',
+            'value'  => '$data->workers[0]->user->realName . " " . $data->workers[0]->user->realSurname'
+         ),
+
+         array(
+            'header' => 'Završeno?',
+            'value'  => '($data->workers[0]->done == 1) ? "Da" : "Ne"',
+         ),
+
+         array(
            'class'=>'CButtonColumn',
          ),
        ),
@@ -73,6 +83,7 @@ $form = $this->beginWidget('CActiveForm',
 <div class="row buttons">
     <?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane')); ?>
     <?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane')); ?>
+    <?php echo CHtml::submitButton('Završi odabrane', array('name' => 'zavrsiOdabrane')); ?>
 </div>
 
 <?php $this->endWidget(); ?>

@@ -45,7 +45,7 @@ $this->menu=array(
 			'value' => ($model->invalid == 0) ? 'Ne' : 'Da',
 		),
 		array(
-			'name' =>' reconciled',	
+			'name' => 'reconciled',	
 			'value' => ($model->reconciled == 0) ? 'Ne' : 'Da',
 		),
 		'payeeId',
