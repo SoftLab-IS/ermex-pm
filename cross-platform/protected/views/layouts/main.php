@@ -49,21 +49,12 @@
                     array(
                         'items'=>
                         array(
-<<<<<<< HEAD
-                            array('label' => 'Novi radni nalog', 'url' => array('/radniNalozi/novi')),
-                            array('label' => 'Nova otpremnica', 'url' => array('/otpremnice/novi')),
-                            array('label' => 'Radni nalozi', 'url' => array('/radniNalozi')),
-                            array('label' => 'Otpremnice', 'url' => array('/otpremnice')),
-                            array('label' => 'Proizvodi', 'url' => array('/proizvodi')),
-                            array('label' => 'Materijal', 'url' => array('/materijali')),
-=======
                             array('label' => 'Novi radni nalog', 'url' => array('/radniNalozi/create')),
                             array('label' => 'Nova otpremnica', 'url' => array('/otpremnice/create')),
                             array('label' => 'Radni nalozi', 'url' => array('/radniNalozi/index')),
                             array('label' => 'Otpremnice', 'url' => array('/otpremnice/index')),
                             array('label' => 'Proizvodi', 'url' => array('/proizvodi/index')),
-                            array('label' => 'Materijal', 'url' => array('/materijal/index')),
->>>>>>> 3b8c4f38fad552911cad95404d3bebec7b77191d
+                            array('label' => 'Materijal', 'url' => array('/materijali/index')),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => ! Yii::app()->user->isGuest)
                     ),
                   )); ?>

@@ -58,21 +58,12 @@ class Materials extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-<<<<<<< HEAD
 			'moId' => 'ID',
 			'name' => 'Naziv',
 			'description' => 'Opis',
 			'amount' => 'Količina',
 			'enterDate' => 'Datum Unosa',
 			'dimensionUnit' => 'Dimenzija',
-=======
-			'maId' => 'Ma',
-			'name' => 'Ime',
-			'description' => 'Opis',
-			'amount' => 'Iznos',
-			'enterDate' => 'Unesite datum',
-			'dimensionUnit' => 'Jedinica mjere',
->>>>>>> 3b8c4f38fad552911cad95404d3bebec7b77191d
 		);
 	}
 
