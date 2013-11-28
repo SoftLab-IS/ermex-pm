@@ -115,6 +115,44 @@ class WorkAccounts extends CActiveRecord
     	return $this;
     }
 
+
+    /**
+     * forAllUsers()
+     *
+     * Finds all work accounts which that user needs to do.
+     *
+     * @author Aleksandar Panic
+     *
+     * @return WorkAccounts Reference to this model with set criteria
+     */
+    public function forAllUsers()
+    {
+    	$this->getDbCriteria()->mergeWith(array(
+    		'together' => true,
+    		'with' =>
+    		array(
+    			'workers' => 
+    			array(
+    				'with' => array('user'),
+    				'alias' => 'wrk',
+    				'condition' => "(
+    					wrk.position = (
+    						SELECT position FROM epm_workers 
+    						WHERE done = 0 AND workAccountId = wrk.workAccountId LIMIT 1)
+    				OR	wrk.position = (
+    						SELECT MAX(position) FROM epm_workers 
+    						WHERE done = 1 AND workAccountId = wrk.workAccountId)
+    			        )",
+    				'joinType' => 'JOIN',
+    			),
+    		),
+    		'alias' => 'wau',
+    		'condition' => "wau.reconciled = 0",
+    	));
+
+    	return $this;
+    }    
+
 	/**
 	 * @return array relational rules.
 	 */
