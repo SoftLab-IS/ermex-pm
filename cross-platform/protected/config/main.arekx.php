@@ -60,7 +60,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=ermex_pm',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'arek',
+            'password' => '',
             'charset' => 'utf8',
         ),
 

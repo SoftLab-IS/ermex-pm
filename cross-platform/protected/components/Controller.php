@@ -20,4 +20,21 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+
+    /**
+     * beforeAction($action)
+     *
+     * Finds all work accounts which that user needs to do.
+     *
+     * @author Aleksandar Panic
+     *
+     * @return Boolean Whether or not excetute the action
+     */
+	public function beforeAction($action)
+	{
+		if (Yii::app()->user->isGuest && ($this->route != 'site/systemlogin'))
+			$this->redirect('site/systemlogin');
+		
+		return true;
+	}
 }

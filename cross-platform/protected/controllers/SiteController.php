@@ -73,6 +73,45 @@ class SiteController extends Controller
 		$this->render('contact',array('model'=>$model));
 	}
 
+
+	/**
+	 * Displays the System login page
+     *
+     * @author Aleksandar Panic
+     *
+	 */
+	public function actionSystemlogin()
+	{
+		$model = new LoginForm;
+
+        $notActive = false;
+
+		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		// collect user input data
+		if(isset($_POST['LoginForm']))
+		{
+			$model->attributes=$_POST['LoginForm'];
+			// validate user input and redirect to the previous page if valid
+			if($model->validate() && $model->login())
+				$this->redirect(Yii::app()->user->returnUrl);
+
+            $notActive = $model->notActive;
+		}
+
+		$this->layout = '//layouts/systemloginlayout';
+
+		$this->render('systemlogin',
+        array(
+            'model' => $model,
+            'notActive' => $notActive,
+        ));
+	}
+
 	/**
 	 * Displays the login page
      *
