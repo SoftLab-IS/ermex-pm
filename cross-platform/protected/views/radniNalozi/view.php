@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Prikaz radnog naloga br. <?php echo $model->woId; ?></h1>
+<h2>Prikaz radnog naloga br. <?php echo $model->woId; ?></h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Kreirenje novog radnog naloga</h1>
+<h2>Kreirenje novog radnog naloga</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
