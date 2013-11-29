@@ -118,34 +118,47 @@ class SiteController extends Controller
      * @author Aleksandar Panic
      *
 	 */
-	public function actionLogin()
+	public function actionLogin($nid)
 	{
-		$model = new LoginForm;
+		$nid = (int)$nid;
 
-        $notActive = false;
-
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		if ($nid < 0)
 		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
+			Yii::app()->user->logout();
+			$this->redirect(Yii::app()->basePath);
 		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
+		else
 		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+			$model = new LoginForm;
 
-            $notActive = $model->notActive;
+			$user = Users::model()->findByPk($nid);
+
+	        $notActive = false;
+
+			if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+			{
+				echo CActiveForm::validate($model);
+				Yii::app()->end();
+			}
+
+			// collect user input data
+			if(isset($_POST['LoginForm']))
+			{
+				$model->attributes=$_POST['LoginForm'];
+				// validate user input and redirect to the previous page if valid
+				if($model->validate() && $model->login())
+					$this->redirect(Yii::app()->user->returnUrl);
+
+	            $notActive = $model->notActive;
+			}
+
+			$this->render('login',
+	        array(
+	            'model' => $model,
+	            'notActive' => $notActive,
+	            'user' => $user,
+	        ));
 		}
-
-		$this->render('login',
-        array(
-            'model' => $model,
-            'notActive' => $notActive,
-        ));
 	}
 
 	public function actionUserswitch($id)

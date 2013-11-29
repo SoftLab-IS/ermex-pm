@@ -1,17 +1,20 @@
 <?php
-/* @var $this SiteController */
-/* @var $model LoginForm */
-/* @var $form CActiveForm  */
+/**
+ * Login Form for user switching
+ *
+ * @author Aleksandar Panic
+ *
+ * @var $this CControler Current controller.
+ * @var $notActive Boolean Is logged user active
+ * @var $user Users User to which you want to switch.
+ */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
+$this->pageTitle = Yii::app()->name . ' - Login';
 ?>
 
 <hgroup>
 <h1>Promjena korisnika</h1>
-<h2>Login</h2>
+<h2>Login za <?php echo $user->realName . ' ' . $user->realSurname; ?></h2>
 </hgroup>
 
 <div class="form">
