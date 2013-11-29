@@ -53,35 +53,10 @@
 	-->
 	<div class="row">
 		<?php echo $form->labelEx($model,'payeeContactInfo'); ?>
-		<?php echo $form->textField($model,'payeeContactInfo',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'payeeContactInfo'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'creationDate'); ?>
-		<?php 
-			$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-			    'name'=>'WorkAccounts[creationDate]',
-			    'id'=>'WorkAccounts_creationDate',
-			    // additional javascript options for the date picker plugin
-			    'options'=>array(
-			        'showAnim'=>'fold',
-			        'dayNamesMin'=> array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'), 
-					'dateFormat'=>"dd.mm.yy.",
-					'firstDay'=>1,
-					'monthNames'=>array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
-				 	'monthNamesShort'=>array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
-				 	'changeMonth'=>true,
-				 	'changeYear'=>true
-			    ),
-			    'htmlOptions'=>array(
-			        'style'=>'height:2.3125rem;',
-			    ),
-			));
-		?>
-		<?php echo $form->error($model,'creationDate'); ?>
-	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'deadlineDate'); ?>
 		<?php 

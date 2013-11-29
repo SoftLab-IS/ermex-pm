@@ -52,7 +52,7 @@ class RadninaloziController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> WorkAccounts::model()->with(array('author','reconciled0'))->findByPk($id),
 		));
 	}
 

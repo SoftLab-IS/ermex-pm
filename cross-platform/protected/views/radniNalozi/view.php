@@ -37,7 +37,10 @@ $this->menu=array(
 			'value' => date('d.m.Y',$model->deadlineDate)	
 		),
 		'amount',
-		'price',
+		array(
+		'name' => 'price',
+		'value' => number_format($model->price, 2, '.', ',') . ' KM',
+		),
 		'note',
 		'additional',
 		array(
@@ -48,8 +51,14 @@ $this->menu=array(
 			'name' => 'reconciled',	
 			'value' => ($model->reconciled == 0) ? 'Ne' : 'Da',
 		),
-		'payeeId',
-		'authorId',
-		'reconciledId',
+		array(
+			'name' => 'authorId',
+			'value' => $model->author->realName. ' ' .$model->author->realSurname, 
+		),
+		array(
+			'name' => 'reconciledId',
+			'value' => ($model->reconciled == 1) ? $model->reconciled0->realName. ' ' .$model->reconciled0->realSurname : 'Niko',
+
+		),
 	),
 )); ?>
