@@ -32,7 +32,6 @@
             <p class="browsehappy">Koristite <strong>stari</strong> pretraživač. Molimo <a href="http://browsehappy.com/">ažurirajte vaš browser</a> da poboljšate vaše iskustvo.</p>
         <![endif]-->
 
-
         <div class="main-wrapper clearfix">
         	<aside class="large-2 columns">
                 <div class="user-select">
@@ -60,16 +59,13 @@
                   )); ?>
                 </nav>
                 <div class="copyright">
-                    Copyright &copy; <?php echo date('Y'); ?> by Softlab.<br/>
-                    Sva prva pridržana.<br/>
+                    Copyright &copy; <?php echo date('Y'); ?>| by Softlab.
+
                 </div>
         	</aside>
             <section class="large-10 columns main-content">
                <?php echo $content; ?>
             </section>
-
-
-
         </div>
 
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>

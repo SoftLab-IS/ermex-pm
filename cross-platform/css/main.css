@@ -107,7 +107,18 @@ body {
 
 /* MAIN CONTENT */
 
+header .button.small {
+    padding: 0.7rem 1rem 0.7rem;
+}
 
+header h2 {
+    font-size: 1.5rem;
+    line-heihght: 1.8;
+}
+
+.context-options {
+    padding-top: 0.3rem;
+}
 
 /* MAIN MENU */
 
