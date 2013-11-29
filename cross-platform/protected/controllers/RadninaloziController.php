@@ -142,11 +142,7 @@ class RadniNaloziController extends Controller
             
         }
 
-
-        if (Yii::app()->session['level'] < 2)
-			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
-		else
-			$data = new CActiveDataProvider(WorkAccounts::model()->forAllUsers());			
+		$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
 
 		$this->render('index',array(
 			'dataProvider'=> $data,
