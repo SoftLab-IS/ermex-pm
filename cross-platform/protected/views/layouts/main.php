@@ -99,5 +99,5 @@
             			<script>
             				$(document).foundation();
             			</script>
-            		</body>
-            		</html>
+</body>
+</html>
