@@ -1,6 +1,6 @@
 <?php
 
-class RadniNaloziController extends Controller
+class RadninaloziController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -142,7 +142,10 @@ class RadniNaloziController extends Controller
             
         }
 
-		$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
+        if (Yii::app()->session['level'] < 2)
+			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
+		else
+			$data = new CActiveDataProvider(WorkAccounts::model()->forAllUsers());			
 
 		$this->render('index',array(
 			'dataProvider'=> $data,

@@ -14,7 +14,22 @@ $this->menu=array(
 );
 ?>
 
-<h1>Radni Nalozi</h1>
+<header class="clearfix">
+    <h2 class="large-5 columns">Radni Nalozi</h2>
+
+    <div class="button-bar large-7 columns context-options">
+        <ul class="button-group">
+            <li><a class="button secondary small" href="#">Proslijedi dalje</a></li>
+            <li><a class="button secondary small" href="#">Storniraj nalog</a></li>
+            <li><a class="button secondary small" href="#">Zaključi nalog</a></li>
+            <li><a class="button secondary small" href="#">Odštampaj nalog</a></li>
+        </ul>
+        <ul class="button-group">
+            <li><a class="button small" href="#">Dodaj radni nalog</a></li>
+        </ul>
+    </div>
+</header>
+
 
 <?php
 $form = $this->beginWidget('CActiveForm',
