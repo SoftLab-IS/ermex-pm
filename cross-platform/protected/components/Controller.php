@@ -33,7 +33,7 @@ class Controller extends CController
 	public function beforeAction($action)
 	{
 		if (Yii::app()->user->isGuest && ($this->route != 'site/systemlogin'))
-			$this->redirect('site/systemlogin');
+			$this->redirect(Yii::app()->baseUrl . '/site/systemlogin');
 		
 		return true;
 	}

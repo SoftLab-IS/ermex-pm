@@ -36,9 +36,12 @@
             <div class="main-wrapper clearfix">
             		<aside class="large-2 columns">
             			<div class="user-select">
-            					<select id="select-workers">
-            					<option value="1">Wee</option>
-            					</select>
+            					<?php 
+            						$this->widget('application.extensions.userlist.WUserList',
+            							array(
+            								'selectedUserId' => Yii::app()->session['id'],
+            							)); 
+            					?>
             			</div>
             			<nav class="main-menu">
             				<?php 
@@ -97,6 +100,8 @@
             			<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 
             			<script>
+            				var ermexBaseUrl = "<?php echo Yii::app()->baseUrl; ?>";
+
             				$(document).foundation();
             			</script>
 </body>

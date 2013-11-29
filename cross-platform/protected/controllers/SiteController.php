@@ -148,6 +148,34 @@ class SiteController extends Controller
         ));
 	}
 
+	public function actionUserswitch($id)
+	{
+		header('Content-Type:application/json; charset=utf-8');
+		if (Yii::app()->request->isAjaxRequest)
+		{
+			$id = (int)$id;
+
+			$user = Users::model()->findByPk($id);
+
+			if ($user)
+			{
+				if ($user->privilegeLevel > Yii::app()->session['level'])
+				{
+					echo '{"done":false,"login":true}';
+				}
+				else
+				{
+		            Yii::app()->session['id'] = $user->usId;
+		            Yii::app()->session['level'] = $user->privilegeLevel;
+		            Yii::app()->session['fullname'] = $user->realName + " " + $user->realSurname;
+		            echo '{"done":true}';
+				}
+			}	
+		}
+		else
+			echo '{"done":false}';
+	}
+
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */

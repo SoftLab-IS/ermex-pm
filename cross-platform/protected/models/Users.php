@@ -37,12 +37,26 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, password, realName, realSurname, registerDate', 'required'),
-			array('privilegeLevel', 'numerical', 'integerOnly'=>true),
-			array('username, password, realName, realSurname', 'length', 'max'=>45),
-			array('registerDate', 'length', 'max'=>21),
+			array('privilegeLevel', 'numerical', 'integerOnly' => true),
+			array('username, password, realName, realSurname', 'length', 'max' => 45),
+			array('registerDate', 'length', 'max' => 21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('usId, username, password, realName, realSurname, registerDate, privilegeLevel', 'safe', 'on'=>'search'),
+		);
+	}
+
+
+	/**
+	 * @return array of current scope configuration
+	**/
+	public function scopes()
+	{
+		return array(
+			'exceptNonActive' =>
+			array(
+				'condition' => $this->tableAlias . '.privilegeLevel > 0',
+			),
 		);
 	}
 
