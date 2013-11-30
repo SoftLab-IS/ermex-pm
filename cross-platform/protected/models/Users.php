@@ -57,6 +57,10 @@ class Users extends CActiveRecord
 			array(
 				'condition' => $this->tableAlias . '.privilegeLevel > 0',
 			),
+			'workers' =>
+			array(
+				'condition' => $this->tableAlias . '.privilegeLevel = 1',
+			)
 		);
 	}
 

@@ -136,7 +136,13 @@
 		<?php echo $form->error($model,'authorId'); ?>
 	</div>
 	-->
-
+	<div class="row">
+		<?php echo $form->label($model,'Nalog upućen na:')?>
+		<?php foreach($workers as $worker): ?>
+			<?php echo CHtml::checkBox("workersId[]",null,array("value"=>$model->woId,"id"=>"cid_".$worker->usId)) . ' ' .'<span class="worker-name">'. $worker->realName. ' '. $worker->realSurname.'</span></br>'; ?>
+			
+	<?php endforeach; ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj' : 'Sačuvaj'); ?>
 	</div>
