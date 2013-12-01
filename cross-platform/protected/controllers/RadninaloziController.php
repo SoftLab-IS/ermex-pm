@@ -63,7 +63,7 @@ class RadninaloziController extends Controller
 	public function actionCreate()
 	{
 		$model = new WorkAccounts;
-		$workers = Users::model()->findAll(array('condition' => 'privilegeLevel = 1'));
+		$workers = Users::model()->onlyWorkers()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
