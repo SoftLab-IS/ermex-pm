@@ -21,11 +21,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'workAccountSerial'); ?>
-		<?php echo $form->textField($model,'workAccountSerial',array('size'=>60,'maxlength'=>90)); ?>
-		<?php echo $form->error($model,'workAccountSerial'); ?>
-	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
