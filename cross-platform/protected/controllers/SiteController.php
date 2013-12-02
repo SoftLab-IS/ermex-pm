@@ -24,12 +24,12 @@ class SiteController extends Controller
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
+	 *
+	 * @author Panic Aleksandar
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->redirect($this->createUrl('/radninalozi/index'));
 	}
 
 	/**
@@ -86,7 +86,7 @@ class SiteController extends Controller
 
         $notActive = false;
 
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -98,7 +98,7 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect($this->createUrl('/radninalozi/index'));
 
             $notActive = $model->notActive;
 		}
