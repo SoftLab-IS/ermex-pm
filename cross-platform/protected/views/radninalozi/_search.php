@@ -2,6 +2,7 @@
 /* @var $this RadniNaloziController */
 /* @var $model WorkAccounts */
 /* @var $form CActiveForm */
+/* @autor Golub*/
 ?>
 
 <div class="wide form">
