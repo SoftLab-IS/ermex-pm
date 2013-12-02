@@ -122,10 +122,45 @@ class OtpremniceController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Deliveries');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+        if(isset($_POST['deliveryId']))
+        {
+            $safePks = array();
+
+            foreach($_POST['deliveryId'] as $i)
+                $safePks[] = (int)$i;
+
+            if (isset($_POST['stornirajOdabrane']))
+                Deliveries::model()->updateByPk($safePks,
+                    array(
+                        'invalid' => '1'
+                    ));
+            else if (isset($_POST['zakljuciOdabrane']))
+                Deliveries::model()->updateByPk($safePks,
+                    array(
+                        'reconciled' => '1'
+                    ));
+
+        }
+
+
+        if (Yii::app()->session['level'] < 2)
+        {
+            $criteria = new CDbCriteria;
+            $criteria->condition='reconciled=:reconciled';
+            $criteria->params=array(':reconciled'=>0);
+        }
+        else
+        {
+            $criteria = new CDbCriteria;
+        }
+
+        $dataProvider = new CActiveDataProvider(Deliveries::model(), array(
+            'criteria' => $criteria,
+        ));
+
+        $this->render('index',array(
+            'dataProvider'=>$dataProvider,
+        ));
 	}
 
 	/**
