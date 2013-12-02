@@ -70,6 +70,7 @@ class RadninaloziController extends Controller
 		if(isset($_POST['WorkAccounts']))
 		{
 			$model->attributes=$_POST['WorkAccounts'];
+            $model->workAccountSerial = SerialGenerator::generateSerial(WorkAccounts::model()->lastSerial()->find()->workAccountSerial);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->woId));
 		}

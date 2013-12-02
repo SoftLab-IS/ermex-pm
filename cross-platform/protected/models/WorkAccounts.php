@@ -65,11 +65,17 @@ class WorkAccounts extends CActiveRecord
 
 	public function scopes()
 	{
-		return array(
-			'proizvodi' => array(
-				'condition' => $this->tableAlias . '.reconciled = 1',
-				),
-			);
+        return array(
+            'proizvodi' => array
+            (
+                'condition' => $this->tableAlias . '.reconciled = 1',
+            ),
+            'lastSerial' => array
+            (
+                'select' => 'workAccountSerial',
+                'order' => 'woId DESC',
+            ),
+        );
 	}
 
     /**
