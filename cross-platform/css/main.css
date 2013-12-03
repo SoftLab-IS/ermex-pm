@@ -108,10 +108,11 @@ body {
 /* MAIN CONTENT */
 
 header .button.small {
-    padding: 0.7rem 1rem 0.7rem;
+    padding: 0.6rem 0.8rem 0.6rem;
+    font-size: 0.9rem;
 }
 
-header h2 {
+h2 {
     font-size: 1.5rem;
     line-heihght: 1.8;
 }
@@ -119,7 +120,13 @@ header h2 {
 .context-options {
     padding-top: 0.3rem;
 }
+    .context-options > div {
+        float: right;
+    }
 
+.summary {
+    font-size: 0.8rem;
+}
 /* radniNalozi/create */
 .worker-name {
 	font-size: 0.875rem;

@@ -19,15 +19,17 @@ $this->menu=array(
     <h2 class="large-5 columns">Radni Nalozi</h2>
 
     <div class="button-bar large-7 columns context-options">
-        <ul class="button-group">
-            <li><a class="button secondary small" href="#">Proslijedi dalje</a></li>
-            <li><a class="button secondary small" href="#">Storniraj nalog</a></li>
-            <li><a class="button secondary small" href="#">Zaključi nalog</a></li>
-            <li><a class="button secondary small" href="#">Odštampaj nalog</a></li>
-        </ul>
-        <ul class="button-group">
-            <li><a class="button small" href="#">Dodaj radni nalog</a></li>
-        </ul>
+        <div>
+            <ul class="button-group">
+                <li><?php echo CHtml::submitButton('Proslijedi dalje', array('name' => 'zavrsiOdabrane', 'class' => 'button secondary small')); ?></li>
+                <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
+                <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
+                <li><?php echo CHtml::link('Odštampaj nalog', array('#'), array('class' => 'button secondary small')); ?>
+            </ul>
+            <ul class="button-group">
+                <li><?php echo CHtml::link('Dodaj radni nalog', array('radniNalozi/create'), array('class' => 'button small')); ?>
+            </ul>
+        </div>
     </div>
 </header>
 
@@ -95,11 +97,5 @@ $form = $this->beginWidget('CActiveForm',
        ),
     ));
 ?>
-
-<div class="row buttons">
-    <?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane')); ?>
-    <?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane')); ?>
-    <?php echo CHtml::submitButton('Završi odabrane', array('name' => 'zavrsiOdabrane')); ?>
-</div>
 
 <?php $this->endWidget(); ?>
