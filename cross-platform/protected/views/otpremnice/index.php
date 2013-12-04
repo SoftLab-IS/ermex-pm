@@ -3,17 +3,11 @@
 /* @var $dataProvider CActiveDataProvider */
 /* @autor Golub*/
 
-$this->breadcrumbs=array(
-    'Deliveries',
-);
-
 $this->menu=array(
     array('label'=>'Create Deliveries', 'url'=>array('create')),
     array('label'=>'Manage Deliveries', 'url'=>array('admin')),
 );
 ?>
-
-    <h1>Otpremnice</h1>
 
 <?php
 $form = $this->beginWidget('CActiveForm',
@@ -21,6 +15,23 @@ $form = $this->beginWidget('CActiveForm',
         'id' => 'delivery-form',
     ));
 ?>
+
+<header class="clearfix">
+    <h2 class="large-5 columns">Otpremnice</h2>
+
+    <div class="button-bar large-7 columns context-options">
+        <div>
+            <ul class="button-group">
+                <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
+                <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
+                <li><?php echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
+            </ul>
+            <ul class="button-group">
+                <li><?php echo CHtml::link('Napravi otpremnicu', array('otpremnice/create'), array('class' => 'button small')); ?>
+            </ul>
+        </div>
+    </div>
+</header>
 
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
@@ -67,8 +78,5 @@ $form = $this->beginWidget('CActiveForm',
             ),
     ));
 ?>
-    <div class="row buttons">
-        <?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane')); ?>
-        <?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane')); ?>
-    </div>
+
 <?php $this->endWidget(); ?>

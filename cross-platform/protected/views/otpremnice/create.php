@@ -1,11 +1,11 @@
 <?php
-/* @var $this OtpremniceController */
-/* @var $model Deliveries */
-
-$this->breadcrumbs=array(
-	'Deliveries'=>array('index'),
-	'Create',
-);
+/**
+ * @author Ilija Tesic
+ *
+ * @var $this OtpremniceController
+ * @var $model Deliveries
+ *
+ */
 
 $this->menu=array(
 	array('label'=>'List Deliveries', 'url'=>array('index')),
@@ -13,6 +13,8 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Deliveries</h1>
+<header>
+    <h2>Kreiranje nove otpremnice</h2>
+</header>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -2,10 +2,6 @@
 /* @var $this MaterijaliController */
 /* @var $model Materials */
 
-$this->breadcrumbs=array(
-	'Materials'=>array('index'),
-	'Create',
-);
 
 $this->menu=array(
 	array('label'=>'List Materials', 'url'=>array('index')),
@@ -13,6 +9,8 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Materials</h1>
+<header>
+    <h2>Kreiranje novog materijala</h2>
+</header>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

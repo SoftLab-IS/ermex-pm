@@ -18,7 +18,7 @@ class SerialGenerator {
      * @return string New serial code.
      */
 
-    public function generateSerial($serialOld)
+    public static function generateSerial($serialOld)
     {
         $type = substr($serialOld, 0, 2);
         $serialOld = substr($serialOld, 2);
