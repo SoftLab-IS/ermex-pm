@@ -38,6 +38,28 @@ $(document).ready(function (event)
 
 		}, "json");
 	});
+	
 });	
 
-
+$('.materials').keyup(function()
+{
+	var searchTerm = $(this).val();
+	//alert("hello");
+	$.get(ermexBaseUrl + '/radninalozi/getmaterial',{name: searchTerm},function(done)
+	{
+		alert(done);
+		//$('.search-result').append(JSON.parse(done).array);
+		
+	}, "json");
+	/*
+	$.ajax({
+		url: 'getmaterial',
+		type: 'post',
+		data: searchTerm,
+		success: function(done)
+		{
+			alert(done);
+		}				
+	});
+	*/
+});
