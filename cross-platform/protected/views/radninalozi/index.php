@@ -15,6 +15,13 @@ $this->menu=array(
 );
 ?>
 
+<?php
+$form = $this->beginWidget('CActiveForm',
+    array(
+        'id' => 'work-accounts-form',
+    ));
+?>
+
 <header class="clearfix">
     <h2 class="large-5 columns">Radni Nalozi</h2>
 
@@ -24,7 +31,7 @@ $this->menu=array(
                 <li><?php echo CHtml::submitButton('Proslijedi dalje', array('name' => 'zavrsiOdabrane', 'class' => 'button secondary small')); ?></li>
                 <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
                 <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::link('Odštampaj nalog', array('#'), array('class' => 'button secondary small')); ?>
+                <li><?php echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); ?>
             </ul>
             <ul class="button-group">
                 <li><?php echo CHtml::link('Dodaj radni nalog', array('radniNalozi/create'), array('class' => 'button small')); ?>
@@ -32,14 +39,6 @@ $this->menu=array(
         </div>
     </div>
 </header>
-
-
-<?php
-$form = $this->beginWidget('CActiveForm',
-    array(
-      'id' => 'work-accounts-form',
-    ));
-?>
 
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(

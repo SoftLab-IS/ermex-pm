@@ -13,7 +13,8 @@ $this->menu=array(
 	array('label'=>'Manage WorkAccounts', 'url'=>array('admin')),
 );
 ?>
-
-<h2>Kreirenje novog radnog naloga</h2>
+<header>
+    <h2>Kreirenje novog radnog naloga</h2>
+</header>
 
 <?php $this->renderPartial('_form', array('model'=>$model,'workers'=>$workers)); ?>

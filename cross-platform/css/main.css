@@ -168,6 +168,10 @@ h2 {
                     border-bottom: 1px solid #444;
                 }
 
+.grid-view input[type='checkbox'] {
+    margin-bottom: 0;
+}
+
 /* COPYRIGHT */
 
 .copyright {
