@@ -2,6 +2,7 @@
 /* @var $this OtpremniceController */
 /* @var $model Deliveries */
 /* @var $form CActiveForm */
+/* @autor Golub*/
 ?>
 
 <div class="form">
