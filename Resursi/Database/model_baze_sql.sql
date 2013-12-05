@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `ermex_pm`.`epm_deliveries` (
   `invalid` INT(1) NULL,
   `authorId` INT NOT NULL,
   `reconciledId` INT NOT NULL,
-  `peyeeName` VARCHAR(45) NULL,
+  `peyeeName` VARCHAR(255) NULL,
   `peyeeContactInfo` TEXT NULL,
   PRIMARY KEY (`deId`),
   INDEX `user_fk_index` (`authorId` ASC),
