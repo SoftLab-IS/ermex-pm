@@ -29,24 +29,20 @@
 </head>
 <body>
         <!--[if lt IE 7]>
-            <p class="browsehappy">Koristite <strong>stari</strong> pretraživač. Molimo <a href="http://browsehappy.com/">ažurirajte vaš browser</a> da poboljšate vaše iskustvo.</p>
-            <![endif]-->
+        <p class="browsehappy">Koristite <strong>stari</strong> pretraživač. Molimo <a href="http://browsehappy.com/">ažurirajte vaš browser</a> da poboljšate vaše iskustvo.</p>
+        <![endif]-->
 
+        <div class="main-wrapper clearfix">
+        	<?php echo $content; ?>
+        </div>
 
-            <div class="main-wrapper clearfix">
-            	<section class="systemlogin-form large-10 columns main-content">
-            		<?php echo $content; ?>
-            	</section>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation.min.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins.js"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 
-            </div>
-
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation.min.js"></script>
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins.js"></script>
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
-
-            <script>
-            	$(document).foundation();
-            </script>
+        <script>
+        	$(document).foundation();
+        </script>
 </body>
 </html>
