@@ -1,30 +1,33 @@
 <?php
 
 /**
- * This is the model class for table "epm_workers".
+ * This is the model class for table "{{order}}".
  *
- * The followings are the available columns in table 'epm_workers':
+ * The followings are the available columns in table '{{order}}':
+ * @property integer $orderId
+ * @property string $title
+ * @property string $description
+ * @property double $price
+ * @property string $amount
  * @property integer $woId
- * @property integer $workAccountId
- * @property integer $userId
- * @property string $assignDate
- * @property string $dueDate
- * @property string $role
+ * @property integer $deId
+ * @property string $measurementUnit
+ * @property double $totalePrice
+ * @property string $pdv
  * @property integer $done
- * @property integer $position
  *
  * The followings are the available model relations:
- * @property WorkAccounts $workAccount
- * @property Users $user
+ * @property WorkAccounts $wo
+ * @property Deliveries $de
  */
-class Workers extends CActiveRecord
+class Order extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'epm_workers';
+		return '{{order}}';
 	}
 
 	/**
@@ -35,13 +38,15 @@ class Workers extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('workAccountId, userId, assignDate, role, position', 'required'),
-			array('workAccountId, userId, done, position', 'numerical', 'integerOnly'=>true),
-			array('assignDate, dueDate', 'length', 'max'=>21),
-			array('role', 'length', 'max'=>255),
+			array('woId, deId', 'required'),
+			array('woId, deId, done', 'numerical', 'integerOnly'=>true),
+			array('price, totalePrice', 'numerical'),
+			array('title', 'length', 'max'=>255),
+			array('amount, measurementUnit, pdv', 'length', 'max'=>45),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('woId, workAccountId, userId, assignDate, dueDate, role, done', 'safe', 'on'=>'search'),
+			array('orderId, title, description, price, amount, woId, deId, measurementUnit, totalePrice, pdv, done', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +58,8 @@ class Workers extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workAccount' => array(self::BELONGS_TO, 'WorkAccounts', 'workAccountId'),
-			'user' => array(self::BELONGS_TO, 'Users', 'userId'),
+			'wo' => array(self::BELONGS_TO, 'WorkAccounts', 'woId'),
+			'de' => array(self::BELONGS_TO, 'Deliveries', 'deId'),
 		);
 	}
 
@@ -64,14 +69,17 @@ class Workers extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'orderId' => 'Order',
+			'title' => 'Title',
+			'description' => 'Description',
+			'price' => 'Price',
+			'amount' => 'Amount',
 			'woId' => 'Wo',
-			'workAccountId' => 'Radni nalog',
-			'userId' => 'Korisnik',
-			'assignDate' => 'Datum preuzimanja',
-			'dueDate' => 'Rok',
-			'role' => 'Role',
-			'done' => 'Gotovo',
-			'position' => 'Pozicija',
+			'deId' => 'De',
+			'measurementUnit' => 'Measurement Unit',
+			'totalePrice' => 'Totale Price',
+			'pdv' => 'Pdv',
+			'done' => 'Done',
 		);
 	}
 
@@ -93,14 +101,17 @@ class Workers extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('orderId',$this->orderId);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('price',$this->price);
+		$criteria->compare('amount',$this->amount,true);
 		$criteria->compare('woId',$this->woId);
-		$criteria->compare('workAccountId',$this->workAccountId);
-		$criteria->compare('userId',$this->userId);
-		$criteria->compare('assignDate',$this->assignDate,true);
-		$criteria->compare('dueDate',$this->dueDate,true);
-		$criteria->compare('role',$this->role,true);
+		$criteria->compare('deId',$this->deId);
+		$criteria->compare('measurementUnit',$this->measurementUnit,true);
+		$criteria->compare('totalePrice',$this->totalePrice);
+		$criteria->compare('pdv',$this->pdv,true);
 		$criteria->compare('done',$this->done);
-		$criteria->compare('position',$this->position);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -111,7 +122,7 @@ class Workers extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Workers the static model class
+	 * @return Order the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

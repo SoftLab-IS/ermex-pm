@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'epm_deliveries':
  * @property integer $deId
+ * @property string $deliverySerial
  * @property string $deliveryDate
  * @property double $price
  * @property string $note
@@ -12,11 +13,13 @@
  * @property integer $reconciled
  * @property integer $invalid
  * @property integer $authorId
- * @property integer $workAccountId
+ * @property integer $reconciledId
+ * @property string $peyeeName
+ * @property string $peyeeContactInfo
  *
  * The followings are the available model relations:
- * @property WorkAccounts $workAccount
  * @property Users $author
+ * @property Users $reconciled0
  */
 class Deliveries extends CActiveRecord
 {
@@ -36,13 +39,14 @@ class Deliveries extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('deliveryDate, price, note, payType, authorId, workAccountId', 'required'),
-			array('payType, reconciled, invalid, authorId, workAccountId', 'numerical', 'integerOnly'=>true),
+			array('deliveryDate, price, note, payType, authorId, deliverySerial', 'required'),
+			array('payType, reconciled, invalid, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
+            array('peyeeName', 'lenght', 'max'=>255),
 			array('deliveryDate', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('deId, deliveryDate, price, note, payType, reconciled, invalid, authorId, workAccountId', 'safe', 'on'=>'search'),
+			array('deId, deliveryDate, price, note, payType, reconciled, invalid, authorId, reconciledId, peyeeName, peyeeContactInfo, deliverySerial', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,8 +58,8 @@ class Deliveries extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workAccount' => array(self::BELONGS_TO, 'WorkAccounts', 'workAccountId'),
 			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
+            'reconciled0' => array(self::BELONGS_TO, 'Users', 'reconciledId'),
 		);
 	}
 
@@ -73,7 +77,10 @@ class Deliveries extends CActiveRecord
 			'reconciled' => 'Zaključen',
 			'invalid' => 'Nevažeći',
 			'authorId' => 'Autor',
-			'workAccountId' => 'Radni nalog',
+            'reconciledId' => 'Zaključio',
+            'peyeeName' => 'Naručilac',
+            'peyeeContactInfo' => 'Kontakt informacije naručioca',
+            'deliverySerial' => 'Serijski broj',
 		);
 	}
 
@@ -103,7 +110,10 @@ class Deliveries extends CActiveRecord
 		$criteria->compare('reconciled',$this->reconciled);
 		$criteria->compare('invalid',$this->invalid);
 		$criteria->compare('authorId',$this->authorId);
-		$criteria->compare('workAccountId',$this->workAccountId);
+        $criteria->compare('reconciledId', $this->reconciledId);
+        $criteria->compare('peyeeName', $this->peyeeName);
+        $criteria->compare('peyeeContactInfo', $this->peyeeContactInfo);
+        $criteria->compare('deliverySerial', $this->deliverySerial);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -57,7 +57,6 @@ class RadninaloziController extends Controller
 	public function actionCreate()
 	{
 		$model = new WorkAccounts;
-		$workers = Users::model()->onlyWorkers()->findAll();
 		$materials = UsedMaterials::model();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -140,10 +139,10 @@ class RadninaloziController extends Controller
             
         }
 
-        if (Yii::app()->session['level'] < 2)
-			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
-		else
-			$data = new CActiveDataProvider(WorkAccounts::model()->forAllUsers());			
+//        if (Yii::app()->session['level'] < 2)
+//			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
+//		else
+			$data = new CActiveDataProvider(WorkAccounts::model()->forAllUsers());
 
 		$this->render('index',array(
 			'dataProvider'=> $data,
