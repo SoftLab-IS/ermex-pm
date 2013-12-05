@@ -59,7 +59,7 @@ return array(
 
         'db' =>
         array(
-            'connectionString' => 'mysql:host=localhost;dbname=ermex-pm',
+            'connectionString' => 'mysql:host=localhost;dbname=ermex_pm',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => 'icefire007',
