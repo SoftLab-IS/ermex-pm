@@ -7,7 +7,6 @@
  * @var $this RadniNalozicontroller Kontroler radnih naloga.
  * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
  */
-/* @autor Golub*/
 
 $this->menu=array(
 	array('label'=>'Create WorkAccounts', 'url'=>array('create')),

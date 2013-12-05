@@ -16,7 +16,7 @@
  * @property integer $reconciled
  * @property integer $authorId
  * @property integer $reconciledId
- * @property string $userList
+ * @property string $usersList
  * @property integer $reviewdId
  * @property integer $currentUser
  * The followings are the available model relations:
@@ -45,16 +45,15 @@ class WorkAccounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('payeeName, payeeContactInfo, creationDate, deadlineDate', 'required'),
+			array('payeeName, payeeContactInfo, creationDate, deadlineDate, workAccountSerial', 'required'),
 			array('invalid, reconciled, authorId, reconciledId, reviewdId, currentUser', 'numerical', 'integerOnly'=>true),
-			array('workAccountSerial, userList', 'length', 'max'=>90),
-			array('length', 'max'=>255),
+			array('workAccountSerial, usersList', 'length', 'max'=>90),
 			array('payeeName', 'length', 'max'=>45),
 			array('creationDate, deadlineDate', 'length', 'max'=>21),
 			array('note, additional', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('woId, workAccountSerial, payeeName, payeeContactInfo, creationDate, deadlineDate, note, additional, invalid, reconciled, authorId, reconciledId, userList, reviewdId, currentUser', 'safe', 'on'=>'search'),
+			array('woId, workAccountSerial, payeeName, payeeContactInfo, creationDate, deadlineDate, note, additional, invalid, reconciled, authorId, reconciledId, usersList, reviewdId, currentUser', 'safe', 'on'=>'search'),
 			);
 	}
 
@@ -216,7 +215,7 @@ class WorkAccounts extends CActiveRecord
 			'reconciled' => 'Zaključeno',
 			'authorId' => 'Nalog sastavio',
 			'reconciledId' => 'Nalog zaključio',
-            'userList' => 'Lista radnika',
+            'usersList' => 'Lista radnika',
             'reviewdId' => 'Kontrolor',
             'currentUser' => 'Trenutni radnik',
 		);
@@ -252,7 +251,7 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('reconciled',$this->reconciled);
 		$criteria->compare('authorId',$this->authorId);
 		$criteria->compare('reconciledId',$this->reconciledId);
-        $criteria->compare('userList',$this->userList);
+        $criteria->compare('usersList',$this->usersList);
         $criteria->compare('reviewdId', $this->reviewdId);
         $criteria->compare('currentUser', $this->currentUser);
 

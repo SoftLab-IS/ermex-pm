@@ -58,20 +58,27 @@ class RadninaloziController extends Controller
 	{
 		$model = new WorkAccounts;
 		$materials = UsedMaterials::model();
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['WorkAccounts']))
 		{
-			$model->attributes=$_POST['WorkAccounts'];
-            $model->workAccountSerial = SerialGenerator::generateSerial(WorkAccounts::model()->lastSerial()->find()->workAccountSerial);
+			$model->attributes = $_POST['WorkAccounts'];
+            $datum = explode('.', $model->deadlineDate);
+            $oldSerial = WorkAccounts::model()->lastSerial()->find();
+            $model->workAccountSerial = ($oldSerial === null)? 'RN1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
+            $model->creationDate = mktime();
+            $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
+            $model->authorId = Yii::app()->session['id'];
+            $trenutniKorisnici = explode(',',$model->usersList);
+            $model->currentUser = (int)$trenutniKorisnici[0];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->woId));
 		}
 
 		$this->render('create',array(
 			'model' => $model,
-			'workers' => $workers,
 			'materials' => $materials,
 		));
 	}

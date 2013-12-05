@@ -5,7 +5,6 @@
 
 $this->breadcrumbs=array(
 	'Work Accounts'=>array('index'),
-	$model->name,
 );
 
 $this->menu=array(
@@ -24,10 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'woId',
 		'workAccountSerial',
-		'name',
-		'description',
 		'payeeName',
-		'payeeContactPerson',
 		'payeeContactInfo',
 		array(
 			'name' => 'creationDate',
@@ -36,11 +32,6 @@ $this->menu=array(
 		array(
 			'name' => 'deadlineDate',
 			'value' => date('d.m.Y',$model->deadlineDate)	
-		),
-		'amount',
-		array(
-		'name' => 'price',
-		'value' => number_format($model->price, 2, '.', ',') . ' KM',
 		),
 		'note',
 		'additional',
