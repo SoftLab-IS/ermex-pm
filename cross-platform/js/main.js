@@ -63,3 +63,9 @@ $('.materials').keyup(function()
 	});
 	*/
 });
+
+$('.addO').click(function()
+{
+   var value = '<div class="clearfix oneOrder"><div class="large-4 columns"><label>Naziv</label><input type="text" name="Order[][title]"/></div><div class="large-5 columns"><label>Opis</label><input type="text" name="Order[][description]"/></div><div class="large-1 columns"><label>Kolicina</label><input type="text" name="Order[][amount]"/></div><div class="large-1 columns"><label>Mjera</label><input type="text" name="Order[][measurementUnit]"/></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[][price]"/></div> </div>';
+   $(value).insertBefore(".addOrder");
+});

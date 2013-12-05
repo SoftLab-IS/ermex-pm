@@ -9,7 +9,7 @@
  */
 ?>
 
-<div class="form">
+<div class="form" xmlns="http://www.w3.org/1999/html">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'work-accounts-form',
@@ -86,7 +86,7 @@
     </div>
 
 <!--    ORDER-->
-    <div class="clearfix">
+    <div class="clearfix oneOrder">
         <div class="large-4 columns">
             <label>Naziv</label>
             <input type="text" name="Order[][title]"/>
@@ -108,7 +108,9 @@
             <input type="text" name="Order[][price]"/>
         </div>
 
-
+    </div>
+    <div class="clearfix addOrder">
+        <input type="button" value="Dodaj" class="addO"/>
     </div>
 
     <div class="clearfix buttons">
