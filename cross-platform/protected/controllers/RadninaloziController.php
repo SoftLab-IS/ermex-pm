@@ -22,7 +22,7 @@ class RadninaloziController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','getmaterial'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -58,6 +58,7 @@ class RadninaloziController extends Controller
 	{
 		$model = new WorkAccounts;
 		$workers = Users::model()->onlyWorkers()->findAll();
+		$materials = UsedMaterials::model();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -70,8 +71,9 @@ class RadninaloziController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
-			'workers'=>$workers,
+			'model' => $model,
+			'workers' => $workers,
+			'materials' => $materials,
 		));
 	}
 
@@ -190,4 +192,50 @@ class RadninaloziController extends Controller
 			Yii::app()->end();
 		}
 	}
+	/**
+	 * Returns JSON object of founded material searched by name
+	 */
+	public function actionGetmaterial($name)
+	{
+			
+		//echo "This is just a test! Search term: ".$_POST['searchTerm'];
+		//echo "This is just a test! Search term: ".$name;
+		
+		
+		if(Yii::app()->request->isAjaxRequest)
+		{
+			$material = Materials::model()->nameSearch($name);
+			
+			$materialArray = array();
+			
+			header('Content-Type:application/json; charset=utf-8');
+			
+			if ($material != NULL)
+			{
+				foreach ($material as $m) 
+				{
+					$materialArray[] = array(
+						'name' => $m->name,
+						'amount'=> $m->amount,
+						'id' => $m->maId,
+					);
+				}
+				
+				
+				echo CJSON::encode(array(
+					"count" => count($materialArray),
+					"array" => $materialArray,
+				));	
+			}
+			else 
+			{
+				echo CJSON::encode(array(
+					"count" => 0,
+					"array" => array(),
+				));
+			}
+		}
+		
+	}
+	
 }

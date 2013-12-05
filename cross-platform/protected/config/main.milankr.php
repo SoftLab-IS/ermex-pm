@@ -6,7 +6,9 @@ return array(
 
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Ermex PM',
-    'preload' => array('log'),
+   	'preload' => array('log'),
+    'defaultController' => 'radninalozi',
+   	'language' => 'bs',
 
     // autoloading model and component classes
     'import' =>

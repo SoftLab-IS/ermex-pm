@@ -134,6 +134,11 @@
 	</div>
 	-->
 	<div class="row">
+		<?php echo $form->textField($materials, 'materialId',array("class" => "materials")) ?>
+		<div class="search-result"></div>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->label($model,'Nalog upućen na:')?>
 		<?php foreach($workers as $worker): ?>
 			<?php echo CHtml::checkBox("workersId[]",null,array("value"=>$model->woId,"id"=>"cid_".$worker->usId)) . ' ' .'<span class="worker-name">'. $worker->realName. ' '. $worker->realSurname.'</span></br>'; ?>
@@ -144,6 +149,8 @@
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj' : 'Sačuvaj'); ?>
 	</div>
 
+	
+	
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

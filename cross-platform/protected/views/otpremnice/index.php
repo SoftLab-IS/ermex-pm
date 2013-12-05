@@ -1,6 +1,7 @@
 <?php
 /* @var $this OtpremniceController */
 /* @var $dataProvider CActiveDataProvider */
+/* @autor Golub*/
 
 $this->menu=array(
     array('label'=>'Create Deliveries', 'url'=>array('create')),

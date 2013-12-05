@@ -51,6 +51,24 @@ class Materials extends CActiveRecord
 			'usedMaterials' => array(self::HAS_MANY, 'UsedMaterials', 'materialId'),
 		);
 	}
+	
+	/**
+	 * Name Search
+	 * 
+	 * @author Milan Krunic
+	 * 
+	 * @param string $name Name which will be searched.
+	 * @return Materials
+	 */
+	public function nameSearch($name)
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition' => $this->tableAlias . ".name LIKE '%:match%'",
+			'params' => array(':match' => $name)			
+		));
+		
+		return $this;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -107,4 +125,5 @@ class Materials extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
 }
