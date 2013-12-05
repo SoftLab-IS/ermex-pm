@@ -8,7 +8,6 @@ return array(
     'name' => 'Ermex PM',
     'preload' => array('log'),
     'defaultController' => 'radninalozi',
-    'language' => 'bs',
 
     // autoloading model and component classes
     'import' =>
