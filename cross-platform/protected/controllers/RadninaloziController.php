@@ -77,11 +77,12 @@ class RadninaloziController extends Controller
                 $trenutniKorisnici = $_POST['user'];
                 foreach($trenutniKorisnici as $trenutniKorisnik)
                 {
-                    $model->usersList = $trenutniKorisnik.',';
+                    $model->usersList .= $trenutniKorisnik.',';
                 }
+                $model->usersList = rtrim($model->usersList,',');
+                $trenutniKorisnici = explode(',',$model->usersList);
+                $model->currentUser = (int)$trenutniKorisnici[0];
             }
-            $trenutniKorisnici = explode(',',$model->usersList);
-            $model->currentUser = (int)$trenutniKorisnici[0];
 			if($model->save())
             {
                 if(isset($_POST['Order']))
