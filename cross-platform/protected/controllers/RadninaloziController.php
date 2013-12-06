@@ -74,8 +74,30 @@ class RadninaloziController extends Controller
             $trenutniKorisnici = explode(',',$model->usersList);
             $model->currentUser = (int)$trenutniKorisnici[0];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->woId));
+            {
+                if(isset($_POST['Order']))
+                {
+                    $narudzbe = $_POST['Order'];
+                    for($i=0;$i<count($narudzbe);$i+=5)
+                    {
+                        $order = new Order();
+                        $order->title = $narudzbe[$i]['title'];
+                        $order->description = $narudzbe[$i+1]['description'];
+                        $order->amount = $narudzbe[$i+2]['amount'];
+                        $order->measurementUnit = $narudzbe[$i+3]['measurementUnit'];
+                        $order->price = $narudzbe[$i+4]['price'];
+                        $order->woId = $model->woId;
+                        $order->deId =NULL;
+
+                        if(!$order->save());
+
+
+                    }
+                }
+            }
+		    $this->redirect(array('view','id'=>$model->woId));
 		}
+
 
 		$this->render('create',array(
 			'model' => $model,
