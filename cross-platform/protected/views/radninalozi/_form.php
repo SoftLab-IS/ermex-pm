@@ -72,7 +72,7 @@
                 <input type="text" name="Order[][title]"/>
             </div>
             <div class="large-1 columns">
-                <label>Kolicina</label>
+                <label>Količina</label>
                 <input type="text" name="Order[][amount]"/>
             </div>
             <div class="large-1 columns">
@@ -104,23 +104,23 @@
     </fieldset>
 
     <div class="clearfix">
-        <div class="large-4 columns">
-            <?php echo $form->labelEx($model,'usersList'); ?>
+        <div class="large-4">
+            <fieldset>
+                <legend>Lista radnika</legend>
 
-            <div class="user-select">
-                <select name="user[]">
-                    <?php foreach($radnici as $radnik): ?>
-                        <option value="<?php echo $radnik->usId; ?>"><?php echo $radnik->realName.' '.$radnik->realSurname; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+                <div class="user-select">
+                    <select name="user[]">
+                        <?php foreach($radnici as $radnik): ?>
+                            <option value="<?php echo $radnik->usId; ?>"><?php echo $radnik->realName.' '.$radnik->realSurname; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-            <div class="clearfix add-worker">
-                <input type="button" value="Dodaj" class="btn-add-worker"/>
-            </div>
-
-            <?php echo $form->error($model,'usersList'); ?>
-            <?php echo $form->hiddenField($model, 'userList', array('value' => '1', 'name' => 'userList')); ?>
+                <div class="clearfix add-worker">
+                    <input type="button" value="Dodaj" class="btn-add-worker"/>
+                </div>
+                <?php echo $form->error($model,'usersList'); ?>
+            </fieldset>
         </div>
 
         <div class="large-8 columns">
