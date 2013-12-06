@@ -83,3 +83,10 @@ $('.btn-add-worker').click(function(){
     $(selectField).insertBefore('.add-worker').wrap('<div></div>');
 
 });
+
+$('.btn-add-material').click(function(){
+    var selectField = $('.new-work-account .material-select > div').clone();
+    console.log(selectField);
+    $(selectField).insertBefore('.add-materials').wrap('<div></div>');
+
+});

@@ -57,7 +57,8 @@ class RadninaloziController extends Controller
 	public function actionCreate()
 	{
 		$model = new WorkAccounts;
-		$materials = UsedMaterials::model();
+		$materials = Materials::model();
+        $usedMaterials = UsedMaterials::model();
         $radnici = Users::model()->findAll();
 
 		// Uncomment the following line if AJAX validation is needed
@@ -102,6 +103,19 @@ class RadninaloziController extends Controller
                         if(!$order->save());
 
 
+                    }
+                }
+                if(isset($_POST['Materials']))
+                {
+                    $materijali = $_POST['Materials'];
+                    for($i=0;$i<count($materijali);$i+=2)
+                    {
+                        $material = new UsedMaterials();
+                        $material->materialId = $materijali[$i]['maId'];
+                        $material->amount = $materijali[$i+1]['amount'];
+                        $material->workAccountId = $model->woId;
+
+                        if(!$material->save());
                     }
                 }
             }
