@@ -11,19 +11,19 @@
 $(document).ready(function (event)
 {
     console.log($('.user-select'));
+    selectWorkers();
 	
 });
 
-/*
 function selectWorkers{
-    */
+
 /**
      * OnChange select workers Event
      *
      * @author Aleksandar Panic
      *
      * @param event e Passed event arguments
-     **//*
+     **/
 
     $('#select-workers').change(function (e)
     {
@@ -47,7 +47,6 @@ function selectWorkers{
             }, "json");
     });
 }
-*/
 
 $('.materials').keyup(function()
 {
