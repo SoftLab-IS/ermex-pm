@@ -90,7 +90,7 @@
         </div>
 
         <div class="clearfix addOrder">
-            <input type="button" value="Dodaj" class="addO"/>
+            <input type="button" value="Dodaj narudžbu" class="addO button small secondary"/>
         </div>
 
 	</fieldset>
@@ -104,8 +104,8 @@
     </fieldset>
 
     <div class="clearfix">
-        <div class="large-4">
-            <fieldset>
+        <div class="large-4 columns">
+            <fieldset class="no-margin">
                 <legend>Lista radnika</legend>
 
                 <div class="user-select">
@@ -117,7 +117,7 @@
                 </div>
 
                 <div class="clearfix add-worker">
-                    <input type="button" value="Dodaj" class="btn-add-worker"/>
+                    <input type="button" value="Dodaj radnika" class="btn-add-worker button small secondary"/>
                 </div>
                 <?php echo $form->error($model,'usersList'); ?>
             </fieldset>
