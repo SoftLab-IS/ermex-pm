@@ -72,6 +72,14 @@ class RadninaloziController extends Controller
             $model->creationDate = time();
             $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
             $model->authorId = Yii::app()->session['id'];
+            if(isset($_POST['user']))
+            {
+                $trenutniKorisnici = $_POST['user'];
+                foreach($trenutniKorisnici as $trenutniKorisnik)
+                {
+                    $model->usersList = $trenutniKorisnik.',';
+                }
+            }
             $trenutniKorisnici = explode(',',$model->usersList);
             $model->currentUser = (int)$trenutniKorisnici[0];
 			if($model->save())
