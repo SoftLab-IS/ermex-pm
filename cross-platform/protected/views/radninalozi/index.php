@@ -81,12 +81,12 @@ $form = $this->beginWidget('CActiveForm',
 
          array(
             'header' => 'Sledeći Radnik',
-            'value'  => '$data->workers[0]->user->realName . " " . $data->workers[0]->user->realSurname'
+            'value'  => ''
          ),
 
          array(
             'header' => 'Završeno?',
-            'value'  => '($data->workers[0]->done == 1) ? "Da" : "Ne"',
+            'value'  => '',
          ),
 
          array(
