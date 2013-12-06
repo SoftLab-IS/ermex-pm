@@ -58,6 +58,7 @@ class RadninaloziController extends Controller
 	{
 		$model = new WorkAccounts;
 		$materials = UsedMaterials::model();
+        $radnici = Users::model()->findAll();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -68,7 +69,7 @@ class RadninaloziController extends Controller
             $datum = explode('.', $model->deadlineDate);
             $oldSerial = WorkAccounts::model()->lastSerial()->find();
             $model->workAccountSerial = ($oldSerial === null)? 'RN1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
-            $model->creationDate = mktime();
+            $model->creationDate = time();
             $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
             $model->authorId = Yii::app()->session['id'];
             $trenutniKorisnici = explode(',',$model->usersList);
@@ -82,10 +83,10 @@ class RadninaloziController extends Controller
                     {
                         $order = new Order();
                         $order->title = $narudzbe[$i]['title'];
-                        $order->description = $narudzbe[$i+1]['description'];
-                        $order->amount = $narudzbe[$i+2]['amount'];
-                        $order->measurementUnit = $narudzbe[$i+3]['measurementUnit'];
-                        $order->price = $narudzbe[$i+4]['price'];
+                        $order->amount = $narudzbe[$i+1]['amount'];
+                        $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                        $order->price = $narudzbe[$i+3]['price'];
+                        $order->description = $narudzbe[$i+4]['description'];
                         $order->woId = $model->woId;
                         $order->deId =NULL;
 
@@ -102,6 +103,7 @@ class RadninaloziController extends Controller
 		$this->render('create',array(
 			'model' => $model,
 			'materials' => $materials,
+            'radnici' => $radnici,
 		));
 	}
 
