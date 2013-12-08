@@ -45,8 +45,11 @@ class RadninaloziController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = WorkAccounts::model()->findByPk($id);
+		$usersList = $this->showWorkers($model->usersList);
 		$this->render('view',array(
-			'model'=> WorkAccounts::model()->with(array('author','reconciled0'))->findByPk($id),
+			'model'=>  $model,
+			'usersList' => $usersList,
 		));
 	}
 
@@ -115,7 +118,8 @@ class RadninaloziController extends Controller
                         $material->amount = $materijali[$i+1]['amount'];
                         $material->workAccountId = $model->woId;
 
-                        if(!$material->save());
+                        if(!$material->save())
+							echo "nije dobro!";
                     }
                 }
             }
@@ -288,6 +292,16 @@ class RadninaloziController extends Controller
 				));
 			}
 		}
+		
+	}
+
+	//Shows workets related to work account
+	public function showWorkers($list)
+	{
+		$indexes = explode(",", $list);
+		$users = Users::model()->findAllByPk($indexes);
+		
+		return $users;
 		
 	}
 	
