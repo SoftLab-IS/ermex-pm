@@ -66,7 +66,7 @@ $form = $this->beginWidget('CActiveForm',
                 ),
                 array(
                     'name'=>'authorId',
-                    'value'=>'$data->author->realName. " " .$data->author->realSurname',
+                    'value'=>'$data->getFullName()',
                 ),
                 array(
                     'class'=>'CButtonColumn',

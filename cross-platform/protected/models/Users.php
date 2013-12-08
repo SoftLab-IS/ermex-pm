@@ -36,7 +36,7 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, realName, realSurname, registerDate', 'required'),
+			array('username, password, realName, realSurname, registerDate', 'required', 'on' => 'register'),
 			array('privilegeLevel', 'numerical', 'integerOnly' => true),
 			array('username, password, realName, realSurname', 'length', 'max' => 45),
 			array('registerDate', 'length', 'max' => 21),
@@ -106,13 +106,13 @@ class Users extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'usId' => 'Us',
 			'username' => 'Korisničko ime',
 			'password' => 'Šifra',
+			'newPassword' => 'Nova Šifra',
 			'realName' => 'Ime',
 			'realSurname' => 'Prezime',
 			'registerDate' => 'Datum registracije',
-			'privilegeLevel' => 'Nivo privilegija',
+			'privilegeLevel' => 'Nivo privilegije',
 		);
 	}
 

@@ -63,7 +63,7 @@ $form = $this->beginWidget('CActiveForm',
          ),
          array(
             'name' => 'currentUser',
-            'value'  => ''
+            'value'  => '$data->getFullName()'
          ),
          array(
              'class'=>'CButtonColumn',

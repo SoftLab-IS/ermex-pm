@@ -130,4 +130,9 @@ class Deliveries extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getFullName()
+    {
+        return $this->currentWorker->realName . ' ' . $this->currentWorker->realSurname;
+    }
 }
