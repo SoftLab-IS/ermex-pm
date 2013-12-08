@@ -211,16 +211,34 @@ class RadninaloziController extends Controller
 
                 }
             }
-//
         }
 
+        $users = Users::model()->findAll();
+
+        $model = new WorkAccounts('search');
+        $model->unsetAttributes();
+
+        if(isset($_GET['WorkAccounts']))
+        {
+            $model->attributes= $_GET['WorkAccounts'];
+
+            if ($model->authorId == 0)
+            	$model->authorId = null;
+
+            if ($model->reconciledId == 0)
+            	$model->reconciledId = null;
+
+            if (is_string($model->deadlineDate) && $model->deadlineDate != "")
+            	$model->deadlineDate = DateTimeHelper::dateToUnix($model->deadlineDate);
+        }
+
+
         if (Yii::app()->session['level'] < 2)
-			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
-		else
-			$data = new CActiveDataProvider(WorkAccounts::model());
+			$model->forUser(Yii::app()->session['id']);
 
 		$this->render('index',array(
-			'dataProvider'=> $data,
+			'model'=> $model,
+			'users' => $users,
 		));
 	}
 
