@@ -204,7 +204,7 @@ class WorkAccounts extends CActiveRecord
 	{
 		return array(
 			'woId' =>'Br.',
-			'workAccountSerial' => 'Broj',
+			'workAccountSerial' => 'Broj radnog naloga',
 			'payeeName' => 'Naručilac',
 			'payeeContactInfo' => 'Kontakt informacije',
 			'creationDate' => 'Datum kreiranja',
@@ -276,5 +276,15 @@ class WorkAccounts extends CActiveRecord
         return $this->currentWorker->realName . ' ' . $this->currentWorker->realSurname;
     }
 
+    public function getNextWorker($userId)
+    {
+        $workers = explode(',', $this->findByPk($userId)->usersList);
+        $nextWorker = array_search($this->currentUser, $workers)+1;
 
+        if(isset($workers[$nextWorker]))
+        {
+            return $workers[$nextWorker];
+        }
+        return false;
+    }
 }

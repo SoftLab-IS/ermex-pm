@@ -89,20 +89,22 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe),$narudzbe[$i]['title'];$i+=5)
+                    for($i=0;$i<count($narudzbe);$i+=5)
                     {
-                        $order = new Order();
-                        $order->title = $narudzbe[$i]['title'];
-                        $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                        $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                        $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                        $order->description = $narudzbe[$i+4]['description'];
-                        $order->woId = $model->woId;
-                        $order->deId =NULL;
+                        if(isset($narudzbe[$i]['title']))
+                        {
+                            //TODO wrap in transaction
+                            $order = new Order();
+                            $order->title = $narudzbe[$i]['title'];
+                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                            $order->description = $narudzbe[$i+4]['description'];
+                            $order->woId = $model->woId;
+                            $order->deId =NULL;
 
-                        if(!$order->save());
-
-
+                            if(!$order->save());
+                        }
                     }
                 }
                 if(isset($_POST['Materials']))
@@ -190,7 +192,19 @@ class RadninaloziController extends Controller
                     array(
                          'reconciled' => '1'
                     ));
-            
+            else if (isset($_POST['zavrsiOdabrane']))
+            {
+                foreach($safePks as $safePk)
+                {
+                    WorkAccounts::model()->updateByPk($safePk,
+                    array(
+                        'currentUser' => WorkAccounts::model()->getNextWorker($safePk)
+                    ));
+                    //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
+
+                }
+            }
+//
         }
 
 //        if (Yii::app()->session['level'] < 2)
