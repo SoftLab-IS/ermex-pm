@@ -200,14 +200,14 @@ class WorkAccounts extends CActiveRecord
 
     public function getNextWorker($userId)
     {
-        $workers = explode(',', $this->findByPk($userId)->usersList);
-        $nextWorkerKey = array_search($this->currentUser, $workers);
-        $nextWorker = ($workers[$nextWorkerKey+1]);
+        $workers = explode(',', $this->usersList);
+        $nextWorkerKey = array_search($this->currentUser, $workers)+1;
 
-        if(isset($nextWorker))
+        //TODO ne radi ako ima ponavljanje usera u listi, krene svaki put od prvog
+        
+        if(isset($workers[$nextWorkerKey]))
         {
-            print_r($nextWorkerKey);
-            return $nextWorker;
+            return $workers[$nextWorkerKey];
         }
         return false;
     }
