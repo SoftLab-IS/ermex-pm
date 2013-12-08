@@ -205,13 +205,20 @@ class RadninaloziController extends Controller
             {
                 foreach($safePks as $safePk)
                 {
-                    WorkAccounts::model()->updateByPk($safePk,
-                    array(
-                        'currentUser' => WorkAccounts::model()->getNextWorker($safePk)
-                    ));
-                    //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
-
-                }
+                    $nextWorker = WorkAccounts::model()->getNextWorker($safePk);
+                    if($nextWorker)
+                    {
+                        WorkAccounts::model()->updateByPk($safePk,
+                            array(
+                                'currentUser' => $nextWorker,
+                        ));
+                    }
+                    else
+                    {
+                        echo 'konj';
+                        //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
+                    }
+                 }
             }
 //
         }

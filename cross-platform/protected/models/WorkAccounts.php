@@ -201,11 +201,13 @@ class WorkAccounts extends CActiveRecord
     public function getNextWorker($userId)
     {
         $workers = explode(',', $this->findByPk($userId)->usersList);
-        $nextWorker = array_search($this->currentUser, $workers)+1;
+        $nextWorkerKey = array_search($this->currentUser, $workers);
+        $nextWorker = ($workers[$nextWorkerKey+1]);
 
-        if(isset($workers[$nextWorker]))
+        if(isset($nextWorker))
         {
-            return $workers[$nextWorker];
+            print_r($nextWorkerKey);
+            return $nextWorker;
         }
         return false;
     }

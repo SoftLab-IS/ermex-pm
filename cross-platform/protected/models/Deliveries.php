@@ -133,6 +133,6 @@ class Deliveries extends CActiveRecord
 
     public function getFullName()
     {
-        return $this->currentWorker->realName . ' ' . $this->currentWorker->realSurname;
+        return $this->author->realName . ' ' . $this->author->realSurname;
     }
 }
