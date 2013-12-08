@@ -60,6 +60,7 @@ class Order extends CActiveRecord
 		return array(
 			'wo' => array(self::BELONGS_TO, 'WorkAccounts', 'woId'),
 			'de' => array(self::BELONGS_TO, 'Deliveries', 'deId'),
+
 		);
 	}
 
@@ -70,14 +71,14 @@ class Order extends CActiveRecord
 	{
 		return array(
 			'orderId' => 'Order',
-			'title' => 'Title',
-			'description' => 'Description',
-			'price' => 'Price',
-			'amount' => 'Amount',
+			'title' => 'Naziv',
+			'description' => 'Opis',
+			'price' => 'Cijena',
+			'amount' => 'Količina',
 			'woId' => 'Wo',
 			'deId' => 'De',
-			'measurementUnit' => 'Measurement Unit',
-			'totalePrice' => 'Totale Price',
+			'measurementUnit' => 'Mjerna jedinica',
+			'totalePrice' => 'Ukupna cijena',
 			'pdv' => 'Pdv',
 			'done' => 'Done',
 		);

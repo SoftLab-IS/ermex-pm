@@ -23,47 +23,32 @@
 
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
-        'id' => 'work-accounts-grid',
+        'id' => 'order-grid',
         'dataProvider' => $dataProvider,
         'emptyText' => 'Trenutno nema dostupnih proizvoda.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} prozivod(a).',
         'columns' =>
             array(
                 array(
-                    'value' => 'CHtml::checkBox("workAccountId[]",null,array("value"=>$data->woId,"id"=>"cid_".$data->woId))',
+                    'value' => 'CHtml::checkBox("orderId[]",null,array("value"=>$data->woId,"id"=>"cid_".$data->woId))',
                     'type' => 'raw',
                 ),
                 array(
-                    'header' => 'R. broj',
+                    'header' => '#',
                     'value' => '$row + 1',
                 ),
                 array(
-                    'name' => 'workAccountSerial',
-                    'value' => 'CHtml::link("$data->workAccountSerial", array("proizvodi/otvori", "id" => $data->woId))',
+                    'name' => 'wo.workAccountSerial',
+//                    'value'=>'$data->wo->workAccountSerial',
+
+                    'value' => 'CHtml::link(WorkAccounts::model()->findByPk($data->woId)->workAccountSerial, array("radniNalozi/view", "id" => $data->woId))',
                     'type' => 'raw',
                 ),
-                'name',
-                'payeeName',
-                array(
-                    'name' => 'creationDate',
-                    'value' => 'date(\'d.m.Y\', $data->creationDate)',
-                ),
-                array(
-                    'name' => 'deadlineDate',
-                    'value' => 'date(\'d.m.Y\', $data->deadlineDate)',
-                ),
-                array(
-                    'name' => 'invalid',
-                    'value' => '($data->invalid == 0) ? "Ne" : "Da"',
-                ),
-                array(
-                    'name' => 'reconciled',
-                    'value' => '($data->reconciled == 0) ? "Ne" : "Da"',
-                ),
-
-                array(
-                    'class' => 'CButtonColumn',
-                ),
+                'title',
+                'description',
+                'price',
+                'amount',
+                'measurementUnit',
             ),
     ));
 ?>
