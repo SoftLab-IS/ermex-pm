@@ -1,15 +1,12 @@
 <?php
-/* @var $this MaterijaliController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Materials',
-);
-
-$this->menu=array(
-	array('label'=>'Create Materials', 'url'=>array('create')),
-	array('label'=>'Manage Materials', 'url'=>array('admin')),
-);
+/**
+ * View za prikaz materijala
+ *
+ * @author Aleksndar Panic
+ *
+ * @var $this MaterijaliController Kontroler materijala.
+ * @var $dataProvider CActiveDataProvider Data Provider za materijale.
+ */
 ?>
 
 <header class="clearfix">
@@ -24,7 +21,24 @@ $this->menu=array(
     </div>
 </header>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php 
+$this->widget('zii.widgets.grid.CGridView', 
+array(
+    'id'=>'materials-grid',
+    'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
+    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} stavke.',
+    'dataProvider' => $dataProvider,
+    'columns'=>array(
+         array(
+            'header' => '#',
+            'value'  => '$row + 1',
+         ),
+        'name',
+        'description',
+        array(
+            'name' => 'amount',
+            'value' => '$data->amount . " " . $data->dimensionUnit',
+        ),
+    ),
+)); 
+?>

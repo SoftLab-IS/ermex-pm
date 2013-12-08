@@ -208,7 +208,7 @@ class WorkAccounts extends CActiveRecord
 			'payeeName' => 'Naručilac',
 			'payeeContactInfo' => 'Kontakt Informacije',
 			'creationDate' => 'Datum Kreiranja',
-			'deadlineDate' => 'Datum Roka',
+			'deadlineDate' => 'Rok izrade',
 			'note' => 'Napomena',
 			'additional' => 'Dodatne Informacije',
 			'invalid' => 'Stornirano',

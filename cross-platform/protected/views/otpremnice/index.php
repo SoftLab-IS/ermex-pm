@@ -46,34 +46,16 @@ $form = $this->beginWidget('CActiveForm',
                     'type' => 'raw',
                 ),
                 array(
-                    'header' => '',
+                    'header' => '#',
                     'value' => '$row + 1',
                 ),
                 array(
                     'name'=>'deliveryDate',
                     'value'=>'date("d.m.Y.", $data->deliveryDate)',
                 ),
-                'price',
-                'note',
-                array(
-                    'name' => 'payType',
-                    'value' => '($data->payType == 0) ? "Gotovina" : "Virman"',
-                ),
-                array(
-                    'name' => 'reconciled',
-                    'value' => '($data->reconciled == 0) ? "Ne" : "Da"',
-                ),
-                array(
-                    'name' => 'invalid',
-                    'value' => '($data->invalid == 0) ? "Ne" : "Da"',
-                ),
                 array(
                     'name'=>'authorId',
                     'value'=>'$data->author->realName. " " .$data->author->realSurname',
-                ),
-                array(
-                    'name'=>'workAccountId',
-                    'value'=>'$data->workAccount->workAccountSerial',
                 ),
             ),
     ));
