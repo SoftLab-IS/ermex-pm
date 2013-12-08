@@ -18,8 +18,8 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'materials-grid',
     'dataProvider'=> $dataProvider,
-    'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
-    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} radnih naloga.',
+    'emptyText' => 'Trenutno nema dostupnih materijala.',
+    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} materijala.',
     'columns' =>
         array(
             array(
