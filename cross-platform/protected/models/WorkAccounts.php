@@ -204,16 +204,16 @@ class WorkAccounts extends CActiveRecord
 	{
 		return array(
 			'woId' =>'Br.',
-			'workAccountSerial' => 'Serijski Broj',
+			'workAccountSerial' => 'Broj',
 			'payeeName' => 'Naručilac',
-			'payeeContactInfo' => 'Kontakt Informacije',
-			'creationDate' => 'Datum Kreiranja',
-			'deadlineDate' => 'Datum Roka',
+			'payeeContactInfo' => 'Kontakt informacije',
+			'creationDate' => 'Datum kreiranja',
+			'deadlineDate' => 'Datum isporuke',
 			'note' => 'Napomena',
-			'additional' => 'Dodatne Informacije',
+			'additional' => 'Dodatne informacije',
 			'invalid' => 'Stornirano',
 			'reconciled' => 'Zaključeno',
-			'authorId' => 'Nalog sastavio',
+			'authorId' => 'Nalog napravio',
 			'reconciledId' => 'Nalog zaključio',
             'usersList' => 'Lista radnika',
             'reviewdId' => 'Kontrolor',
@@ -270,4 +270,11 @@ class WorkAccounts extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getFullName()
+    {
+        return $this->currentWorker->realName . ' ' . $this->currentWorker->realSurname;
+    }
+
+
 }

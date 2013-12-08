@@ -1,15 +1,6 @@
 <?php
 /* @var $this MaterijaliController */
 /* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Materials',
-);
-
-$this->menu=array(
-	array('label'=>'Create Materials', 'url'=>array('create')),
-	array('label'=>'Manage Materials', 'url'=>array('admin')),
-);
 ?>
 
 <header class="clearfix">
@@ -18,13 +9,29 @@ $this->menu=array(
     <div class="button-bar large-7 columns context-options">
         <div>
             <ul class="button-group">
-                <li><?php echo CHtml::link('Dodaj stavku', array('materijal/create'), array('class' => 'button small')); ?>
+                <li><?php echo CHtml::link('Dodaj stavku', array('materijali/create'), array('class' => 'button small')); ?>
             </ul>
         </div>
     </div>
 </header>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+    'id'=>'materials-grid',
+    'dataProvider'=> $dataProvider,
+    'emptyText' => 'Trenutno nema dostupnih materijala.',
+    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} materijala.',
+    'columns' =>
+        array(
+            array(
+                'header' => '#',
+                'value'  => '$row + 1',
+            ),
+            'name',
+            'amount',
+            'dimensionUnit',
+            array(
+                'class'=>'CButtonColumn',
+                'template' => '{update}{delete}'
+            ),
+        ),
 )); ?>

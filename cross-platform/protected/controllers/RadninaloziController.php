@@ -92,13 +92,13 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe);$i+=5)
+                    for($i=0;$i<count($narudzbe),$narudzbe[$i]['title'];$i+=5)
                     {
                         $order = new Order();
                         $order->title = $narudzbe[$i]['title'];
-                        $order->amount = $narudzbe[$i+1]['amount'];
+                        $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
                         $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                        $order->price = $narudzbe[$i+3]['price'];
+                        $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
                         $order->description = $narudzbe[$i+4]['description'];
                         $order->woId = $model->woId;
                         $order->deId =NULL;
@@ -115,7 +115,7 @@ class RadninaloziController extends Controller
                     {
                         $material = new UsedMaterials();
                         $material->materialId = $materijali[$i]['maId'];
-                        $material->amount = $materijali[$i+1]['amount'];
+                        $material->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
                         $material->workAccountId = $model->woId;
 
                         if(!$material->save())

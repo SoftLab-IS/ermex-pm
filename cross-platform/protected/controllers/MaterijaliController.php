@@ -69,9 +69,11 @@ class MaterijaliController extends Controller
 
 		if(isset($_POST['Materials']))
 		{
-			$model->attributes=$_POST['Materials'];
+			$model->attributes = $_POST['Materials'];
+            $model->enterDate = time();
+            $model->description = $model->name;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->maId));
+				$this->redirect(array('index'));
 		}
 
 		$this->render('create',array(

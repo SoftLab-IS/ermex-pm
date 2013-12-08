@@ -74,9 +74,15 @@
             								'label' => 'Materijal', 
             								'url' => array('/materijali/index')
             								),
+                                                      array(
+                                                            'label' => 'Korisnici', 
+                                                            'url' => array('/korisnici/index'),
+                                                            'visible' => (Yii::app()->session['level'] == 3)
+                                                            ),
             							array(
-            								'label' => 'Logout (' . Yii::app()->user->name . ')', 
-            								'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest
+            								'label' => 'Odjava (' . Yii::app()->user->name . ')', 
+            								'url' => array('/site/logout'), 
+                                                            'visible' => !Yii::app()->user->isGuest
             								),
             							),
             							)); 
