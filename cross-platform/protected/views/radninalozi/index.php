@@ -58,10 +58,6 @@ $form = $this->beginWidget('CActiveForm',
          ),
          'payeeName',
          array(
-             'name' => 'creationDate',
-             'value'  => 'date(\'d.m.Y\', $data->creationDate)',
-         ),
-         array(
              'name' => 'deadlineDate',
              'value'  => 'date(\'d.m.Y\', $data->deadlineDate)',
          ),

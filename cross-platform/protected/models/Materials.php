@@ -81,7 +81,7 @@ class Materials extends CActiveRecord
 			'description' => 'Opis',
 			'amount' => 'Količina',
 			'enterDate' => 'Datum Unosa',
-			'dimensionUnit' => 'Dimenzija',
+			'dimensionUnit' => 'Mjerna jedinica',
 		);
 	}
 
