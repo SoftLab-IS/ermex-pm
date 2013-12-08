@@ -42,7 +42,7 @@ class Deliveries extends CActiveRecord
 			array('deliveryDate, price, note, payType, authorId, deliverySerial', 'required'),
 			array('payType, reconciled, invalid, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
-            array('peyeeName', 'lenght', 'max'=>255),
+            array('peyeeName', 'length', 'max'=>255),
 			array('deliveryDate', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
