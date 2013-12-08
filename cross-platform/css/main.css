@@ -68,11 +68,11 @@ video {
  * Remove default fieldset styles.
  */
 
-fieldset {
+/*fieldset {
     border: 0;
     margin: 0;
     padding: 0;
-}
+}*/
 
 /*
  * Allow only vertical resizing of textareas.
@@ -185,6 +185,21 @@ h2 {
     padding: 20px;
     color: #ccc;
 }
+
+/* FORM */
+
+.form .note {
+    font-size: 0.8rem;
+}
+
+fieldset {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+    fieldset.no-margin {
+        margin-left: 0;
+        margin-right: 0;
+    }
 
 /* ==========================================================================
    System login

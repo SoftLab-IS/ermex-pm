@@ -67,10 +67,18 @@ $form = $this->beginWidget('CActiveForm',
          ),
          array(
             'header' => 'Sledeći Radnik',
-            'value'  => '$data->workers[0]->user->realName . " " . $data->workers[0]->user->realSurname'
+            'value'  => ''
          ),
 
          array(
+<<<<<<< HEAD
+=======
+            'header' => 'Završeno?',
+            'value'  => '',
+         ),
+
+         array(
+>>>>>>> f3310a46f86d83a7fa13b68f51387ef7b9886c35
            'class'=>'CButtonColumn',
          ),
        ),

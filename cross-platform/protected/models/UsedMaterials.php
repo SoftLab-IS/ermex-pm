@@ -100,4 +100,11 @@ class UsedMaterials extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function afterSave()
+    {
+        $materials = Materials::model()->findByAttributes(array('maId' => $this->materialId));
+        $materials->amount = $materials->amount - $this->amount;
+        $materials->update();
+    }
 }
