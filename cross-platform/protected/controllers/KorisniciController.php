@@ -9,7 +9,7 @@ class KorisniciController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -20,23 +20,21 @@ class KorisniciController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
+		$access = array();
+
+		if (Yii::app()->session['level'] == 3)
+		{
+			$access[] = array('allow',
+					'actions' => array('index','view', 'create', 'update', 'delete'),
+					'users' => array('@'),
+			);
+		}
+
+		$access[] = array('deny',
+			'users' => array('*'),
 		);
+
+		return $access;
 	}
 
 	/**
@@ -56,16 +54,20 @@ class KorisniciController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Users;
+		$model = new Users('register');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Users']))
 		{
-			$model->attributes=$_POST['Users'];
+			$model->attributes = $_POST['Users'];
+
+			$model->registerDate = mktime();
+			$model->password = md5($model->password);
+
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->usId));
+				$this->redirect(array('view','id' => $model->usId));
 		}
 
 		$this->render('create',array(
@@ -80,20 +82,25 @@ class KorisniciController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$model = $this->loadModel($id);
 
 		if(isset($_POST['Users']))
 		{
-			$model->attributes=$_POST['Users'];
+			$password = $model->password;
+
+			$model->attributes = $_POST['Users'];
+
+			if ($model->password == "")
+				$model->password = $password;
+			else
+				$model->password = md5($model->password);
+
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->usId));
+				$this->redirect(array('view','id' => $model->usId));
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -106,9 +113,8 @@ class KorisniciController extends Controller
 	{
 		$this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
@@ -116,9 +122,9 @@ class KorisniciController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Users');
+		$dataProvider = new CActiveDataProvider('Users');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider' => $dataProvider,
 		));
 	}
 
