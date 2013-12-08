@@ -47,9 +47,11 @@ class RadninaloziController extends Controller
 	{
 		$model = WorkAccounts::model()->findByPk($id);
 		$usersList = $this->showWorkers($model->usersList);
+		$usedMaterials = UsedMaterials::model()->findAllByAttributes(array('workAccountId' => $id));
 		$this->render('view',array(
 			'model'=>  $model,
 			'usersList' => $usersList,
+			'usedMaterials' => $usedMaterials,
 		));
 	}
 
@@ -203,13 +205,19 @@ class RadninaloziController extends Controller
             {
                 foreach($safePks as $safePk)
                 {
-                    WorkAccounts::model()->updateByPk($safePk,
-                    array(
-                        'currentUser' => WorkAccounts::model()->getNextWorker($safePk)
-                    ));
-                    //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
+                    $model = WorkAccounts::model()->findByPk($safePk);
+                    $nextWorker = $model->getNextWorker($safePk);
 
-                }
+                    if($nextWorker)
+                    {
+                        $model->currentUser = $nextWorker;
+                        $model->update();
+                    }
+                    else
+                    {
+                        //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
+                    }
+                 }
             }
         }
 
