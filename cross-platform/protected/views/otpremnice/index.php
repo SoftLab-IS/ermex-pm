@@ -1,12 +1,10 @@
 <?php
-/* @var $this OtpremniceController */
-/* @var $dataProvider CActiveDataProvider */
-/* @autor Golub*/
-
-$this->menu=array(
-    array('label'=>'Create Deliveries', 'url'=>array('create')),
-    array('label'=>'Manage Deliveries', 'url'=>array('admin')),
-);
+/**
+ * View za prikaz liste otpremnica
+ *
+ * @author Ilija Tesic
+ *
+ */
 ?>
 
 <?php
@@ -46,34 +44,33 @@ $form = $this->beginWidget('CActiveForm',
                     'type' => 'raw',
                 ),
                 array(
-                    'header' => '',
+                    'header' => '#',
                     'value' => '$row + 1',
                 ),
                 array(
-                    'name'=>'deliveryDate',
-                    'value'=>'date("d.m.Y.", $data->deliveryDate)',
+                    'name' => 'deliverySerial',
+                    'value' => 'CHtml::link("$data->deliverySerial", array("otpremnice/view", "id" => $data->deId))',
+                    'type' => 'raw',
                 ),
-                'price',
-                'note',
+                array(
+                    'name'=>'peyeeName',
+                    'value'=>'$data->peyeeName',
+                ),
                 array(
                     'name' => 'payType',
                     'value' => '($data->payType == 0) ? "Gotovina" : "Virman"',
                 ),
                 array(
-                    'name' => 'reconciled',
-                    'value' => '($data->reconciled == 0) ? "Ne" : "Da"',
-                ),
-                array(
-                    'name' => 'invalid',
-                    'value' => '($data->invalid == 0) ? "Ne" : "Da"',
+                    'name'=>'deliveryDate',
+                    'value'=>'date("d.m.Y.", $data->deliveryDate)',
                 ),
                 array(
                     'name'=>'authorId',
                     'value'=>'$data->author->realName. " " .$data->author->realSurname',
                 ),
                 array(
-                    'name'=>'workAccountId',
-                    'value'=>'$data->workAccount->workAccountSerial',
+                    'class'=>'CButtonColumn',
+                    'template' => '{update}{delete}'
                 ),
             ),
     ));
