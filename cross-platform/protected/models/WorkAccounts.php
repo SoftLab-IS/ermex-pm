@@ -83,99 +83,21 @@ class WorkAccounts extends CActiveRecord
      *
      * @return WorkAccounts Reference to this model with set criteria
      */
-//    public function forUser($id)
-//    {
-//    	$id = (int)$id;
-//
-//    	$this->getDbCriteria()->mergeWith(array(
-//    		'together' => true,
-//    		'with' =>
-//    		array(
-//    			'workers' =>
-//    			array(
-//    				'with' => array('user'),
-//    				'alias' => 'wrk',
-//    				'condition' => "wrk.userId = $id AND (
-//    					wrk.position = (
-//    						SELECT MAX(position) + 1 FROM epm_workers
-//    						WHERE done = 1 AND workAccountId = wrk.workAccountId
-//    						)
-//		    			OR wrk.position = (
-//		    				SELECT position FROM epm_workers
-//		    				WHERE done = 1 AND workAccountId = wrk.workAccountId AND position = wrk.position
-//		    				)
-//    					OR wrk.position = 1)",
-//    				'joinType' => 'JOIN',
-//    			),
-//    		),
-//    		'alias' => 'wau',
-//    		'condition' => "wau.reconciled = 0",
-//    	));
-//
-//    	return $this;
-//    }
-
-
-//    /**
-//     * forAllUsers()
-//     *
-//     * Finds all work accounts which that user needs to do.
-//     *
-//     * @author Aleksandar Panic
-//     *
-//     * @return WorkAccounts Reference to this model with set criteria
-//     */
-//    public function forAllUsers()
-//    {
-//    	$this->getDbCriteria()->mergeWith(array(
-//    		'together' => true,
-//    		'with' =>
-//    		array(
-//    			'workers' =>
-//    			array(
-//    				'with' => array('user'),
-//    				'alias' => 'wrk',
-//    				'condition' => "(
-//    					wrk.position = (
-//    						SELECT position FROM epm_workers
-//    						WHERE done = 0 AND workAccountId = wrk.workAccountId LIMIT 1)
-//    				OR	wrk.position = (
-//    						SELECT MAX(position) FROM epm_workers
-//    						WHERE done = 1 AND workAccountId = wrk.workAccountId)
-//    			        )",
-//    				'joinType' => 'JOIN',
-//    			),
-//    		),
-//    		'alias' => 'wau',
-//    		'condition' => "wau.reconciled = 0",
-//    	));
-//
-//    	return $this;
-//    }
-
-    /**
-     * forAllUsers()
-     *
-     * Finds all work accounts which that user needs to do.
-     *
-     * @author Aleksandar Panic
-     *
-     * @return WorkAccounts Reference to this model with set criteria
-     */
-    public function forAllUsers()
+    public function forUser($id)
     {
-        $this->getDbCriteria()->mergeWith(array(
-            'together' => true,
-            'alias' => 'wau',
-            'with' =>
-                array(
-                    'order',
+    	$id = (int)$id;
 
-                ),
-            'condition' => "order.woId = wau.woId",
-        ));
+    	$this->getDbCriteria()->mergeWith(
+    	array(
+    		'with' => array('order'),
+    		'condition' => "{$this->tableAlias}.currentUser = :user AND {$this->tableAlias}.invalid = 0 AND {$this->tableAlias}.reconciled = 0",
+    		'params' =>
+    		array(
+    			':user' => $id
+    		),
+    	));
 
-        return $this;
+    	return $this;
     }
 
     /**
@@ -204,7 +126,7 @@ class WorkAccounts extends CActiveRecord
 	{
 		return array(
 			'woId' =>'Br.',
-			'workAccountSerial' => 'Broj',
+			'workAccountSerial' => 'Broj radnog naloga',
 			'payeeName' => 'Naručilac',
 			'payeeContactInfo' => 'Kontakt informacije',
 			'creationDate' => 'Datum kreiranja',
@@ -276,5 +198,15 @@ class WorkAccounts extends CActiveRecord
         return $this->currentWorker->realName . ' ' . $this->currentWorker->realSurname;
     }
 
+    public function getNextWorker($userId)
+    {
+        $workers = explode(',', $this->findByPk($userId)->usersList);
+        $nextWorker = array_search($this->currentUser, $workers)+1;
 
+        if(isset($workers[$nextWorker]))
+        {
+            return $workers[$nextWorker];
+        }
+        return false;
+    }
 }

@@ -45,8 +45,11 @@ class RadninaloziController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = WorkAccounts::model()->findByPk($id);
+		$usersList = $this->showWorkers($model->usersList);
 		$this->render('view',array(
-			'model'=> WorkAccounts::model()->with(array('author','reconciled0'))->findByPk($id),
+			'model'=>  $model,
+			'usersList' => $usersList,
 		));
 	}
 
@@ -68,11 +71,14 @@ class RadninaloziController extends Controller
 		{
 			$model->attributes = $_POST['WorkAccounts'];
             $datum = explode('.', $model->deadlineDate);
+
             $oldSerial = WorkAccounts::model()->lastSerial()->find();
+
             $model->workAccountSerial = ($oldSerial === null)? 'RN1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
             $model->creationDate = time();
             $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
             $model->authorId = Yii::app()->session['id'];
+
             if(isset($_POST['user']))
             {
                 $trenutniKorisnici = $_POST['user'];
@@ -89,20 +95,22 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe),$narudzbe[$i]['title'];$i+=5)
+                    for($i=0;$i<count($narudzbe);$i+=5)
                     {
-                        $order = new Order();
-                        $order->title = $narudzbe[$i]['title'];
-                        $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                        $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                        $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                        $order->description = $narudzbe[$i+4]['description'];
-                        $order->woId = $model->woId;
-                        $order->deId =NULL;
+                        if(isset($narudzbe[$i]['title']))
+                        {
+                            //TODO wrap in transaction
+                            $order = new Order();
+                            $order->title = $narudzbe[$i]['title'];
+                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                            $order->description = $narudzbe[$i+4]['description'];
+                            $order->woId = $model->woId;
+                            $order->deId =NULL;
 
-                        if(!$order->save());
-
-
+                            if(!$order->save());
+                        }
                     }
                 }
                 if(isset($_POST['Materials']))
@@ -115,7 +123,8 @@ class RadninaloziController extends Controller
                         $material->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
                         $material->workAccountId = $model->woId;
 
-                        if(!$material->save());
+                        if(!$material->save())
+							echo "nije dobro!";
                     }
                 }
             }
@@ -190,31 +199,28 @@ class RadninaloziController extends Controller
                     array(
                          'reconciled' => '1'
                     ));
-            
+            else if (isset($_POST['zavrsiOdabrane']))
+            {
+                foreach($safePks as $safePk)
+                {
+                    WorkAccounts::model()->updateByPk($safePk,
+                    array(
+                        'currentUser' => WorkAccounts::model()->getNextWorker($safePk)
+                    ));
+                    //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
+
+                }
+            }
+//
         }
 
-//        if (Yii::app()->session['level'] < 2)
-//			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
-//		else
-			$data = new CActiveDataProvider(WorkAccounts::model()->forAllUsers());
+        if (Yii::app()->session['level'] < 2)
+			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
+		else
+			$data = new CActiveDataProvider(WorkAccounts::model());
 
 		$this->render('index',array(
 			'dataProvider'=> $data,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new WorkAccounts('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['WorkAccounts']))
-			$model->attributes=$_GET['WorkAccounts'];
-
-		$this->render('admin',array(
-			'model'=>$model,
 		));
 	}
 
@@ -249,12 +255,7 @@ class RadninaloziController extends Controller
 	 * Returns JSON object of founded material searched by name
 	 */
 	public function actionGetmaterial($name)
-	{
-			
-		//echo "This is just a test! Search term: ".$_POST['searchTerm'];
-		//echo "This is just a test! Search term: ".$name;
-		
-		
+	{	
 		if(Yii::app()->request->isAjaxRequest)
 		{
 			$material = Materials::model()->nameSearch($name);
@@ -288,6 +289,16 @@ class RadninaloziController extends Controller
 				));
 			}
 		}
+		
+	}
+
+	//Shows workets related to work account
+	public function showWorkers($list)
+	{
+		$indexes = explode(",", $list);
+		$users = Users::model()->findAllByPk($indexes);
+		
+		return $users;
 		
 	}
 	

@@ -129,21 +129,6 @@ class KorisniciController extends Controller
 	}
 
 	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Users('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Users']))
-			$model->attributes=$_GET['Users'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
