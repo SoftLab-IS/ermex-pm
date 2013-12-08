@@ -1,6 +1,12 @@
 <?php
-/* @var $this MaterijaliController */
-/* @var $dataProvider CActiveDataProvider */
+/**
+ * View za prikaz materijala
+ *
+ * @author Aleksndar Panic
+ *
+ * @var $this MaterijaliController Kontroler materijala.
+ * @var $dataProvider CActiveDataProvider Data Provider za materijale.
+ */
 ?>
 
 <header class="clearfix">
@@ -15,27 +21,24 @@
     </div>
 </header>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+$this->widget('zii.widgets.grid.CGridView', 
+array(
     'id'=>'materials-grid',
-    'dataProvider'=> $dataProvider,
     'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
-    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} radnih naloga.',
-    'columns' =>
+    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} stavke.',
+    'dataProvider' => $dataProvider,
+    'columns'=>array(
+         array(
+            'header' => '#',
+            'value'  => '$row + 1',
+         ),
+        'name',
+        'description',
         array(
-            array(
-                'header' => 'R. broj',
-                'value'  => '$row + 1',
-            ),
-            'name',
-            'description',
-            'amount',
-            'dimensionUnit',
-            array(
-                'name' => 'enterDate',
-                'value'  => 'date(\'d.m.Y\', $data->enterDate)',
-            ),
-            array(
-                'class'=>'CButtonColumn',
-            ),
+            'name' => 'amount',
+            'value' => '$data->amount . " " . $data->dimensionUnit',
         ),
-)); ?>
+    ),
+)); 
+?>

@@ -52,7 +52,7 @@ $form = $this->beginWidget('CActiveForm',
            'type' => 'raw',
          ),
          array(
-            'header' => 'R. broj',
+            'header' => '#',
             'value'  => '$row + 1',
          ),
          array(
@@ -60,36 +60,25 @@ $form = $this->beginWidget('CActiveForm',
              'value' => 'CHtml::link("$data->workAccountSerial", array("radniNalozi/view", "id" => $data->woId))',
              'type' => 'raw',
          ),
-         'name',
          'payeeName',
-         array(
-             'name' => 'creationDate',
-             'value'  => 'date(\'d.m.Y\', $data->creationDate)',
-         ),
          array(
              'name' => 'deadlineDate',
              'value'  => 'date(\'d.m.Y\', $data->deadlineDate)',
          ),
-         array(
-             'name' => 'invalid',
-             'value' => '($data->invalid == 0) ? "Ne" : "Da"',
-         ),
-         array(
-             'name' => 'reconciled',
-             'value' => '($data->reconciled == 0) ? "Ne" : "Da"',
-         ),
-
          array(
             'header' => 'Sledeći Radnik',
             'value'  => ''
          ),
 
          array(
+<<<<<<< HEAD
+=======
             'header' => 'Završeno?',
             'value'  => '',
          ),
 
          array(
+>>>>>>> f3310a46f86d83a7fa13b68f51387ef7b9886c35
            'class'=>'CButtonColumn',
          ),
        ),
