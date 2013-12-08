@@ -2,11 +2,6 @@
 /* @var $this MaterijaliController */
 /* @var $model Materials */
 
-
-$this->menu=array(
-	array('label'=>'List Materials', 'url'=>array('index')),
-	array('label'=>'Manage Materials', 'url'=>array('admin')),
-);
 ?>
 
 <header>
