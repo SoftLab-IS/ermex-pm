@@ -47,9 +47,11 @@ class RadninaloziController extends Controller
 	{
 		$model = WorkAccounts::model()->findByPk($id);
 		$usersList = $this->showWorkers($model->usersList);
+		$usedMaterials = UsedMaterials::model()->findAllByAttributes(array('workAccountId' => $id));
 		$this->render('view',array(
 			'model'=>  $model,
 			'usersList' => $usersList,
+			'usedMaterials' => $usedMaterials,
 		));
 	}
 
