@@ -8,10 +8,6 @@
  * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
  */
 
-$this->menu=array(
-	array('label'=>'Create WorkAccounts', 'url'=>array('create')),
-	array('label'=>'Manage WorkAccounts', 'url'=>array('admin')),
-);
 ?>
 
 <?php
@@ -66,20 +62,12 @@ $form = $this->beginWidget('CActiveForm',
              'value'  => 'date(\'d.m.Y\', $data->deadlineDate)',
          ),
          array(
-            'header' => 'Sledeći Radnik',
+            'name' => 'currentUser',
             'value'  => ''
          ),
-
          array(
-<<<<<<< HEAD
-=======
-            'header' => 'Završeno?',
-            'value'  => '',
-         ),
-
-         array(
->>>>>>> f3310a46f86d83a7fa13b68f51387ef7b9886c35
-           'class'=>'CButtonColumn',
+             'class'=>'CButtonColumn',
+             'template' => '{update}{delete}'
          ),
        ),
     ));

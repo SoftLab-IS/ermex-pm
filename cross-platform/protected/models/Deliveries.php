@@ -70,7 +70,7 @@ class Deliveries extends CActiveRecord
 	{
 		return array(
 			'deId' => 'De',
-			'deliveryDate' => 'Datum dostave',
+			'deliveryDate' => 'Datum otpremanja',
 			'price' => 'Cijena',
 			'note' => 'Napomena',
 			'payType' => 'Način plaćanja',
@@ -80,7 +80,7 @@ class Deliveries extends CActiveRecord
             'reconciledId' => 'Zaključio',
             'peyeeName' => 'Naručilac',
             'peyeeContactInfo' => 'Kontakt informacije naručioca',
-            'deliverySerial' => 'Serijski broj',
+            'deliverySerial' => 'Broj',
 		);
 	}
 

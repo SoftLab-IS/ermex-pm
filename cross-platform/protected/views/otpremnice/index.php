@@ -1,12 +1,10 @@
 <?php
-/* @var $this OtpremniceController */
-/* @var $dataProvider CActiveDataProvider */
-/* @autor Golub*/
-
-$this->menu=array(
-    array('label'=>'Create Deliveries', 'url'=>array('create')),
-    array('label'=>'Manage Deliveries', 'url'=>array('admin')),
-);
+/**
+ * View za prikaz liste otpremnica
+ *
+ * @author Ilija Tesic
+ *
+ */
 ?>
 
 <?php
@@ -50,12 +48,29 @@ $form = $this->beginWidget('CActiveForm',
                     'value' => '$row + 1',
                 ),
                 array(
+                    'name' => 'deliverySerial',
+                    'value' => 'CHtml::link("$data->deliverySerial", array("otpremnice/view", "id" => $data->deId))',
+                    'type' => 'raw',
+                ),
+                array(
+                    'name'=>'peyeeName',
+                    'value'=>'$data->peyeeName',
+                ),
+                array(
+                    'name' => 'payType',
+                    'value' => '($data->payType == 0) ? "Gotovina" : "Virman"',
+                ),
+                array(
                     'name'=>'deliveryDate',
                     'value'=>'date("d.m.Y.", $data->deliveryDate)',
                 ),
                 array(
                     'name'=>'authorId',
                     'value'=>'$data->author->realName. " " .$data->author->realSurname',
+                ),
+                array(
+                    'class'=>'CButtonColumn',
+                    'template' => '{update}{delete}'
                 ),
             ),
     ));
