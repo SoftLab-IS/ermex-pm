@@ -23,19 +23,15 @@
     'columns' =>
         array(
             array(
-                'header' => 'R. broj',
+                'header' => '#',
                 'value'  => '$row + 1',
             ),
             'name',
-            'description',
             'amount',
             'dimensionUnit',
             array(
-                'name' => 'enterDate',
-                'value'  => 'date(\'d.m.Y\', $data->enterDate)',
-            ),
-            array(
                 'class'=>'CButtonColumn',
+                'template' => '{update}{delete}'
             ),
         ),
 )); ?>
