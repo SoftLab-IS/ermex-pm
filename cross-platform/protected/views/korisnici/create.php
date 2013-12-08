@@ -1,18 +1,16 @@
 <?php
-/* @var $this KorisniciController */
-/* @var $model Users */
-
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
+/**
+ * View za dodavanje korisnika.
+ *
+ * @author Aleksandar Panic
+ *
+ * @var $this KorisniciController Kontroler radnih naloga.
+ * @var $model Users Model jednog korisnika.
+*/
 ?>
 
-<h1>Create Users</h1>
+<h1>Novi korisnik</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model' => $model)); ?>
+
+<?php echo CHtml::link('Svi korisnici', array('korisnici/index')); ?>

@@ -1,33 +1,33 @@
 <?php
-/* @var $this KorisniciController */
-/* @var $model Users */
-
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->usId,
-);
-
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Update Users', 'url'=>array('update', 'id'=>$model->usId)),
-	array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->usId),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
+/**
+ * View za prikaz jednog korisnika.
+ *
+ * @author Aleksandar Panic
+ *
+ * @var $this KorisniciController Kontroler radnih naloga.
+ * @var $model Users Model jednog korisnika.
+ */
 ?>
 
-<h1>View Users #<?php echo $model->usId; ?></h1>
+<h1>Korisnik: <?php echo $model->realName . " " . $model->realSurname; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('zii.widgets.CDetailView', 
+array(
 	'data'=>$model,
-	'attributes'=>array(
-		'usId',
+	'attributes'=>
+	array(
 		'username',
-		'password',
-		'realName',
-		'realSurname',
-		'registerDate',
-		'isLoggedBy',
-		'privilegeLevel',
+		array(
+			'name' => 'Puno ime',
+			'value' => $model->realName . ' ' . $model->realSurname,
+		),
+		array(
+			'name' => 'registerDate',
+			'value' => date("d.m.Y \u H:i:s", $model->registerDate)
+		),
 	),
-)); ?>
+)); 
+?>
+
+<?php echo CHtml::link('Izmjeni Korisnika', array('korisnici/update', 'id' => $model->usId)); ?> | 
+<?php echo CHtml::link('Svi korisnici', array('korisnici/index')); ?>
