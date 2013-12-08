@@ -21,12 +21,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'deliveryDate'); ?>
-		<?php echo $form->textField($model,'deliveryDate',array('size'=>21,'maxlength'=>21)); ?>
-		<?php echo $form->error($model,'deliveryDate'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'price'); ?>
 		<?php echo $form->textField($model,'price'); ?>
 		<?php echo $form->error($model,'price'); ?>
@@ -45,27 +39,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'reconciled'); ?>
-		<?php echo $form->textField($model,'reconciled'); ?>
-		<?php echo $form->error($model,'reconciled'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'invalid'); ?>
-		<?php echo $form->textField($model,'invalid'); ?>
-		<?php echo $form->error($model,'invalid'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'authorId'); ?>
 		<?php echo $form->textField($model,'authorId'); ?>
 		<?php echo $form->error($model,'authorId'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'workAccountId'); ?>
-		<?php echo $form->textField($model,'workAccountId'); ?>
-		<?php echo $form->error($model,'workAccountId'); ?>
 	</div>
 
 	<div class="row buttons">

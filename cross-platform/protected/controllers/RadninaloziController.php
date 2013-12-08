@@ -71,11 +71,14 @@ class RadninaloziController extends Controller
 		{
 			$model->attributes = $_POST['WorkAccounts'];
             $datum = explode('.', $model->deadlineDate);
+
             $oldSerial = WorkAccounts::model()->lastSerial()->find();
+
             $model->workAccountSerial = ($oldSerial === null)? 'RN1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
             $model->creationDate = time();
             $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
             $model->authorId = Yii::app()->session['id'];
+
             if(isset($_POST['user']))
             {
                 $trenutniKorisnici = $_POST['user'];
@@ -197,28 +200,13 @@ class RadninaloziController extends Controller
             
         }
 
-//        if (Yii::app()->session['level'] < 2)
-//			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
-//		else
-			$data = new CActiveDataProvider(WorkAccounts::model()->forAllUsers());
+        if (Yii::app()->session['level'] < 2)
+			$data = new CActiveDataProvider(WorkAccounts::model()->forUser(Yii::app()->session['id']));
+		else
+			$data = new CActiveDataProvider(WorkAccounts::model());
 
 		$this->render('index',array(
 			'dataProvider'=> $data,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new WorkAccounts('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['WorkAccounts']))
-			$model->attributes=$_GET['WorkAccounts'];
-
-		$this->render('admin',array(
-			'model'=>$model,
 		));
 	}
 
@@ -253,12 +241,7 @@ class RadninaloziController extends Controller
 	 * Returns JSON object of founded material searched by name
 	 */
 	public function actionGetmaterial($name)
-	{
-			
-		//echo "This is just a test! Search term: ".$_POST['searchTerm'];
-		//echo "This is just a test! Search term: ".$name;
-		
-		
+	{	
 		if(Yii::app()->request->isAjaxRequest)
 		{
 			$material = Materials::model()->nameSearch($name);

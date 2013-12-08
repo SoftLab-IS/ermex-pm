@@ -33,11 +33,11 @@ class ProizvodiController extends Controller
 
 	public function actionIndex()
 	{
-        $dataProvider = new CActiveDataProvider('WorkAccounts',
+        $dataProvider = new CActiveDataProvider('Order',
         array(
            'criteria' =>
            array(
-              'condition'=>'reconciled = 1',
+              'condition'=>'done = 1',
            )
         ));
 
