@@ -15,9 +15,38 @@ $this->menu=array(
 	array('label'=>'Manage WorkAccounts', 'url'=>array('admin')),
 );
 ?>
+<section>
+	<h2>Prikaz radnog naloga br. <?php echo $model->woId; ?></h2>
+	<div class="clearfix">
+		<p><?php $model->workAccountSerial ?></p>
+		<div style="float:right;">
+			<p><?php echo date('d.m.Y.',$model->creationDate) ?></p>
+			<p><?php echo $model->author->realName ?></p>
+		</div>
+	</div>
+	<div class="clearfix">
+		<div class="columns large-7">
+			<h3 class="columns large-12"><?php echo $model->payeeName ?></h3>
+			<h3 class="columns large-12"><?php echo $model->payeeContactInfo ?></h3>
+		</div>
+		<div class="columns large-5">
+			<p class="columns large-12"> 
+				<?php foreach ($usersList as $user) 
+				{
+					echo $user->realName . " " . $user->realSurname . "<br/>";
+				} ?> 
+			</p>
+		</div>
+	</div>
+	
+	
+</section>
 
-<h2>Prikaz radnog naloga br. <?php echo $model->woId; ?></h2>
 
+
+
+
+<!--
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -54,3 +83,4 @@ $this->menu=array(
 		),
 	),
 )); ?>
+-->
