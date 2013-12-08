@@ -60,7 +60,10 @@ $this->menu=array(
 		<h2>Materijali: </h2>
 		<div class="columns large-12">
 			<ul>
-				<?php var_dump($model); ?>
+				<?php foreach ($usedMaterials as $material) 
+				{
+					echo "<li>" . Materials::model()->findByPk($material->materialId)->name .", količina:  ". $material->amount . "</li>";	
+				} ?>
 				
 			</ul>
 		</div>
