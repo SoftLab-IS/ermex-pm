@@ -1,8 +1,21 @@
 <?php
-/* @var $this RadniNaloziController */
-/* @var $model WorkAccounts */
-/* @var $form CActiveForm */
-/* @autor Golub*/
+/**
+ * Parcijalni view za pretragu radnih naloga
+ *
+ * @author Aleksndar Panic
+ *
+ * @var $this RadniNalozicontroller Kontroler radnih naloga.
+ * @var $model WorkAccounts Model za radne naloge.
+ * @var $form CActiveForm Forma za pretragu radnih naloga
+ */
+
+$userArray = array();
+
+$userArray['0'] = 'Nepoznato';
+
+foreach($users as $u)
+	$userArray[$u->usId] = $u->realName . ' ' . $u->realSurname;
+
 ?>
 
 <div class="wide form">
@@ -13,23 +26,8 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'woId'); ?>
-		<?php echo $form->textField($model,'woId'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'workAccountSerial'); ?>
 		<?php echo $form->textField($model,'workAccountSerial',array('size'=>60,'maxlength'=>90)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -38,33 +36,29 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'payeeContactPerson'); ?>
-		<?php echo $form->textField($model,'payeeContactPerson',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'payeeContactInfo'); ?>
-		<?php echo $form->textField($model,'payeeContactInfo',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'creationDate'); ?>
-		<?php echo $form->textField($model,'creationDate',array('size'=>21,'maxlength'=>21)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'deadlineDate'); ?>
-		<?php echo $form->textField($model,'deadlineDate',array('size'=>21,'maxlength'=>21)); ?>
-	</div>
+		<?php 
+			$this->widget('zii.widgets.jui.CJuiDatePicker',
+				array(
+                    'name' => 'WorkAccounts[deadlineDate]',
+                    'id' => 'WorkAccounts_deadlineDate',
+                    'options' => array(
+                        'showAnim' => 'fold',
+                        'dayNamesMin' =>  array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'),
+                        'dateFormat' => "dd.mm.yy",
+                        'firstDay' => 1,
+                        'monthNames' => array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
+                        'monthNamesShort' => array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
+                        'changeMonth' => true,
+                        'changeYear' => true
+                    ),
+                    'htmlOptions' => array(
+                        'style' => 'height:2.3125rem;',
+                    ),
+                    'value' => ($model->deadlineDate > 0) ? date("d.m.Y", $model->deadlineDate) : "",
+                ));
 
-	<div class="row">
-		<?php echo $form->label($model,'amount'); ?>
-		<?php echo $form->textField($model,'amount'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'price'); ?>
-		<?php echo $form->textField($model,'price'); ?>
+		?>
 	</div>
 
 	<div class="row">
@@ -79,31 +73,27 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'invalid'); ?>
-		<?php echo $form->textField($model,'invalid'); ?>
+		<?php echo $form->checkBox($model,'invalid'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'reconciled'); ?>
-		<?php echo $form->textField($model,'reconciled'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'payeeId'); ?>
-		<?php echo $form->textField($model,'payeeId'); ?>
+		<?php echo $form->checkBox($model,'reconciled'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'authorId'); ?>
-		<?php echo $form->textField($model,'authorId'); ?>
+		<?php echo $form->dropDownList($model,'authorId', $userArray); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'reconciledId'); ?>
-		<?php echo $form->textField($model,'reconciledId'); ?>
+		<?php echo $form->dropDownList($model,'reconciledId', $userArray); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton('Pretraži naloge'); ?>
+		<input type="reset" value="Očisti formular" />
 	</div>
 
 <?php $this->endWidget(); ?>

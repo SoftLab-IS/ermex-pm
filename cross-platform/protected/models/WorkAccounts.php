@@ -161,19 +161,19 @@ class WorkAccounts extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('woId',$this->woId);
-		$criteria->compare('workAccountSerial',$this->workAccountSerial,true);
-		$criteria->compare('payeeName',$this->payeeName,true);
-		$criteria->compare('payeeContactInfo',$this->payeeContactInfo,true);
-		$criteria->compare('creationDate',$this->creationDate,true);
-		$criteria->compare('deadlineDate',$this->deadlineDate,true);
-		$criteria->compare('note',$this->note,true);
-		$criteria->compare('additional',$this->additional,true);
-		$criteria->compare('invalid',$this->invalid);
-		$criteria->compare('reconciled',$this->reconciled);
-		$criteria->compare('authorId',$this->authorId);
-		$criteria->compare('reconciledId',$this->reconciledId);
-        $criteria->compare('usersList',$this->usersList);
+		$criteria->compare('woId', $this->woId);
+		$criteria->compare('workAccountSerial', $this->workAccountSerial, true);
+		$criteria->compare('payeeName', $this->payeeName, true);
+		$criteria->compare('payeeContactInfo', $this->payeeContactInfo, true);
+		$criteria->compare('creationDate >', $this->creationDate, false);
+		$criteria->compare('deadlineDate <', $this->deadlineDate, false);
+		$criteria->compare('note', $this->note, true);
+		$criteria->compare('additional', $this->additional, true);
+		$criteria->compare('invalid', $this->invalid);
+		$criteria->compare('reconciled', $this->reconciled);
+		$criteria->compare('authorId', $this->authorId);
+		$criteria->compare('reconciledId', $this->reconciledId);
+        $criteria->compare('usersList', $this->usersList);
         $criteria->compare('reviewdId', $this->reviewdId);
         $criteria->compare('currentUser', $this->currentUser);
 

@@ -8,14 +8,39 @@
  * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
  */
 
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+    $('.search-form').toggle();
+    return false;
+});
+$('.search-form form').submit(function(){
+    $('#deliveries-grid').yiiGridView('update', {
+        data: $(this).serialize()
+    });
+    return false;
+});
+");
+
+
+
 ?>
 
+
 <?php
+$this->renderPartial('_search',
+array(
+    'model' => $model,
+    'users' => $users,
+
+));
 $form = $this->beginWidget('CActiveForm',
     array(
         'id' => 'work-accounts-form',
     ));
 ?>
+
+
 
 <header class="clearfix">
     <h2 class="large-5 columns">Radni Nalozi</h2>
@@ -38,7 +63,8 @@ $form = $this->beginWidget('CActiveForm',
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
        'id'=>'work-accounts-grid',
-       'dataProvider'=> $dataProvider,
+       'dataProvider'=> $model->search(),
+       //'filter' => $model,
        'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
        'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} radnih naloga.',
        'columns' =>
