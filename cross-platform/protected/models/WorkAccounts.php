@@ -204,7 +204,7 @@ class WorkAccounts extends CActiveRecord
         $nextWorkerKey = array_search($this->currentUser, $workers)+1;
 
         //TODO ne radi ako ima ponavljanje usera u listi, krene svaki put od prvog
-        
+
         if(isset($workers[$nextWorkerKey]))
         {
             return $workers[$nextWorkerKey];
