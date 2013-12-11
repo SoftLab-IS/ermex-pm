@@ -41,7 +41,7 @@
                     'id'=>'WorkAccounts_deadlineDate',
                     // additional javascript options for the date picker plugin
                     'options'=>array(
-                        'showAnim'=>'fold',
+                        'showAnim'=>'fade',
                         'dayNamesMin'=> array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'),
                         'dateFormat'=>"dd.mm.yy",
                         'firstDay'=>1,
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="clearfix addOrder">
+        <div class="clearfix addOrder large-12 columns">
             <input type="button" value="Dodaj narudžbu" class="addO button small secondary"/>
         </div>
 
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="clearfix add-materials">
+        <div class="clearfix add-materials large-12 columns">
             <input type="button" value="Dodaj material" class="btn-add-material button small secondary"/>
         </div>
     </fieldset>
@@ -145,8 +145,8 @@
         </div>
     </div>
 
-    <div class="clearfix buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj' : 'Sačuvaj'); ?>
+    <div class="clearfix buttons text-center">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj radni nalog' : 'Sačuvaj radni nalog', array('class' => 'button small')); ?>
 	</div>
 
 	

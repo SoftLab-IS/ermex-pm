@@ -79,8 +79,8 @@ class Deliveries extends CActiveRecord
 			'authorId' => 'Autor',
             'reconciledId' => 'Zaključio',
             'peyeeName' => 'Naručilac',
-            'peyeeContactInfo' => 'Kontakt informacije naručioca',
-            'deliverySerial' => 'Broj',
+            'peyeeContactInfo' => 'Podaci o naručiocu',
+            'deliverySerial' => 'Broj otpremnice',
 		);
 	}
 

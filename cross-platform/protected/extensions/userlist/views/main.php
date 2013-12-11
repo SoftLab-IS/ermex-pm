@@ -11,7 +11,7 @@
 ?>
 
 <select id="select-workers">
-<?php foreach($users as $u): ?>
-<option value="<?php echo $u->usId; ?>" <?php echo ($u->usId == $selected) ? "selected" : ""; ?>><?php echo $u->realName . ' ' . $u->realSurname; ?></option>
-<?php endforeach; ?>
+    <?php foreach($users as $u): ?>
+        <option value="<?php echo $u->usId; ?>" <?php echo ($u->usId == $selected) ? "selected" : ""; ?>><?php echo $u->realName . ' ' . $u->realSurname; ?></option>
+    <?php endforeach; ?>
 </select>
