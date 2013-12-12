@@ -24,7 +24,7 @@
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
         'id' => 'order-grid',
-        'dataProvider' => $dataProvider,
+        'dataProvider' => $model->search(),
         'emptyText' => 'Trenutno nema dostupnih proizvoda.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} prozivod(a).',
         'rowCssClassExpression' => '

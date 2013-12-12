@@ -33,11 +33,11 @@ class ProizvodiController extends Controller
 
 	public function actionIndex()
 	{
-        $dataProvider = new CActiveDataProvider(Order::model()->findByAttributes(array('done' => 1)));
+        $model = Order::model()->findByAttributes(array('done' => 1));
 
 		$this->render('index',
         array(
-          'dataProvider' => $dataProvider,
+          'model' => $model,
         ));
 	}
 
