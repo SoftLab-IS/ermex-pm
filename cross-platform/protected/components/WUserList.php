@@ -15,6 +15,11 @@
  	**/
  	public $selectedUserId = -1;
 
+    /**
+     *  @var integer $selectedPrivilegeLevel Privilege level of the user to which others will be offset.
+    **/
+    public $selectedPrivilegeLevel = -1;   
+
 	/**
 	 * Main Widget Run function
 	 *
@@ -25,8 +30,9 @@
  	{
  		$this->render('main', 
  		array(
- 			'users' => Users::model()->exceptNonActive()->findAll(),
+ 			'users' => Users::model()->onlyActive()->findAll(),
  			'selected' => $this->selectedUserId,
+            'selectedPL' => $this->selectedPrivilegeLevel,
  		));
  	}
  }

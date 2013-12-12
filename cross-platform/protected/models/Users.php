@@ -53,7 +53,7 @@ class Users extends CActiveRecord
 	public function scopes()
 	{
 		return array(
-			'exceptNonActive' =>
+			'onlyActive' =>
 			array(
 				'condition' => $this->tableAlias . '.privilegeLevel > 0',
 			),

@@ -7,23 +7,6 @@
  * @var $this RadniNalozicontroller Kontroler radnih naloga.
  * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
  */
-
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-    $('.search-form').toggle();
-    return false;
-});
-$('.search-form form').submit(function(){
-    $('#deliveries-grid').yiiGridView('update', {
-        data: $(this).serialize()
-    });
-    return false;
-});
-");
-
-
-
 ?>
 
 
@@ -67,6 +50,11 @@ $form = $this->beginWidget('CActiveForm',
        //'filter' => $model,
        'emptyText' => 'Trenutno nema dostupnih radnih naloga.',
        'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} radnih naloga.',
+       'rowCssClassExpression' => '
+        (($row % 2) ? $this->rowCssClass[1] : $this->rowCssClass[0]) .
+        (($data->reconciled == 1) ? " reconciled-item" : "") .
+        (($data->invalid == 1) ? " invalid-item" : "")
+       ',
        'columns' =>
        array(
          array(
