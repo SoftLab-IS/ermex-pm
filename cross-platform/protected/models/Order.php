@@ -112,7 +112,7 @@ class Order extends CActiveRecord
 		$criteria->compare('measurementUnit',$this->measurementUnit,true);
 		$criteria->compare('totalePrice',$this->totalePrice);
 		$criteria->compare('pdv',$this->pdv,true);
-		$criteria->compare('done',$this->done);
+		$criteria->compare('done',1);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
