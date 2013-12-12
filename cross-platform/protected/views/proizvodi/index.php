@@ -7,6 +7,14 @@
  * @var $this ProizvodiController Kontroler proizvoda.
  * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
  */
+
+$form = $this->beginWidget('CActiveForm',
+    array(
+        'id' => 'proizvodi-form',
+        'action' => array( '/otpremnice/create' ),
+    ));
+
+
 ?>
 
     <header class="clearfix">
@@ -15,7 +23,7 @@
         <div class="button-bar large-7 columns context-options">
             <div>
                 <ul class="button-group">
-                    <li><a class="button small" href="#">Otpremi proizvode</a></li>
+                    <li><?php echo CHtml::submitButton('Otpremi proizvode', array('name' => 'otpremiProizvode', 'class' => 'button secondary small')); ?></li>
                 </ul>
             </div>
         </div>
@@ -34,7 +42,7 @@
         'columns' =>
             array(
                 array(
-                    'value' => 'CHtml::checkBox("orderId[]",null,array("value"=>$data->woId,"id"=>"cid_".$data->woId))',
+                    'value' => 'CHtml::checkBox("orderId[]",null,array("value"=>$data->orderId,"id"=>"cid_".$data->woId))',
                     'type' => 'raw',
                 ),
                 array(
@@ -56,3 +64,4 @@
             ),
     ));
 ?>
+<?php $this->endWidget(); ?>

@@ -41,7 +41,32 @@
 
     <fieldset>
         <legend>Proizvodi</legend>
-
+        <?php if($orders): ?>
+            <?php foreach($orders as $order): ?>
+                    <div class="clearfix oneOrder">
+                        <div class="large-9 columns">
+                            <label>Naziv</label>
+                            <input type="text" name="Order[][title]" value="<?php echo $order->title; ?>"/>
+                        </div>
+                        <div class="large-1 columns">
+                            <label>Količina</label>
+                            <input type="text" name="Order[][amount]" value="<?php echo $order->amount; ?>"/>
+                        </div>
+                        <div class="large-1 columns">
+                            <label>Mjera</label>
+                            <input type="text" name="Order[][measurementUnit]" value="<?php echo $order->measurementUnit; ?>"/>
+                        </div>
+                        <div class="large-1 columns">
+                            <label>Cijena</label>
+                            <input type="text" name="Order[][price]" value="<?php echo $order->price; ?>"/>
+                        </div>
+                        <div class="large-12 columns">
+                            <label>Opis</label>
+                            <textarea name="Order[][description]"><?php echo $order->description; ?></textarea>
+                        </div>
+                    </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
         <div class="clearfix addOrder large-12 columns">
             <input type="button" value="Dodaj postojeći proizvod" class="button small"/>

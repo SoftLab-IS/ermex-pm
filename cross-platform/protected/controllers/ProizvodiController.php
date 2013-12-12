@@ -33,7 +33,7 @@ class ProizvodiController extends Controller
 
 	public function actionIndex()
 	{
-        $model = Order::model()->findByAttributes(array('done' => 1));
+        $model = new Order("search");
 
 		$this->render('index',
         array(

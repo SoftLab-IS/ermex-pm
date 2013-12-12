@@ -84,7 +84,9 @@ $form = $this->beginWidget('CActiveForm',
          ),
          array(
              'class'=>'CButtonColumn',
-             'template' => '{update}{delete}'
+             'template' => '{update}{delete}',
+             'deleteConfirmation' => 'Jeste li sigurni da želite stornirati ovaj nalog?',
+             'afterDelete'=>'function(link, success, data){ if(success) alert("Uspješno ste stornirali ovaj nalog."); }',
          ),
        ),
     ));

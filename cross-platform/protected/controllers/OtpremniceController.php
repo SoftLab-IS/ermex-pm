@@ -60,6 +60,19 @@ class OtpremniceController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+        if(isset($_POST['orderId']))
+        {
+            $orderId = array();
+            foreach($_POST['orderId'] as $i)
+            {
+                array_push($orderId,$i);
+            }
+            $orders = Order::model()->findAllByPk($orderId);
+        }
+        else
+        {
+            $orders = null;
+        }
 
 		if(isset($_POST['Deliveries']))
 		{
@@ -70,6 +83,7 @@ class OtpremniceController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+            'orders' =>$orders,
 		));
 	}
 
@@ -150,6 +164,9 @@ class OtpremniceController extends Controller
 
         $dataProvider = new CActiveDataProvider(Deliveries::model(), array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
         ));
 
         $this->render('index',array(

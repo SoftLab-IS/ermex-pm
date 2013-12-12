@@ -17,4 +17,4 @@ $this->menu=array(
     <h2>Kreiranje nove otpremnice</h2>
 </header>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'orders'=>$orders)); ?>
