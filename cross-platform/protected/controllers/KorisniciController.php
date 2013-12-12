@@ -64,7 +64,8 @@ class KorisniciController extends Controller
 			$model->attributes = $_POST['Users'];
 
 			$model->registerDate = time();
-			$model->password = md5($model->password);
+			$model->password = md5(strtolower($model->password));
+			$model->verifyPassword = md5(strtolower($model->verifyPassword));
 
 			if($model->save())
 				$this->redirect(array('view','id' => $model->usId));
@@ -93,7 +94,10 @@ class KorisniciController extends Controller
 			if ($model->password == "")
 				$model->password = $password;
 			else
-				$model->password = md5($model->password);
+			{
+				$model->password = md5(strtolower($model->password));
+				$model->verifyPassword = md5(strtolower($model->verifyPassword));
+			}
 
 			if($model->save())
 				$this->redirect(array('view','id' => $model->usId));

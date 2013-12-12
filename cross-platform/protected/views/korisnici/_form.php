@@ -26,17 +26,31 @@
 		<?php echo $form->error($model, 'username'); ?>
 	</div>
 
+<?php if ($model->isNewRecord): ?>
 	<div class="row">
-		<?php if ($model->isNewRecord): ?>
-			<?php echo $form->labelEx($model, 'password'); ?>
-			<?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45)); ?>
-		<?php else: ?>
-			<?php echo $form->labelEx($model, 'newPassword'); ?>
-			<?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
-		<?php endif; ?>
-		
+		<?php echo $form->labelEx($model, 'password'); ?>
+		<?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45)); ?>
 		<?php echo $form->error($model, 'password'); ?>
 	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model, 'verifyPassword'); ?>
+		<?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45)); ?>
+		<?php echo $form->error($model, 'verifyPassword'); ?>
+	</div>
+<?php else: ?>
+	<div class="row">
+		<?php echo $form->labelEx($model, 'newPassword'); ?>
+		<?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
+		<?php echo $form->error($model, 'password'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model, 'verifyPassword'); ?>
+		<?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
+		<?php echo $form->error($model, 'verifyPassword'); ?>
+	</div>
+<?php endif; ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'realName'); ?>
