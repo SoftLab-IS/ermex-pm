@@ -40,6 +40,7 @@
             						$this->widget('application.extensions.userlist.WUserList',
             							array(
             								'selectedUserId' => Yii::app()->session['id'],
+                                            'selectedPrivilegeLevel' => Yii::app()->session['level'],
             							)); 
             					?>
             			</div>
