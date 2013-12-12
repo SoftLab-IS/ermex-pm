@@ -63,7 +63,7 @@ class KorisniciController extends Controller
 		{
 			$model->attributes = $_POST['Users'];
 
-			$model->registerDate = mktime();
+			$model->registerDate = time();
 			$model->password = md5($model->password);
 
 			if($model->save())
