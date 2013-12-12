@@ -152,7 +152,10 @@ class Users extends CActiveRecord
 		$criteria->compare('privilegeLevel',$this->privilegeLevel);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+	        'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 

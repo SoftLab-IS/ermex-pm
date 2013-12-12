@@ -102,20 +102,23 @@ class Order extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('orderId',$this->orderId);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('price',$this->price);
-		$criteria->compare('amount',$this->amount,true);
-		$criteria->compare('woId',$this->woId);
-		$criteria->compare('deId',$this->deId);
-		$criteria->compare('measurementUnit',$this->measurementUnit,true);
-		$criteria->compare('totalePrice',$this->totalePrice);
-		$criteria->compare('pdv',$this->pdv,true);
-		$criteria->compare('done',1);
+		$criteria->compare('orderId', $this->orderId);
+		$criteria->compare('title', $this->title, true);
+		$criteria->compare('description', $this->description, true);
+		$criteria->compare('price', $this->price);
+		$criteria->compare('amount', $this->amount, true);
+		$criteria->compare('woId', $this->woId);
+		$criteria->compare('deId', $this->deId);
+		$criteria->compare('measurementUnit', $this->measurementUnit, true);
+		$criteria->compare('totalePrice', $this->totalePrice);
+		$criteria->compare('pdv', $this->pdv, true);
+		$criteria->compare('done', 1);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 
@@ -125,7 +128,7 @@ class Order extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Order the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}

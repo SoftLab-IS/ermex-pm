@@ -178,8 +178,11 @@ class WorkAccounts extends CActiveRecord
         $criteria->compare('currentUser', $this->currentUser);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			));
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
+		));
 	}
 
 	/**
