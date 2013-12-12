@@ -11,91 +11,89 @@
 
 $userArray = array();
 
-$userArray['0'] = 'Nepoznato';
+$userArray['0'] = '';
 
 foreach($users as $u)
-	$userArray[$u->usId] = $u->realName . ' ' . $u->realSurname;
+	$userArray[$u->usId] = $u->getFullName();
 
 ?>
 
-<div class="wide form">
+<div class="form wide filter-form panel">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+    <?php $form=$this->beginWidget('CActiveForm', array(
+        'action'=>Yii::app()->createUrl($this->route),
+        'method'=>'get',
+        'id' => 'filter-form',
+    )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'workAccountSerial'); ?>
-		<?php echo $form->textField($model,'workAccountSerial',array('size'=>60,'maxlength'=>90)); ?>
-	</div>
+    <div class="clearfix">
+        <div class="large-6 columns">
+            <?php echo $form->textField($model,'payeeName', array('size'=>45,'maxlength'=>45, 'placeholder' => 'Naziv naručioca')); ?>
+        </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'payeeName'); ?>
-		<?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
+        <div class="large-3 columns">
+            <span>
+                <?php echo $form->checkBox($model,'invalid'); ?>
+                <?php echo $form->label($model,'invalid'); ?>
+            </span>
+            <span>
+                <?php echo $form->checkBox($model,'reconciled'); ?>
+                <?php echo $form->label($model,'reconciled'); ?>
+            </span>
+        </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'deadlineDate'); ?>
-		<?php 
-			$this->widget('zii.widgets.jui.CJuiDatePicker',
-				array(
-                    'name' => 'WorkAccounts[deadlineDate]',
-                    'id' => 'WorkAccounts_deadlineDate',
-                    'options' => array(
-                        'showAnim' => 'fold',
-                        'dayNamesMin' =>  array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'),
-                        'dateFormat' => "dd.mm.yy",
-                        'firstDay' => 1,
-                        'monthNames' => array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
-                        'monthNamesShort' => array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
-                        'changeMonth' => true,
-                        'changeYear' => true
-                    ),
-                    'htmlOptions' => array(
-                        'style' => 'height:2.3125rem;',
-                    ),
-                    'value' => ($model->deadlineDate > 0) ? date("d.m.Y", $model->deadlineDate) : "",
-                ));
+        <div class="large-3 columns buttons text-right">
+            <a class="button secondary small show-filter-options" href="#">Dodatne opcije</a>
+           <!-- <input type="reset" value="Očisti formu" class="button small secondary"/>-->
+            <?php echo CHtml::submitButton('Pretraži radne naloge', array('class' => 'button small')); ?>
 
-		?>
-	</div>
+        </div>
+    </div>
+    <div class="clearfix hidden-filter-options">
+        <div class="large-2 columns">
+            <?php //
+                $this->widget('zii.widgets.jui.CJuiDatePicker',
+                    array(
+                        'name' => 'WorkAccounts[deadlineDate]',
+                        'id' => 'WorkAccounts_deadlineDate',
+                        'options' => array(
+                            'showAnim' => 'fold',
+                            'dayNamesMin' =>  array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'),
+                            'dateFormat' => "dd.mm.yy",
+                            'firstDay' => 1,
+                            'monthNames' => array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
+                            'monthNamesShort' => array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
+                            'changeMonth' => true,
+                            'changeYear' => true
+                        ),
+                        'htmlOptions' => array(
+                            'style' => 'height:2.3125rem;',
+                            'placeholder' => 'Datum isporuke',
+                        ),
+                        'value' => ($model->deadlineDate > 0) ? date("d.m.Y", $model->deadlineDate) : "",
+                    ));
+            ?>
+        </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'note'); ?>
-		<?php echo $form->textArea($model,'note',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+        <div class="large-1 columns text-right">
+            <?php echo $form->label($model,'authorId'); ?>
+        </div>
+        <div class="large-2 columns">
+            <?php echo $form->dropDownList($model,'authorId', $userArray, array('placeholder' => 'Autor')); ?>
+        </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'additional'); ?>
-		<?php echo $form->textArea($model,'additional',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+        <div class="large-1 columns text-right">
+            <?php echo $form->label($model,'reconciledId'); ?>
+        </div>
+        <div class="large-2 column">
+            <?php echo $form->dropDownList($model,'reconciledId', $userArray); ?>
+        </div>
+        <div class="large-4 columns">
+            &nbsp;
+        </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'invalid'); ?>
-		<?php echo $form->checkBox($model,'invalid'); ?>
-	</div>
+    </div>
 
-	<div class="row">
-		<?php echo $form->label($model,'reconciled'); ?>
-		<?php echo $form->checkBox($model,'reconciled'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'authorId'); ?>
-		<?php echo $form->dropDownList($model,'authorId', $userArray); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'reconciledId'); ?>
-		<?php echo $form->dropDownList($model,'reconciledId', $userArray); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Pretraži naloge'); ?>
-		<input type="reset" value="Očisti formular" />
-	</div>
-
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->

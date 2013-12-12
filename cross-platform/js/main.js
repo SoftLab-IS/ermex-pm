@@ -12,6 +12,7 @@ $(document).ready(function (event)
 {
     console.log($('.user-select'));
     selectWorkers();
+    bindShowFilterOptions();
 	
 });
 
@@ -90,3 +91,10 @@ $('.btn-add-material').click(function(){
     $(selectField).insertBefore('.add-materials').wrap('<div></div>');
 
 });
+
+function bindShowFilterOptions()
+{
+    $('.show-filter-options').on('click', function(){
+        $('.hidden-filter-options').slideToggle();
+    });
+}

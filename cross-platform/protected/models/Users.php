@@ -162,4 +162,5 @@ class Users extends CActiveRecord
     {
         return $this->realName . ' ' . $this->realSurname;
     }
+
 }

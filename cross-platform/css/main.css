@@ -108,31 +108,32 @@ body {
 /* MAIN CONTENT */
 
 header .button.small {
-    padding: 0.6rem 0.8rem 0.6rem;
     font-size: 0.9rem;
 }
-
 h1 {
     font-size: 1.8rem;
     line-height: 2rem;
 }
-
 h2 {
     font-size: 1.5rem;
     line-heihght: 1.8;
 }
-
+h3 {
+    font-size: 1.2rem;
+    line-heihght: 1.5;
+}
+.button.small {
+    padding: 0.6rem 0.8rem 0.6rem;
+}
 .context-options {
     padding-top: 0.3rem;
 }
-.context-options > div {
-    float: right;
-}
-
+    .context-options > div {
+        float: right;
+    }
 .summary {
     font-size: 0.8rem;
 }
-/* radniNalozi/create */
 .worker-name {
 	font-size: 0.875rem;
 	color: #4d4d4d;
@@ -140,6 +141,11 @@ h2 {
 	font-weight: normal;
 	margin-bottom: 0.5rem;
 }
+.one-item-wrapper fieldset{
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /* MAIN MENU */
 
 .main-menu {
@@ -177,6 +183,29 @@ h2 {
     margin-bottom: 0;
 }
 
+/* FILTER */
+
+.filter-form {
+    margin-top: 10px;
+    padding: 15px 0 0 0;
+}
+    .filter-form input[type="checkbox"] {
+        display: inline-block;
+        margin: 0;
+    }
+    .filter-form label {
+        display: inline-block;
+        margin-left: 0;
+    }
+    .filter-form span {
+        line-height: 2.5rem;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+.hidden-filter-options {
+    display: none;
+}
+
 /* COPYRIGHT */
 
 .copyright {
@@ -202,6 +231,14 @@ fieldset {
 fieldset.no-margin {
     margin-left: 0;
     margin-right: 0;
+}
+
+.ui-datepicker, .ui-datepicker-calendar {
+    font-size: 0.9rem;
+}
+
+.ui-widget {
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* ==========================================================================

@@ -1,17 +1,16 @@
 <?php
 /**
- * Parcijalni view za formular izmjene ili dodavanja korisnika.
+ * View za izmjenu korisnika
  *
- * @author Aleksandar Panic
+ * @author Ilija Tesic
  *
  * @var $this KorisniciController Kontroler radnih naloga.
  * @var $model Users Model jednog korisnika.
 */
 ?>
 
-<h1>Izmjena korisnika: <?php echo $model->realName . ' ' . $model->realSurname; ?></h1>
+<header class="clearfix">
+   <h2 class="large-12 columns">Izmjena korisnika: <?php echo $model->getFullName(); ?></h2>
+</header>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
-
-<?php echo CHtml::link('< Nazad na pogled', array('korisnici/view/' . $model->usId)); ?> | 
-<?php echo CHtml::link('Svi korisnici', array('korisnici/index')); ?>

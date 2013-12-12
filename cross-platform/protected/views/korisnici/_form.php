@@ -16,41 +16,47 @@
 	'id'=>'users-form',
 )); ?>
 
-	<p class="note">Polja sa <span class="required">*</span> su neophodna.</p>
+	<p class="note large-12 columns">Polja sa <span class="required">*</span> su neophodna.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model, 'username'); ?>
-		<?php echo $form->textField($model, 'username', array('size' => 45, 'maxlength' => 45)); ?>
-		<?php echo $form->error($model, 'username'); ?>
-	</div>
+<div class="clearfix">
+    <div class="large-6 columns">
+        <?php echo $form->labelEx($model, 'realName'); ?>
+        <?php echo $form->textField($model, 'realName', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'realName'); ?>
+    </div>
 
-	<div class="row">
-		<?php if ($model->isNewRecord): ?>
-			<?php echo $form->labelEx($model, 'password'); ?>
-			<?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45)); ?>
-		<?php else: ?>
-			<?php echo $form->labelEx($model, 'newPassword'); ?>
-			<?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
-		<?php endif; ?>
-		
-		<?php echo $form->error($model, 'password'); ?>
-	</div>
+    <div class="large-6 columns">
+        <?php echo $form->labelEx($model, 'username'); ?>
+        <?php echo $form->textField($model, 'username', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'username'); ?>
+    </div>
+</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model, 'realName'); ?>
-		<?php echo $form->textField($model, 'realName', array('size' => 45, 'maxlength' => 45)); ?>
-		<?php echo $form->error($model, 'realName'); ?>
-	</div>
+<div class="clearfix">
+    <div class="large-6 columns">
+        <?php echo $form->labelEx($model, 'realSurname'); ?>
+        <?php echo $form->textField($model, 'realSurname', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'realSurname'); ?>
+    </div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model, 'realSurname'); ?>
-		<?php echo $form->textField($model, 'realSurname', array('size' => 45, 'maxlength' => 45)); ?>
-		<?php echo $form->error($model, 'realSurname'); ?>
-	</div>
+    <div class="large-6 columns">
+        <?php if ($model->isNewRecord): ?>
+        <?php echo $form->labelEx($model, 'password'); ?>
+        <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php else: ?>
+        <?php echo $form->labelEx($model, 'newPassword'); ?>
+        <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
+        <?php endif; ?>
 
-	<div class="row">
+        <?php echo $form->error($model, 'password'); ?>
+
+    </div>
+</div>
+
+<div class="clearfix">
+	<div class="large-6 columns">
 		<?php echo $form->labelEx($model, 'privilegeLevel'); ?>
 		<?php echo $form->dropDownList($model, 'privilegeLevel', 
 		array(
@@ -61,9 +67,9 @@
 		)); ?>
 		<?php echo $form->error($model, 'privilegeLevel'); ?>
 	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Dodaj novog korisnika' : 'Snimi izmjene'); ?>
+</div>
+	<div class="row buttons text-center">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Dodaj novog korisnika' : 'Snimi izmjene', array('class' => 'button small')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

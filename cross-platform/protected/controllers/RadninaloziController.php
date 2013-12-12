@@ -247,6 +247,7 @@ class RadninaloziController extends Controller
 		$this->render('index',array(
 			'model'=> $model,
 			'users' => $users,
+            'userLevel' => Yii::app()->session['level'],
 		));
 	}
 

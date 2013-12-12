@@ -9,10 +9,12 @@
  */
 ?>
 
-<header class="clearfix">
-    <h2 class="large-5 columns">Korisnici</h2>
+<section>
 
-    <div class="button-bar large-7 columns context-options">
+<header class="clearfix">
+    <h2 class="large-4 columns">Korisnici</h2>
+
+    <div class="button-bar large-8 columns context-options">
         <div>
             <ul class="button-group">
                 <li><?php echo CHtml::link('Napravi novog korisnika', array('korisnici/create'), array('class' => 'button small')); ?>
@@ -53,3 +55,5 @@ array(
 )); 
 
 ?>
+
+</section>
