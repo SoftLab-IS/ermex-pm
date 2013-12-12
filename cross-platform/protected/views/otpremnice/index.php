@@ -37,6 +37,11 @@ $form = $this->beginWidget('CActiveForm',
         'dataProvider'=> $dataProvider,
         'emptyText' => 'Trenutno nema dostupnih otpremnica.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} otpremnica.',
+       'rowCssClassExpression' => '
+        (($row % 2) ? $this->rowCssClass[1] : $this->rowCssClass[0]) .
+        (($data->reconciled == 1) ? " reconciled-item" : "") .
+        (($data->invalid == 1) ? " invalid-item" : "")
+       ',
         'columns' =>
             array(
                 array(

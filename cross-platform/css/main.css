@@ -229,6 +229,15 @@ fieldset.no-margin {
     font-weight: bold;
 }
 
+.invalid-item {
+    font-weight: bold;
+}
+
+.reconciled-item {
+    font-style:italic;
+    color: #666;
+}
+
 /* ==========================================================================
    Main grid
    ========================================================================== */

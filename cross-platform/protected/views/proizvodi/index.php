@@ -27,6 +27,10 @@
         'dataProvider' => $dataProvider,
         'emptyText' => 'Trenutno nema dostupnih proizvoda.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} prozivod(a).',
+        'rowCssClassExpression' => '
+         (($row % 2) ? $this->rowCssClass[1] : $this->rowCssClass[0]) .
+         (($data->done == 1) ? " reconciled-item" : "")
+        ',
         'columns' =>
             array(
                 array(
