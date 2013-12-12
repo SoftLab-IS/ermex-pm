@@ -47,4 +47,14 @@ class StampanjeController extends Controller
 	{
 		$this->render('radninalog');
 	}
+
+	public function actionViseotpremnica()
+	{
+		$this->render('otpremnica');
+	}
+
+	public function actionViseradnihnaloga()
+	{
+		$this->render('radninalog');
+	}
 }
