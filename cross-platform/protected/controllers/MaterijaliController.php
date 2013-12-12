@@ -124,9 +124,11 @@ class MaterijaliController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $model=new Materials('search');
 		$dataProvider=new CActiveDataProvider('Materials');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+            'model' => $model,
 		));
 	}
 

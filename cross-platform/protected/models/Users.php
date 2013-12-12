@@ -157,4 +157,9 @@ class Users extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getFullName()
+    {
+        return $this->realName . ' ' . $this->realSurname;
+    }
 }

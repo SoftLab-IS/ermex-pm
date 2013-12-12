@@ -26,9 +26,14 @@
                 'header' => '#',
                 'value'  => '$row + 1',
             ),
-            'name',
-            'amount',
-            'dimensionUnit',
+            array(
+                'name' => 'name',
+                'value' => '$data->name'
+            ),
+            array(
+                'name' => 'amount',
+                'value' => '$data->getAmountWithDimension()'
+            ),
             array(
                 'class'=>'CButtonColumn',
                 'template' => '{update}{delete}'
