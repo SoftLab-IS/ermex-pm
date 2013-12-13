@@ -50,6 +50,17 @@ class Deliveries extends CActiveRecord
 		);
 	}
 
+    public function scopes()
+    {
+        return array(
+            'lastSerial' => array
+            (
+                'select' => 'deliverySerial',
+                'order' => 'deId DESC',
+            ),
+        );
+    }
+
 	/**
 	 * @return array relational rules.
 	 */

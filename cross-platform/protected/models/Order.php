@@ -38,7 +38,7 @@ class Order extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('woId', 'required'),
+			array('title', 'required'),
 			array('woId, deId, done', 'numerical', 'integerOnly'=>true),
 			array('price, totalePrice', 'numerical'),
 			array('title', 'length', 'max'=>255),

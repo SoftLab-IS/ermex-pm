@@ -18,4 +18,4 @@ $this->menu=array(
 
 <h1>Update Deliveries <?php echo $model->deId; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'orders'=>$orders)); ?>

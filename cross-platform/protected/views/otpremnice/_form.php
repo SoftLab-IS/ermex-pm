@@ -64,13 +64,14 @@
                             <label>Opis</label>
                             <textarea name="Order[][description]"><?php echo $order->description; ?></textarea>
                         </div>
+                        <input type="hidden" name="Order[][id]" value="<?php echo $order->orderId; ?>"/>
                     </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
         <div class="clearfix addOrder large-12 columns">
             <input type="button" value="Dodaj postojeći proizvod" class="button small"/>
-            <input type="button" value="Upiši novi proizvod" class="addO button small secondary"/>
+            <input type="button" value="Upiši novi proizvod" class="addOO button small secondary"/>
         </div>
 
     </fieldset>

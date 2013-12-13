@@ -76,9 +76,48 @@ class OtpremniceController extends Controller
 
 		if(isset($_POST['Deliveries']))
 		{
+            $oldSerial = Deliveries::model()->lastSerial()->find();;
 			$model->attributes=$_POST['Deliveries'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->deId));
+            $model->deliveryDate = time();
+            $model->authorId = Yii::app()->session['id'];
+            $model->deliverySerial = ($oldSerial === null)? 'OT1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->deliverySerial);
+            if($model->save())
+            {
+                if(isset($_POST['Order']))
+                {
+                    $narudzbe = $_POST['Order'];
+                    for($i=0;$i<count($narudzbe);$i+=6)
+                    {
+                        if(isset($narudzbe[$i]['title']))
+                        {
+                            if($narudzbe[$i+5]['id'] === '0')
+                                $order = new Order();
+                            else
+                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
+
+                            $order->title = $narudzbe[$i]['title'];
+                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                            $order->description = $narudzbe[$i+4]['description'];
+                            $order->orderId = $narudzbe[$i+5]['id'];
+                            $order->deId = $model->deId;
+
+                            if($order->orderId === '0')
+                            {
+                                $order->done = 1;
+                                $order->woId = NULL;
+                                $order->save();
+                            }
+
+                            else
+                                $order->update();
+                        }
+                    }
+                }
+                $this->redirect(array('view','id'=>$model->deId));
+            }
+
 		}
 
 		$this->render('create',array(
@@ -95,19 +134,57 @@ class OtpremniceController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+        $orders = Order::model()->findAllByAttributes(array('deId' => $id));
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Deliveries']))
 		{
 			$model->attributes=$_POST['Deliveries'];
+            $model->deliveryDate = time();
+            $model->authorId = Yii::app()->session['id'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->deId));
+            {
+                if(isset($_POST['Order']))
+                {
+                    $narudzbe = $_POST['Order'];
+                    for($i=0;$i<count($narudzbe);$i+=6)
+                    {
+                        if(isset($narudzbe[$i]['title']))
+                        {
+                            if($narudzbe[$i+5]['id'] === '0')
+                                $order = new Order();
+                            else
+                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
+
+                            $order->title = $narudzbe[$i]['title'];
+                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                            $order->description = $narudzbe[$i+4]['description'];
+                            $order->orderId = $narudzbe[$i+5]['id'];
+                            $order->deId = $model->deId;
+
+                            if($order->orderId === '0')
+                            {
+                                $order->done = 1;
+                                $order->woId = NULL;
+                                $order->save();
+                            }
+
+                            else
+                                $order->update();
+                        }
+                    }
+                }
+                $this->redirect(array('view','id'=>$model->deId));
+            }
+
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+            'orders'=>$orders,
 		));
 	}
 
