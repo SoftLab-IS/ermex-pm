@@ -3,12 +3,6 @@
 /* @var $model WorkAccounts */
 /* @autor Golub*/
 
-$this->breadcrumbs=array(
-	'Work Accounts'=>array('index'),
-	$model->name=>array('view','id'=>$model->woId),
-	'Update',
-);
-
 $this->menu=array(
 	array('label'=>'List WorkAccounts', 'url'=>array('index')),
 	array('label'=>'Create WorkAccounts', 'url'=>array('create')),
@@ -19,4 +13,4 @@ $this->menu=array(
 
 <h1>Update WorkAccounts <?php echo $model->woId; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_update_form', array('model'=>$model, 'materials'=>$materials, 'radnici'=>$radnici, 'orders'=>$orders, 'usedMaterials'=>$usedMaterials)); ?>

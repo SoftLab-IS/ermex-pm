@@ -149,6 +149,10 @@ class RadninaloziController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+        $materials = Materials::model();
+        $radnici = Users::model()->findAll();
+        $orders = Order::model()->findAllByAttributes(array('woId' => $id));
+        $usedMaterials = UsedMaterials::model()->findAllByAttributes(array('workAccountId' => $id));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -156,12 +160,81 @@ class RadninaloziController extends Controller
 		if(isset($_POST['WorkAccounts']))
 		{
 			$model->attributes=$_POST['WorkAccounts'];
+            $datum = explode('.', $model->deadlineDate);
+
+            $model->creationDate = time();
+            $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
+            $model->authorId = Yii::app()->session['id'];
+
+            if(isset($_POST['user']))
+            {
+                $trenutniKorisnici = $_POST['user'];
+                foreach($trenutniKorisnici as $trenutniKorisnik)
+                {
+                    $model->usersList .= $trenutniKorisnik.',';
+                }
+                $model->usersList = rtrim($model->usersList,',');
+            }
+
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->woId));
+            {
+                if(isset($_POST['Order']))
+                {
+                    $narudzbe = $_POST['Order'];
+                    for($i=0;$i<count($narudzbe);$i+=6)
+                    {
+                        if(isset($narudzbe[$i]['title']))
+                        {
+                            if($narudzbe[$i+5]['id'] === '0')
+                                $order = new Order();
+                            else
+                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
+
+                            $order->title = $narudzbe[$i]['title'];
+                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                            $order->description = $narudzbe[$i+4]['description'];
+                            $order->orderId = $narudzbe[$i+5]['id'];
+                            $order->woId = $model->woId;
+
+                            if($order->orderId === '0')
+                            {
+                                $order->done = 1;
+                                $order->deId = NULL;
+                                $order->save();
+                            }
+
+                            else
+                                $order->update();
+                        }
+                    }
+                }
+                if(isset($_POST['Materials']))
+                {
+                    $materijali = $_POST['Materials'];
+                    for($i=0;$i<count($materijali);$i+=2)
+                    {
+                        $material = new UsedMaterials();
+                        $material->materialId = $materijali[$i]['maId'];
+                        $material->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                        $material->workAccountId = $model->woId;
+
+                        if(!$material->save())
+                            echo "nije dobro!";
+                    }
+                }
+                $this->redirect(array('view','id'=>$model->woId));
+            }
+
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+            'materials'=>$materials,
+            'radnici'=>$radnici,
+            'orders'=>$orders,
+            'usedMaterials'=>$usedMaterials,
 		));
 	}
 
