@@ -20,6 +20,12 @@
  */
 class Users extends CActiveRecord
 {
+
+	/**
+	 * @var $verifyPassword string Verification password
+	 */
+	public $verifyPassword;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,10 +42,12 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, realName, realSurname, registerDate', 'required', 'on' => 'register'),
+			array('username, password, verifyPassword, realName, realSurname, registerDate', 'required'),
+			array('registerDate', 'required', 'on' => 'register'),
 			array('privilegeLevel', 'numerical', 'integerOnly' => true),
-			array('username, password, realName, realSurname', 'length', 'max' => 45),
+			array('username, password, verifyPassword, realName, realSurname', 'length', 'max' => 45),
 			array('registerDate', 'length', 'max' => 21),
+			array('verifyPassword', 'compare', 'compareAttribute' => 'password'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('usId, username, password, realName, realSurname, registerDate, privilegeLevel', 'safe', 'on'=>'search'),
@@ -109,6 +117,7 @@ class Users extends CActiveRecord
 			'username' => 'Korisničko ime',
 			'password' => 'Šifra',
 			'newPassword' => 'Nova Šifra',
+			'verifyPassword' => 'Ponovo upisana šifra',
 			'realName' => 'Ime',
 			'realSurname' => 'Prezime',
 			'registerDate' => 'Datum registracije',
@@ -143,7 +152,10 @@ class Users extends CActiveRecord
 		$criteria->compare('privilegeLevel',$this->privilegeLevel);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+	        'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 
@@ -157,4 +169,10 @@ class Users extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getFullName()
+    {
+        return $this->realName . ' ' . $this->realSurname;
+    }
+
 }

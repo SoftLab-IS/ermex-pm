@@ -9,26 +9,18 @@
  */
 ?>
 
-
+<section>
 <?php
-$this->renderPartial('_search',
-array(
-    'model' => $model,
-    'users' => $users,
-
-));
 $form = $this->beginWidget('CActiveForm',
     array(
         'id' => 'work-accounts-form',
     ));
 ?>
 
-
-
 <header class="clearfix">
-    <h2 class="large-5 columns">Radni Nalozi</h2>
+    <h2 class="large-4 columns">Radni Nalozi</h2>
 
-    <div class="button-bar large-7 columns context-options">
+    <div class="button-bar large-8 columns context-options">
         <div>
             <ul class="button-group">
                 <li><?php echo CHtml::submitButton('Proslijedi dalje', array('name' => 'zavrsiOdabrane', 'class' => 'button secondary small')); ?></li>
@@ -42,6 +34,17 @@ $form = $this->beginWidget('CActiveForm',
         </div>
     </div>
 </header>
+    <?php $this->endWidget(); ?>
+<?php
+    if($userLevel > 1)
+    {
+        $this->renderPartial('_search',
+            array(
+                'model' => $model,
+                'users' => $users,
+            ));
+    }
+?>
 
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
@@ -81,10 +84,11 @@ $form = $this->beginWidget('CActiveForm',
          ),
          array(
              'class'=>'CButtonColumn',
-             'template' => '{update}{delete}'
+             'template' => '{update}{delete}',
+             'deleteConfirmation' => 'Jeste li sigurni da želite stornirati ovaj nalog?',
+             'afterDelete'=>'function(link, success, data){ if(success) alert("Uspješno ste stornirali ovaj nalog."); }',
          ),
        ),
     ));
 ?>
-
-<?php $this->endWidget(); ?>
+</section>

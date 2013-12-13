@@ -9,15 +9,25 @@
  */
 ?>
 
-<h1>Korisnici</h1>
+<section>
 
-<h3><?php echo CHtml::link('Novi korisnik', array('korisnici/create')); ?></h3>
+<header class="clearfix">
+    <h2 class="large-4 columns">Korisnici</h2>
+
+    <div class="button-bar large-8 columns context-options">
+        <div>
+            <ul class="button-group">
+                <li><?php echo CHtml::link('Napravi novog korisnika', array('korisnici/create'), array('class' => 'button small')); ?>
+            </ul>
+        </div>
+    </div>
+</header>
 
 <?php $this->widget('zii.widgets.grid.CGridView', 
 array(
 	'id' => 'users-grid',
     'emptyText' => 'Trenutno nema dostupnih korisnika.',
-    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} korisnik(a).',
+    'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} korisnik.',
 	'dataProvider' => $dataProvider,
 	'columns'=>
 	array(
@@ -27,19 +37,17 @@ array(
 		),
 		array(
 			'name' => 'realName',
-			'value' => 'CHtml::link($data->realName . " " . $data->realSurname . (Yii::app()->session["id"] == $data->usId ? " (trenutni korisnik sistema)" : ""), array("korisnici/view", "id" => $data->usId))',
+			'value' => '((Yii::app()->session["id"] == $data->usId) ? " <strong>".$data->getFullName()."</strong>" : $data->getFullName())',
 			'type' => 'raw'
 		),
-		array(
-			'name' => 'registerDate',
-			'value' => 'date("d.m.Y \u H:i:s", $data->registerDate)',
-		),
+
 		array(
 			'name' => 'privilegeLevel',
 			'value' => '($data->privilegeLevel == 0) ? "Nema pristup" : (($data->privilegeLevel == 1) ? "Radnik" : (($data->privilegeLevel == 2) ? "Racunovođa" : (($data->privilegeLevel == 3) ? "Administrator" : "Nepoznato")))'
 		),
 		array(
 			'class'=>'CButtonColumn',
+            'template' => '{update}{delete}',
 			'deleteConfirmation' => 'Jeste li sigurni da želite obrisati ovog korisnika?',
 			'afterDelete'=>'function(link, success, data){ if(success) alert("Uspješno ste obrisali korisnika."); }',
 		),
@@ -47,3 +55,5 @@ array(
 )); 
 
 ?>
+
+</section>

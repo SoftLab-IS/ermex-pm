@@ -43,7 +43,8 @@ class KorisniciController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+		$this->render('view',
+		array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -64,14 +65,16 @@ class KorisniciController extends Controller
 			$model->attributes = $_POST['Users'];
 
 			$model->registerDate = time();
-			$model->password = md5($model->password);
+			$model->password = md5(strtolower($model->password));
+			$model->verifyPassword = md5(strtolower($model->verifyPassword));
 
 			if($model->save())
 				$this->redirect(array('view','id' => $model->usId));
 		}
 
-		$this->render('create',array(
-			'model'=>$model,
+		$this->render('create',
+		array(
+			'model' => $model,
 		));
 	}
 
@@ -93,13 +96,17 @@ class KorisniciController extends Controller
 			if ($model->password == "")
 				$model->password = $password;
 			else
-				$model->password = md5($model->password);
+			{
+				$model->password = md5(strtolower($model->password));
+				$model->verifyPassword = md5(strtolower($model->verifyPassword));
+			}
 
 			if($model->save())
 				$this->redirect(array('view','id' => $model->usId));
 		}
 
-		$this->render('update',array(
+		$this->render('update',
+		array(
 			'model' => $model,
 		));
 	}
@@ -122,7 +129,13 @@ class KorisniciController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CActiveDataProvider('Users');
+		$dataProvider = new CActiveDataProvider('Users',
+		array(
+			'pagination' => array(
+                'pageSize' => 25,
+            ),
+		));
+
 		$this->render('index',array(
 			'dataProvider' => $dataProvider,
 		));

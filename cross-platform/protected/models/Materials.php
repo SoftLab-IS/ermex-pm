@@ -125,5 +125,12 @@ class Materials extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getAmountWithDimension()
+    {
+        $formatedAmount = $this->amount . ' ' . $this->dimensionUnit;
+
+        return $formatedAmount;
+    }
 	
 }

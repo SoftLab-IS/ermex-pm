@@ -241,6 +241,9 @@ class OtpremniceController extends Controller
 
         $dataProvider = new CActiveDataProvider(Deliveries::model(), array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
         ));
 
         $this->render('index',array(

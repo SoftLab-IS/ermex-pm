@@ -113,14 +113,14 @@ class Deliveries extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('deId',$this->deId);
-		$criteria->compare('deliveryDate',$this->deliveryDate,true);
-		$criteria->compare('price',$this->price);
-		$criteria->compare('note',$this->note,true);
-		$criteria->compare('payType',$this->payType);
-		$criteria->compare('reconciled',$this->reconciled);
-		$criteria->compare('invalid',$this->invalid);
-		$criteria->compare('authorId',$this->authorId);
+		$criteria->compare('deId', $this->deId);
+		$criteria->compare('deliveryDate', $this->deliveryDate, true);
+		$criteria->compare('price', $this->price);
+		$criteria->compare('note', $this->note, true);
+		$criteria->compare('payType', $this->payType);
+		$criteria->compare('reconciled', $this->reconciled);
+		$criteria->compare('invalid', $this->invalid);
+		$criteria->compare('authorId', $this->authorId);
         $criteria->compare('reconciledId', $this->reconciledId);
         $criteria->compare('peyeeName', $this->peyeeName);
         $criteria->compare('peyeeContactInfo', $this->peyeeContactInfo);
@@ -128,6 +128,9 @@ class Deliveries extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 
