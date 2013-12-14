@@ -133,7 +133,7 @@ class MaterijaliController extends Controller
 		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-            'model' => $model,
+
 		));
 	}
 

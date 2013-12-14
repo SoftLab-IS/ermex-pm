@@ -63,6 +63,7 @@ class UsedMaterials extends CActiveRecord
 		);
 	}
 
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -107,4 +108,5 @@ class UsedMaterials extends CActiveRecord
         $materials->amount = $materials->amount - $this->amount;
         $materials->update();
     }
+
 }

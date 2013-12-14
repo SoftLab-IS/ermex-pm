@@ -86,10 +86,11 @@
                 </thead>
                 <?php
                 $i = 1;
-                foreach ($usedMaterials as $material): ?>
+                foreach ($usedMaterials as $usedMaterial): ?>
+                    <?php $material =  Materials::model()->findByPk($usedMaterial->materialId); ?>
                     <tr>
-                        <td><?php echo $i . ". " . Materials::model()->findByPk($material->materialId)->name; ?></td>
-                        <td><?php echo $material->amount . " " . $material->dimensionUnit; ?></td>
+                        <td><?php echo $i . ". " . $material->name;  ?></td>
+                        <td><?php echo $usedMaterial->amount . " " . $material->dimensionUnit; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

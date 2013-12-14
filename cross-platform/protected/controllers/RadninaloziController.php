@@ -122,7 +122,7 @@ class RadninaloziController extends Controller
                     {
                         $material = new UsedMaterials();
                         $material->materialId = $materijali[$i]['maId'];
-                        $material->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                        $material->amount = str_replace(',','.',$materijali[$i+1]['amount']);
                         $material->workAccountId = $model->woId;
 
                         if(!$material->save())
@@ -159,6 +159,7 @@ class RadninaloziController extends Controller
 
 		if(isset($_POST['WorkAccounts']))
 		{
+            $model->usersList = null;
 			$model->attributes=$_POST['WorkAccounts'];
             $datum = explode('.', $model->deadlineDate);
 
@@ -215,13 +216,19 @@ class RadninaloziController extends Controller
                     $materijali = $_POST['Materials'];
                     for($i=0;$i<count($materijali);$i+=2)
                     {
+                        $usedMaterial = UsedMaterials::model()->findByAttributes(array('materialId' => $materijali[$i]['maId'], 'workAccountId' => $model->woId));
+                        if($usedMaterial)
+                        {
+                            UsedMaterials::model()->deleteALL('materialId = :materialId AND workAccountId = :workAccountId',array('materialId' => $materijali[$i]['maId'], 'workAccountId' => $model->woId));
+                        }
                         $material = new UsedMaterials();
                         $material->materialId = $materijali[$i]['maId'];
-                        $material->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                        $material->amount = str_replace(',','.',$materijali[$i+1]['amount']);
                         $material->workAccountId = $model->woId;
 
                         if(!$material->save())
-                            echo "nije dobro!";
+                           print_r($material);
+
                     }
                 }
                 $this->redirect(array('view','id'=>$model->woId));
