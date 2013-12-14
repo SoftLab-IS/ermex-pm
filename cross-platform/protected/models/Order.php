@@ -132,4 +132,10 @@ class Order extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static  function  doneOrder($safePks)
+    {
+        foreach($safePks as $woId)
+        Order::model()->updateAll(array('done' => 1),'woId = :woId',array('woId' => $woId));
+    }
 }

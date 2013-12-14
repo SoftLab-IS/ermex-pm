@@ -280,6 +280,7 @@ class RadninaloziController extends Controller
             else if (isset($_POST['zakljuciOdabrane']))
             {
                 WorkAccounts::reconcileItems($safePks);
+                Order::doneOrder($safePks);
             }
             else if (isset($_POST['zavrsiOdabrane']))
             {

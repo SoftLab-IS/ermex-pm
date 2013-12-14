@@ -51,8 +51,6 @@ $form = $this->beginWidget('CActiveForm',
                 ),
                 array(
                     'name' => 'wo.workAccountSerial',
-//                    'value'=>'$data->wo->workAccountSerial',
-
                     'value' => 'CHtml::link(WorkAccounts::model()->findByPk($data->woId)->workAccountSerial, array("radniNalozi/view", "id" => $data->woId))',
                     'type' => 'raw',
                 ),
