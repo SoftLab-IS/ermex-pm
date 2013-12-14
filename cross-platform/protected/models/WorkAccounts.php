@@ -165,8 +165,8 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('workAccountSerial', $this->workAccountSerial, true);
 		$criteria->compare('payeeName', $this->payeeName, true);
 		$criteria->compare('payeeContactInfo', $this->payeeContactInfo, true);
-		$criteria->compare('creationDate >', $this->creationDate, false);
-		$criteria->compare('deadlineDate <', $this->deadlineDate, false);
+		$criteria->compare('creationDate >=', $this->creationDate, false);
+		$criteria->compare('deadlineDate <=', $this->deadlineDate, false);
 		$criteria->compare('note', $this->note, true);
 		$criteria->compare('additional', $this->additional, true);
 		$criteria->compare('invalid', $this->invalid);

@@ -22,37 +22,51 @@
 
 <div class="clearfix">
     <div class="large-6 columns">
-        <?php echo $form->labelEx($model, 'realName'); ?>
-        <?php echo $form->textField($model, 'realName', array('size' => 45, 'maxlength' => 45)); ?>
-        <?php echo $form->error($model, 'realName'); ?>
-    </div>
-
-    <div class="large-6 columns">
         <?php echo $form->labelEx($model, 'username'); ?>
         <?php echo $form->textField($model, 'username', array('size' => 45, 'maxlength' => 45)); ?>
         <?php echo $form->error($model, 'username'); ?>
     </div>
+
+<?php if ($model->isNewRecord): ?>
+    <div class="large-3 columns">
+        <?php echo $form->labelEx($model, 'password'); ?>
+        <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'password'); ?>
+    </div>
+
+    <div class="large-3 columns">
+        <?php echo $form->labelEx($model, 'verifyPassword'); ?>
+        <?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'verifyPassword'); ?>
+    </div>
+<?php else: ?>
+    <div class="large-3 columns">
+        <?php echo $form->labelEx($model, 'newPassword'); ?>
+        <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
+        <?php echo $form->error($model, 'password'); ?>
+    </div>
+    
+    <div class="large-3 columns">
+        <?php echo $form->labelEx($model, 'verifyPassword'); ?>
+        <?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
+        <?php echo $form->error($model, 'verifyPassword'); ?>
+    </div>
+<?php endif; ?>
+
 </div>
 
 <div class="clearfix">
+    <div class="large-6 columns">
+        <?php echo $form->labelEx($model, 'realName'); ?>
+        <?php echo $form->textField($model, 'realName', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($model, 'realName'); ?>
+    </div>
     <div class="large-6 columns">
         <?php echo $form->labelEx($model, 'realSurname'); ?>
         <?php echo $form->textField($model, 'realSurname', array('size' => 45, 'maxlength' => 45)); ?>
         <?php echo $form->error($model, 'realSurname'); ?>
     </div>
 
-    <div class="large-6 columns">
-        <?php if ($model->isNewRecord): ?>
-        <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45)); ?>
-        <?php else: ?>
-        <?php echo $form->labelEx($model, 'newPassword'); ?>
-        <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
-        <?php endif; ?>
-
-        <?php echo $form->error($model, 'password'); ?>
-
-    </div>
 </div>
 
 <div class="clearfix">

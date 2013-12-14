@@ -30,7 +30,7 @@
  	{
  		$this->render('main', 
  		array(
- 			'users' => Users::model()->onlyActive()->findAll(),
+ 			'users' => Users::model()->onlyActive()->descByPrivilege()->findAll(),
  			'selected' => $this->selectedUserId,
             'selectedPL' => $this->selectedPrivilegeLevel,
  		));
