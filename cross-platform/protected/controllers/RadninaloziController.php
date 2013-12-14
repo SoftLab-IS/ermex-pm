@@ -26,7 +26,7 @@ class RadninaloziController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'storn', 'reconcile'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -245,7 +245,8 @@ class RadninaloziController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+        WorkAccounts::stornItems($id);
+		//$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -262,18 +263,17 @@ class RadninaloziController extends Controller
             $safePks = array();
 
             foreach($_POST['workAccountId'] as $i)
+            {
                 $safePks[] = (int)$i;
-
+            }
             if (isset($_POST['stornirajOdabrane']))
-                WorkAccounts::model()->updateByPk($safePks,
-                    array(
-                         'invalid' => '1'
-                    ));
+            {
+                WorkAccounts::stornItems($safePks);
+            }
             else if (isset($_POST['zakljuciOdabrane']))
-                WorkAccounts::model()->updateByPk($safePks,
-                    array(
-                         'reconciled' => '1'
-                    ));
+            {
+                WorkAccounts::reconcileItems($safePks);
+            }
             else if (isset($_POST['zavrsiOdabrane']))
             {
                 foreach($safePks as $safePk)
@@ -401,5 +401,17 @@ class RadninaloziController extends Controller
 		return $users;
 		
 	}
+
+    public function actionStorn($id)
+    {
+        WorkAccounts::stornItems($id);
+        $this->redirect(array('view','id'=>$id));
+    }
+
+    public function actionReconcile($id)
+    {
+        WorkAccounts::reconcileItems($id);
+        $this->redirect(array('view','id'=>$id));
+    }
 	
 }

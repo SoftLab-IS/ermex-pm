@@ -214,4 +214,22 @@ class WorkAccounts extends CActiveRecord
         }
         return false;
     }
+
+    public static function stornItems($safePks)
+    {
+        WorkAccounts::model()->updateByPk($safePks,
+            array(
+                'invalid' => '1'
+            ));
+    }
+
+    public static function reconcileItems($safePks)
+    {
+
+        WorkAccounts::model()->updateByPk($safePks,
+            array(
+                'reconciled' => '1',
+                'reconciledId' => Yii::app()->session['id'],
+            ));
+    }
 }

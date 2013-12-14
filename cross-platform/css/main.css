@@ -105,6 +105,11 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+strong, fieldset legend, thead td {
+    font-weight: 600;
+}
+
+
 /* MAIN CONTENT */
 
 header .button.small {
@@ -121,6 +126,7 @@ h2 {
 h3 {
     font-size: 1.2rem;
     line-heihght: 1.5;
+    font-weight: 500;
 }
 .button.small {
     padding: 0.6rem 0.8rem 0.6rem;
@@ -145,6 +151,25 @@ h3 {
     margin-left: 0;
     margin-right: 0;
 }
+
+.higher-role {
+    font-weight: bold;
+}
+
+.reconciled-item td {
+    font-weight: 700;
+    color: #444;
+}
+    .reconciled-item td.button-column .update {
+        display: none;
+    }
+.invalid-item td {
+    font-style: italic;
+    color: #999;
+}
+    .invalid-item td.button-column .update {
+        display: none;
+    }
 
 /* MAIN MENU */
 
@@ -262,18 +287,6 @@ fieldset.no-margin {
     padding: 20px 0 0 0;
 }
 
-.higher-role {
-    font-weight: bold;
-}
-
-.invalid-item {
-    font-weight: bold;
-}
-
-.reconciled-item {
-    font-style:italic;
-    color: #666;
-}
 
 /* ==========================================================================
    Main grid

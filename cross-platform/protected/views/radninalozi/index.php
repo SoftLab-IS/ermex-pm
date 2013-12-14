@@ -8,8 +8,18 @@
  * @var $dataProvider CActiveDataProvider Data Provider za radne naloge.
  */
 ?>
-
 <section>
+<?php
+if($userLevel > 1)
+{
+    $this->renderPartial('_search',
+        array(
+            'model' => $model,
+            'users' => $users,
+        ));
+}
+?>
+
 <?php
 $form = $this->beginWidget('CActiveForm',
     array(
@@ -26,25 +36,15 @@ $form = $this->beginWidget('CActiveForm',
                 <li><?php echo CHtml::submitButton('Proslijedi dalje', array('name' => 'zavrsiOdabrane', 'class' => 'button secondary small')); ?></li>
                 <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
                 <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); ?>
+                <li><?php echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); ?></li>
             </ul>
             <ul class="button-group">
-                <li><?php echo CHtml::link('Dodaj radni nalog', array('radniNalozi/create'), array('class' => 'button small')); ?>
+                <li><?php echo CHtml::link('Dodaj radni nalog', array('radniNalozi/create'), array('class' => 'button small')); ?></li>
             </ul>
         </div>
     </div>
 </header>
-    <?php $this->endWidget(); ?>
-<?php
-    if($userLevel > 1)
-    {
-        $this->renderPartial('_search',
-            array(
-                'model' => $model,
-                'users' => $users,
-            ));
-    }
-?>
+
 
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
@@ -84,7 +84,7 @@ $form = $this->beginWidget('CActiveForm',
          ),
          array(
              'class'=>'CButtonColumn',
-             'template' => '{update}{delete}',
+             'template' => '{update}',
              'deleteConfirmation' => 'Jeste li sigurni da želite stornirati ovaj nalog?',
              'afterDelete'=>'function(link, success, data){ if(success) alert("Uspješno ste stornirali ovaj nalog."); }',
          ),
@@ -92,3 +92,5 @@ $form = $this->beginWidget('CActiveForm',
     ));
 ?>
 </section>
+
+<?php $this->endWidget(); ?>

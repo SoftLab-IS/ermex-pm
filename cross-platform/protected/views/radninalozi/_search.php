@@ -27,7 +27,7 @@ foreach($users as $u)
     )); ?>
 
     <div class="clearfix">
-        <div class="large-6 columns">
+        <div class="large-5 columns">
             <?php echo $form->textField($model,'payeeName', array('size'=>45,'maxlength'=>45, 'placeholder' => 'Naziv naručioca')); ?>
         </div>
 
@@ -42,9 +42,10 @@ foreach($users as $u)
             </span>
         </div>
 
-        <div class="large-3 columns buttons text-right">
+        <div class="large-4 columns buttons text-right">
             <a class="button secondary small show-filter-options" href="#">Dodatne opcije</a>
-           <!-- <input type="reset" value="Očisti formu" class="button small secondary"/>-->
+<!--            <a class="button secondary small" href="--><?php //echo Yii::app()->request->getRequestUri(); ?><!--">Poništi filter</a>-->
+            <?php echo CHtml::link('Poništi filter', array('radniNalozi/index'), array('class' => 'button secondary small')); ?>
             <?php echo CHtml::submitButton('Pretraži radne naloge', array('class' => 'button small')); ?>
 
         </div>

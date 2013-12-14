@@ -6,10 +6,42 @@
 ?>
 
 <section class="one-item-wrapper">
-    <header>
-        <h2>Radni nalog broj <?php echo $model->workAccountSerial; ?></h2>
+    <header class="clearfix">
+        <h2 class="large-4 columns">Radni nalog broj <?php echo $model->workAccountSerial; ?></h2>
+
+        <div class="button-bar large-8 columns context-options">
+            <div>
+                <ul class="button-group">
+                    <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Izmjeni radni nalog', array('radniNalozi/update/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                    <?php if($model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Storniraj radni nalog', array('radniNalozi/storn/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                </ul>
+                <ul class="button-group">
+
+                    <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Zaključi radni nalog', array('radniNalozi/reconcile/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
     </header>
-	
+
+    <?php if($model->reconciled == 1): ?>
+        <div data-alert class="alert-box">
+            Ovaj radni nalog je zaključio <strong><?php echo $model->reconciled0->getFullName(); ?></strong>.
+            Nije moguće vršiti izmjene na njemu!
+        </div>
+    <?php endif; ?>
+
+    <?php if($model->invalid == 1): ?>
+        <div data-alert class="alert-box warning">
+            Ovaj radni nalog je storniran. Nije moguće vršiti izmjene na njemu!
+        </div>
+    <?php endif; ?>
+
 	<div class="clearfix">
 
 		<div class="columns large-12" >
@@ -68,7 +100,7 @@
                 $i = 1;
                 foreach ($model->order as $order): ?>
                     <tr>
-                        <td><?php echo $i . ". " . $order->title; ?></td>
+                        <td><?php echo $i++ . ". " . $order->title; ?></td>
                         <td><?php echo $order->amount . " " . $order->measurementUnit; ?></td>
                         <td><?php echo $order->price; ?> KM</td>
                     </tr>
@@ -88,7 +120,7 @@
                 $i = 1;
                 foreach ($usedMaterials as $material): ?>
                     <tr>
-                        <td><?php echo $i . ". " . Materials::model()->findByPk($material->materialId)->name; ?></td>
+                        <td><?php echo $i++ . ". " . Materials::model()->findByPk($material->materialId)->name; ?></td>
                         <td><?php echo $material->amount . " " . $material->dimensionUnit; ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -96,9 +128,13 @@
         </div>
     </div>
 	
-	<div class="clearfix panel">
-		<h2>Napomena:</h2>
-		<h2><?php echo $model->note ?> </h2>
+	<div class="clearfix">
+        <div class="large-12 columns">
+            <fieldset>
+                <legend>Napomena</legend>
+                <?php echo $model->note; ?>
+            </fieldset>
+        </div>
 	</div>
 	
 </section>
