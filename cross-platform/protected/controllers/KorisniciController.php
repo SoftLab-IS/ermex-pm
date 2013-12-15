@@ -20,21 +20,27 @@ class KorisniciController extends Controller
 	 */
 	public function accessRules()
 	{
-		$access = array();
-
-		if (Yii::app()->session['level'] == 3)
-		{
-			$access[] = array('allow',
+		return array(
+			array('allow',
 					'actions' => array('index','view', 'create', 'update', 'delete'),
 					'users' => array('@'),
-			);
-		}
-
-		$access[] = array('deny',
+			),
+			array('deny',
 			'users' => array('*'),
+			)
 		);
+	}
 
-		return $access;
+	/**
+	 * Checks whether or not user has allowed privileges or redirect is performed.
+	 *
+	 * @author Aleksandar Panic
+	 *
+	 */
+	public function userCheck()
+	{
+		if (Yii::app()->session['level'] != 3)
+			$this->redirect(Yii::app()->baseUrl);
 	}
 
 	/**
@@ -43,6 +49,8 @@ class KorisniciController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$this->userCheck();
+
 		$this->render('view',
 		array(
 			'model'=>$this->loadModel($id),
@@ -55,6 +63,8 @@ class KorisniciController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->userCheck();
+
 		$model = new Users('register');
 
 		// Uncomment the following line if AJAX validation is needed
@@ -85,6 +95,8 @@ class KorisniciController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->userCheck();
+
 		$model = $this->loadModel($id);
 
 		if(isset($_POST['Users']))
@@ -118,6 +130,8 @@ class KorisniciController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+		$this->userCheck();
+
 		$this->loadModel($id)->delete();
 
 		if(!isset($_GET['ajax']))
@@ -129,6 +143,8 @@ class KorisniciController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->userCheck();
+
 		$dataProvider = new CActiveDataProvider('Users',
 		array(
 			'pagination' => array(

@@ -42,7 +42,7 @@ function selectWorkers() {
                 if (ret.done == false)
                 {
                     if (ret.login == true)
-                        window.location.href = ermexBaseUrl + "/site/login?nid=" + newId;
+                        window.location.href = ermexBaseUrl + "/site/login?nid=" + newId + "&return=" + encodeURI(window.location.href);
                 }
                 else if (ret.done == true)
                     window.location.href = window.location.href;
@@ -98,7 +98,7 @@ var checkList = function()
 
         takenIds.push($(element).val());
     });
-    
+
     if (max > 1)
     {
         var nextId = 0;
