@@ -28,6 +28,8 @@ function selectWorkers() {
 
     $('#select-workers').change(function (e)
     {
+
+
         $(this).addClass('is-changed');
 
         newId = $(this).val();
@@ -84,11 +86,54 @@ $('.addOO').click(function()
     $(value).insertBefore(".addOrder");
 });
 
-$('.btn-add-worker').click(function(){
-    var selectField = $('.new-work-account .user-select > select').clone();
-    console.log(selectField);
-    $(selectField).insertBefore('.add-worker').wrap('<div></div>');
+var checkList = function()
+{
+    var setVal = $(this).val();
+    var takenIds = [];
+    var max = 0;
+    $('#worker-list select').each(function(index, element)
+    {
+        if ($(element).val() == setVal)
+            max++;
 
+        takenIds.push($(element).val());
+    });
+    
+    if (max > 1)
+    {
+        var nextId = 0;
+        var has = false;
+        for (i = 0; i < workerIds.length; i++)
+        {
+            has = false;
+            for (j = 0; j < takenIds.length; j++)
+            {
+                has = (workerIds[i] == parseInt(takenIds[j]));
+                if (has) break;
+            }
+
+            if (has == false)
+            {
+                $(this).val(workerIds[i]);
+                break;
+            }
+        }
+    }
+}
+
+$('#worker-list select').change(checkList);
+
+$('.btn-add-worker').click(function() {
+    if (workerIds.length > $('#worker-list select').length)
+    {
+        $('#worker-list select:last').clone().insertAfter('#worker-list select:last');
+        $('#worker-list select:last').change(checkList);
+        
+        $('#worker-list select:last').change();
+
+        if (workerIds.length == $('#worker-list select').length)
+            $(this).remove();
+    }
 });
 
 $('.btn-add-material').click(function(){
