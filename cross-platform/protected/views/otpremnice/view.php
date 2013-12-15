@@ -2,33 +2,97 @@
 /* @var $this OtpremniceController */
 /* @var $model Deliveries */
 
-$this->breadcrumbs=array(
-	'Deliveries'=>array('index'),
-	$model->deId,
-);
-
-$this->menu=array(
-	array('label'=>'List Deliveries', 'url'=>array('index')),
-	array('label'=>'Create Deliveries', 'url'=>array('create')),
-	array('label'=>'Update Deliveries', 'url'=>array('update', 'id'=>$model->deId)),
-	array('label'=>'Delete Deliveries', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->deId),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Deliveries', 'url'=>array('admin')),
-);
 ?>
 
-<h1>View Deliveries #<?php echo $model->deId; ?></h1>
+<section class="one-item-wrapper">
+    <header class="clearfix">
+        <h2 class="large-4 columns">Otpremnica broj <?php echo $model->deliverySerial; ?></h2>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'deId',
-		'deliveryDate',
-		'price',
-		'note',
-		'payType',
-		'reconciled',
-		'invalid',
-		'authorId',
-		'workAccountId',
-	),
-)); ?>
+        <div class="button-bar large-8 columns context-options">
+            <div>
+                <ul class="button-group">
+                    <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Izmjeni otpremnicu', array('otpremnice/update/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                    <?php if($model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Storniraj otpremnicu', array('otpremnice/storn/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                </ul>
+                <ul class="button-group">
+                    <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Zaključi otpremnicu', array('otpremnice/reconcile/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <?php if($model->reconciled == 1): ?>
+        <div data-alert class="alert-box">
+            Ovu otpremnicu je zaključio <strong><?php echo $model->reconciled0->getFullName(); ?></strong>.
+            Nije moguće vršiti izmjene na njoj!
+        </div>
+    <?php endif; ?>
+
+    <?php if($model->invalid == 1): ?>
+        <div data-alert class="alert-box warning">
+            Ova otpremnica je stornirana. Nije moguće vršiti izmjene na njoj!
+        </div>
+    <?php endif; ?>
+
+    <div class="clearfix">
+
+        <div class="columns large-12" >
+            <p>Otpremnicu je napravio <strong><?php echo  $model->author->getFullName(); ?></strong> dana
+                <strong><?php echo date('d.m.Y.', $model->deliveryDate) ?></strong></p>
+
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <div class="large-8 columns">
+            <fieldset>
+                <legend>Informacije o naručiocu</legend>
+                <h3><?php echo $model->peyeeName ?></h3>
+                <p><?php echo $model->peyeeContactInfo ?></p>
+            </fieldset>
+        </div>
+        <div class="large-4 columns">
+            <fieldset>
+                <p>Datum isporuke: <strong><?php echo date('d.m.Y.', $model->deliveryDate); ?></strong></p>
+                <p>Način plaćanja: <strong><?php echo ($model->payType == 0) ? "Gotovina" : "Žiralno"; ?></strong></p>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <div class="large-12 columns">
+            <table class="large-12 columns">
+                <thead>
+                <td class="large-8">Naziv proizvoda</td>
+                <td class="large-2">Naručena količina</td>
+                <td class="large-2">Dogovorena cijena</td>
+                </thead>
+                <?php
+                $i = 1;
+                foreach ($model->order as $order): ?>
+                    <tr>
+                        <td><?php echo $i++ . ". " . $order->title; ?></td>
+                        <td><?php echo $order->amount . " " . $order->measurementUnit; ?></td>
+                        <td><?php echo $order->price; ?> KM</td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <div class="large-12 columns">
+            <fieldset>
+                <legend>Napomena</legend>
+                <?php echo $model->note; ?>
+            </fieldset>
+        </div>
+    </div>
+
+</section>

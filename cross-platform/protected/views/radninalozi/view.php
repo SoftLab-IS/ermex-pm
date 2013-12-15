@@ -20,9 +20,11 @@
                     <?php endif; ?>
                 </ul>
                 <ul class="button-group">
-
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
                         <li><?php echo CHtml::link('Zaključi radni nalog', array('radniNalozi/reconcile/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                    <?php if($model->currentUser == Yii::app()->session['id']): ?>
+                        <li><?php echo CHtml::link('Proslijedi dalje', array('radniNalozi/nextWorker/'.$model->woId), array('class' => 'button small')); ?></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -114,14 +116,14 @@
             <table class="large-12 columns">
                 <thead>
                 <td class="large-10">Upotrebljeni materijal</td>
-                <td class="large-2">Potrošena količina</td>
+                <td class="large-2">Potrebna količina</td>
                 </thead>
                 <?php
                 $i = 1;
                 foreach ($usedMaterials as $usedMaterial): ?>
                     <?php $material =  Materials::model()->findByPk($usedMaterial->materialId); ?>
                     <tr>
-                        <td><?php echo $i . ". " . $material->name;  ?></td>
+                        <td><?php echo $i++ . ". " . $material->name;  ?></td>
                         <td><?php echo $usedMaterial->amount . " " . $material->dimensionUnit; ?></td>
                     </tr>
                 <?php endforeach; ?>

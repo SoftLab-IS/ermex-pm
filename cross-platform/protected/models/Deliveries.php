@@ -39,7 +39,7 @@ class Deliveries extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('deliveryDate, price, note, payType, authorId, deliverySerial', 'required'),
+			array('deliveryDate, price, payType, authorId, deliverySerial', 'required'),
 			array('payType, reconciled, invalid, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
             array('peyeeName', 'length', 'max'=>255),
@@ -71,6 +71,7 @@ class Deliveries extends CActiveRecord
 		return array(
 			'author' => array(self::BELONGS_TO, 'Users', 'authorId'),
             'reconciled0' => array(self::BELONGS_TO, 'Users', 'reconciledId'),
+            'order' => array(self::HAS_MANY, 'Order', 'deId'),
 		);
 	}
 
@@ -81,7 +82,7 @@ class Deliveries extends CActiveRecord
 	{
 		return array(
 			'deId' => 'De',
-			'deliveryDate' => 'Datum otpremanja',
+			'deliveryDate' => 'Datum kreiranja',
 			'price' => 'Cijena',
 			'note' => 'Napomena',
 			'payType' => 'Način plaćanja',
@@ -149,4 +150,6 @@ class Deliveries extends CActiveRecord
     {
         return $this->author->realName . ' ' . $this->author->realSurname;
     }
+
+
 }

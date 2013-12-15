@@ -22,7 +22,7 @@ $form = $this->beginWidget('CActiveForm',
             <ul class="button-group">
                 <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
                 <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
+<!--                <li>--><?php //echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
             </ul>
             <ul class="button-group">
                 <li><?php echo CHtml::link('Napravi otpremnicu', array('otpremnice/create'), array('class' => 'button small')); ?>
@@ -63,7 +63,7 @@ $form = $this->beginWidget('CActiveForm',
                 ),
                 array(
                     'name' => 'payType',
-                    'value' => '($data->payType == 0) ? "Gotovina" : "Virman"',
+                    'value' => '($data->payType == 0) ? "Gotovina" : "Žiralno"',
                 ),
                 array(
                     'name'=>'deliveryDate',
@@ -75,7 +75,7 @@ $form = $this->beginWidget('CActiveForm',
                 ),
                 array(
                     'class'=>'CButtonColumn',
-                    'template' => '{update}{delete}',
+                    'template' => '{update}',
                     'deleteConfirmation' => 'Jeste li sigurni da želite stornirati ovu stavku?',
                     'afterDelete'=>'function(link, success, data){ if(success) alert("Uspješno ste stornirali ovu stavku."); }',
                 ),

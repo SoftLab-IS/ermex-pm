@@ -26,7 +26,7 @@ class OtpremniceController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'reconcile', 'storn'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -215,18 +215,14 @@ class OtpremniceController extends Controller
                 $safePks[] = (int)$i;
 
             if (isset($_POST['stornirajOdabrane']))
-                Deliveries::model()->updateByPk($safePks,
-                    array(
-                        'invalid' => '1'
-                    ));
+            {
+                $this->stornItems($safePks);
+            }
             else if (isset($_POST['zakljuciOdabrane']))
-                Deliveries::model()->updateByPk($safePks,
-                    array(
-                        'reconciled' => '1'
-                    ));
-
+            {
+                $this->reconcileItems($safePks);
+            }
         }
-
 
         if (Yii::app()->session['level'] < 2)
         {
@@ -293,4 +289,43 @@ class OtpremniceController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    public function actionStorn($id)
+    {
+        $this->stornItems($id);
+        $this->redirect(array('view','id'=>$id));
+    }
+
+    public function actionReconcile($id)
+    {
+        $this->reconcileItems($id);
+        $this->redirect(array('view','id'=>$id));
+    }
+
+    /**
+     * Makes one or multiple items storned
+     *
+     * @param $safePks - array of primary keys
+     */
+    public function stornItems($safePks)
+    {
+        Deliveries::model()->updateByPk($safePks,
+            array(
+                'invalid' => '1'
+            ));
+    }
+
+    /**
+     * Makes one or multiple items reconciled
+     *
+     * @param $safePks - array of primary keys
+     */
+    public function reconcileItems($safePks)
+    {
+        Deliveries::model()->updateByPk($safePks,
+            array(
+                'reconciled' => '1',
+                'reconciledId' => Yii::app()->session['id'],
+            ));
+    }
 }

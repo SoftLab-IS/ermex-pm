@@ -26,7 +26,7 @@ class RadninaloziController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'storn', 'reconcile'),
+				'actions'=>array('create','update', 'storn', 'reconcile', 'nextWorker'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -275,29 +275,15 @@ class RadninaloziController extends Controller
             }
             if (isset($_POST['stornirajOdabrane']))
             {
-                WorkAccounts::stornItems($safePks);
+                $this->stornItems($safePks);
             }
             else if (isset($_POST['zakljuciOdabrane']))
             {
-                WorkAccounts::reconcileItems($safePks);
+                $this->reconcileItems($safePks);
             }
             else if (isset($_POST['zavrsiOdabrane']))
             {
-                foreach($safePks as $safePk)
-                {
-                    $model = WorkAccounts::model()->findByPk($safePk);
-                    $nextWorker = $model->getNextWorker($safePk);
-
-                    if($nextWorker)
-                    {
-                        $model->currentUser = $nextWorker;
-                        $model->update();
-                    }
-                    else
-                    {
-                        //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
-                    }
-                 }
+                passToNextWorker($safePks);
             }
         }
 
@@ -403,22 +389,77 @@ class RadninaloziController extends Controller
 	public function showWorkers($list)
 	{
 		$indexes = explode(",", $list);
-		$users = Users::model()->findAllByPk($indexes);
-		
+        $users = array();
+        foreach($indexes as $index)
+        {
+            array_push($users, Users::model()->findByPk($index));
+        }
 		return $users;
-		
 	}
 
     public function actionStorn($id)
     {
-        WorkAccounts::stornItems($id);
+        $this->stornItems($id);
         $this->redirect(array('view','id'=>$id));
     }
 
     public function actionReconcile($id)
     {
-        WorkAccounts::reconcileItems($id);
+        $this->reconcileItems($id);
         $this->redirect(array('view','id'=>$id));
     }
-	
+
+
+    public function actionNextWorker($id)
+    {
+        $this->passToNextWorker(array($id));
+        $this->redirect(array('view','id'=>$id));
+    }
+
+    public function passToNextWorker($safePks)
+    {
+
+        foreach($safePks as $safePk)
+        {
+            $model = WorkAccounts::model()->findByPk($safePk);
+            $nextWorker = $model->getNextWorker();
+
+            if($nextWorker)
+            {
+                $model->currentUser = $nextWorker;
+                $model->update();
+            }
+            else
+            {
+                //TODO ako zadnji radnik proslijedi dalje nalog onda treba da ga zakljuci umjesto toga
+            }
+        }
+    }
+
+    /**
+     * Makes one or multiple items storned
+     *
+     * @param $safePks - array of primary keys
+     */
+    public function stornItems($safePks)
+    {
+        WorkAccounts::model()->updateByPk($safePks,
+            array(
+                'invalid' => '1'
+            ));
+    }
+
+    /**
+     * Makes one or multiple items reconciled
+     *
+     * @param $safePks - array of primary keys
+     */
+    public function reconcileItems($safePks)
+    {
+        WorkAccounts::model()->updateByPk($safePks,
+            array(
+                'reconciled' => '1',
+                'reconciledId' => Yii::app()->session['id'],
+            ));
+    }
 }

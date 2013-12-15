@@ -108,7 +108,9 @@ body {
 strong, fieldset legend, thead td {
     font-weight: 600;
 }
-
+table tr td {
+    font-size: 0.95rem;
+}
 
 /* MAIN CONTENT */
 

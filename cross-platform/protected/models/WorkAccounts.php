@@ -201,35 +201,16 @@ class WorkAccounts extends CActiveRecord
         return $this->currentWorker->realName . ' ' . $this->currentWorker->realSurname;
     }
 
-    public function getNextWorker($userId)
+    public function getNextWorker()
     {
         $workers = explode(',', $this->usersList);
         $nextWorkerKey = array_search($this->currentUser, $workers)+1;
 
         //TODO ne radi ako ima ponavljanje usera u listi, krene svaki put od prvog
-
         if(isset($workers[$nextWorkerKey]))
         {
             return $workers[$nextWorkerKey];
         }
         return false;
-    }
-
-    public static function stornItems($safePks)
-    {
-        WorkAccounts::model()->updateByPk($safePks,
-            array(
-                'invalid' => '1'
-            ));
-    }
-
-    public static function reconcileItems($safePks)
-    {
-
-        WorkAccounts::model()->updateByPk($safePks,
-            array(
-                'reconciled' => '1',
-                'reconciledId' => Yii::app()->session['id'],
-            ));
     }
 }
