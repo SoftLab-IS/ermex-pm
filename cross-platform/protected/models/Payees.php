@@ -61,6 +61,30 @@ class Payees extends CActiveRecord
 		);
 	}
 
+
+	public function scopes()
+	{
+		return array(
+			'limit10' => 
+			array(
+				'limit' => 10,
+			),
+		);
+	}
+
+	/**
+	 * Appends search criteria to the query.
+	 *
+	 * @author Aleksandar Panic
+	 * @param $payee string Payee which will be searched.
+	 *
+	 * @return Payees Returns current instance of Payees
+	 */
+	public function addSearchPayeeCondition($payee)
+	{
+		$this->getDbCriteria()->addSearchCondition('name', $payee, true, 'OR');
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *

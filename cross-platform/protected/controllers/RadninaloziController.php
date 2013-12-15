@@ -26,7 +26,7 @@ class RadninaloziController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'storn', 'reconcile', 'nextWorker'),
+				'actions'=>array('create','update', 'storn', 'reconcile', 'nextWorker', 'narucilac'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -345,6 +345,7 @@ class RadninaloziController extends Controller
 			Yii::app()->end();
 		}
 	}
+
 	/**
 	 * Returns JSON object of founded material searched by name
 	 */
@@ -352,7 +353,7 @@ class RadninaloziController extends Controller
 	{	
 		if(Yii::app()->request->isAjaxRequest)
 		{
-			$material = Materials::model()->nameSearch($name);
+			$material = Materials::model()->nameSearch($name)->findAll();
 			
 			$materialArray = array();
 			

@@ -189,6 +189,35 @@ class SiteController extends Controller
 			echo '{"done":false}';
 	}
 
+
+    /**
+     * Searches for payees and returns JSONP object with results.
+     */
+    public function actionNarucilac()
+    {
+        if(Yii::app()->request->isAjaxRequest)
+        {
+            $search = $_GET['term'];
+
+            $names = explode(" ",$search);
+            $payees = Payees::model();
+
+            foreach($names as $n)
+                $payees->addSearchPayeeCondition($n);
+
+            $payees = $payees->limit10()->findAll();
+
+            header('Content-Type:application/json; charset=utf-8');
+
+            $result = array();
+
+            foreach($payees as $p)
+                $result[] = $p->name;
+
+            echo CJSON::encode($result);
+        }
+    }
+
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */

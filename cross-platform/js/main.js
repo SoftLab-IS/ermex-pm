@@ -86,6 +86,25 @@ $('.addOO').click(function()
     $(value).insertBefore(".addOrder");
 });
 
+$(document).ready(function ()
+{
+    if ($('#WorkAccounts_payeeName').length > 0)
+    {
+        $('#WorkAccounts_payeeName').autocomplete({
+            "source" : ermexBaseUrl + "/site/narucilac",
+        });
+    }
+
+    if ($('#Deliveries_peyeeName').length > 0)
+    {
+        $('#Deliveries_peyeeName').autocomplete({
+            "source" : ermexBaseUrl + "/site/narucilac",
+        });
+    }
+});
+
+
+
 var checkList = function()
 {
     var setVal = $(this).val();
