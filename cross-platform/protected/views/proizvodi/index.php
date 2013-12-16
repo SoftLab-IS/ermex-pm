@@ -35,10 +35,6 @@ $form = $this->beginWidget('CActiveForm',
         'dataProvider' => $model->search(),
         'emptyText' => 'Trenutno nema dostupnih proizvoda.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} prozivod(a).',
-        'rowCssClassExpression' => '
-         (($row % 2) ? $this->rowCssClass[1] : $this->rowCssClass[0]) .
-         (($data->done == 1) ? " reconciled-item" : "")
-        ',
         'columns' =>
             array(
                 array(
@@ -49,16 +45,24 @@ $form = $this->beginWidget('CActiveForm',
                     'header' => '#',
                     'value' => '$row + 1',
                 ),
+                'title',
                 array(
-                    'name' => 'wo.workAccountSerial',
-                    'value' => 'CHtml::link(WorkAccounts::model()->findByPk($data->woId)->workAccountSerial, array("radniNalozi/view", "id" => $data->woId))',
+                    'name' => 'wo.payeeName',
+                    'value' => '($data->woId) ? WorkAccounts::model()->findByPk($data->woId)->payeeName : ""',
                     'type' => 'raw',
                 ),
-                'title',
-                'description',
+                array(
+                    'name' => 'amount',
+                    'value' => '$data->amount." ".$data->measurementUnit',
+                    'type' => 'raw',
+                ),
                 'price',
-                'amount',
-                'measurementUnit',
+                array(
+                    'name' => 'wo.workAccountSerial',
+                    'value' => '($data->woId) ? CHtml::link(WorkAccounts::model()->findByPk($data->woId)->workAccountSerial, array("radniNalozi/view", "id" => $data->woId)) : ""',
+                    'type' => 'raw',
+                ),
+
             ),
     ));
 ?>

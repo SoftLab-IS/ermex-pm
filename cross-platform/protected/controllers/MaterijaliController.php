@@ -97,7 +97,7 @@ class MaterijaliController extends Controller
 		{
 			$model->attributes=$_POST['Materials'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->maId));
+				$this->redirect(array('index'));
 		}
 
 		$this->render('update',array(

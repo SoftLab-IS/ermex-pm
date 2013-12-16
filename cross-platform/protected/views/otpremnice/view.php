@@ -17,6 +17,9 @@
                     <?php if($model->invalid == 0): ?>
                         <li><?php echo CHtml::link('Storniraj otpremnicu', array('otpremnice/storn/'.$model->deId), array('class' => 'button small secondary')); ?></li>
                     <?php endif; ?>
+                    <?php if($model->archived == 0): ?>
+                        <li><?php echo CHtml::link('Arhiviraj otpremnicu', array('otpremnice/archive/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="button-group">
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
@@ -77,7 +80,7 @@
                 $i = 1;
                 foreach ($model->order as $order): ?>
                     <tr>
-                        <td><?php echo $i++ . ". " . $order->title; ?></td>
+                        <td><?php echo $i++ . ". " . $order->title; echo ($order->woId)? " (" . CHtml::link($order->wo->workAccountSerial, array('radniNalozi/view', 'id' => $order->wo->woId)) . ")" : "" ?></td>
                         <td><?php echo $order->amount . " " . $order->measurementUnit; ?></td>
                         <td><?php echo $order->price; ?> KM</td>
                     </tr>

@@ -21,7 +21,7 @@
 
     <fieldset>
         <legend>Materijal</legend>
-        <div class="materials clearfix">
+        <div class="materials-form clearfix">
             <div class="large-8 columns">
                 <?php echo $form->labelEx($model,'name'); ?>
                 <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
@@ -39,8 +39,8 @@
             </div>
         </div>
     </fieldset>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="row buttons text-center">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Sačuvaj materijal' : 'Sačuvaj promjene', array('class' => 'button small')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

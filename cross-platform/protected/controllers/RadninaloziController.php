@@ -280,11 +280,10 @@ class RadninaloziController extends Controller
             else if (isset($_POST['zakljuciOdabrane']))
             {
                 $this->reconcileItems($safePks);
-                Order::doneOrder($safePks);
             }
             else if (isset($_POST['zavrsiOdabrane']))
             {
-                passToNextWorker($safePks);
+                $this->passToNextWorker($safePks);
             }
         }
 
@@ -407,7 +406,7 @@ class RadninaloziController extends Controller
 
     public function actionReconcile($id)
     {
-        $this->reconcileItems($id);
+        $this->reconcileItems(array($id));
         $this->redirect(array('view','id'=>$id));
     }
 
@@ -463,5 +462,6 @@ class RadninaloziController extends Controller
                 'reconciled' => '1',
                 'reconciledId' => Yii::app()->session['id'],
             ));
+        Order::model()->doneOrder($safePks);
     }
 }

@@ -30,7 +30,7 @@ class OtpremniceController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete', 'archive'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -222,6 +222,10 @@ class OtpremniceController extends Controller
             {
                 $this->reconcileItems($safePks);
             }
+            else if (isset($_POST['arhivirajOdabrane']))
+            {
+                $this->archiveItems($safePks);
+            }
         }
 
         if (Yii::app()->session['level'] < 2)
@@ -244,6 +248,7 @@ class OtpremniceController extends Controller
 
         $this->render('index',array(
             'dataProvider'=>$dataProvider,
+            'userLevel' => Yii::app()->session['level'],
         ));
 	}
 
@@ -302,6 +307,12 @@ class OtpremniceController extends Controller
         $this->redirect(array('view','id'=>$id));
     }
 
+    public function actionArchive($id)
+    {
+        $this->archiveItems($id);
+        $this->redirect(array('view','id'=>$id));
+    }
+
     /**
      * Makes one or multiple items storned
      *
@@ -326,6 +337,14 @@ class OtpremniceController extends Controller
             array(
                 'reconciled' => '1',
                 'reconciledId' => Yii::app()->session['id'],
+            ));
+    }
+
+    public function archiveItems($safePks)
+    {
+        Deliveries::model()->updateByPk($safePks,
+            array(
+                'archived' => '1',
             ));
     }
 }

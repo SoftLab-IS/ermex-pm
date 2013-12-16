@@ -12,6 +12,7 @@
  * @property integer $payType
  * @property integer $reconciled
  * @property integer $invalid
+ * @property integer $archived
  * @property integer $authorId
  * @property integer $reconciledId
  * @property string $peyeeName
@@ -39,14 +40,15 @@ class Deliveries extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('deliveryDate, price, payType, authorId, deliverySerial', 'required'),
-			array('payType, reconciled, invalid, authorId, reconciledId', 'numerical', 'integerOnly'=>true),
+			array('deliveryDate, payType, authorId, deliverySerial', 'required'),
+			array('payType, reconciled, invalid, authorId, reconciledId, archived', 'numerical', 'integerOnly'=>true),
+            array('note, peyeeContactInfo', 'safe'),
 			array('price', 'numerical'),
             array('peyeeName', 'length', 'max'=>255),
 			array('deliveryDate', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('deId, deliveryDate, price, note, payType, reconciled, invalid, authorId, reconciledId, peyeeName, peyeeContactInfo, deliverySerial', 'safe', 'on'=>'search'),
+			array('deId, deliveryDate, price, note, payType, reconciled, invalid, archived, authorId, reconciledId, peyeeName, peyeeContactInfo, deliverySerial', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,6 +90,7 @@ class Deliveries extends CActiveRecord
 			'payType' => 'Način plaćanja',
 			'reconciled' => 'Zaključen',
 			'invalid' => 'Nevažeći',
+            'archived' => 'Arhiviran',
 			'authorId' => 'Autor',
             'reconciledId' => 'Zaključio',
             'peyeeName' => 'Naručilac',
@@ -121,6 +124,7 @@ class Deliveries extends CActiveRecord
 		$criteria->compare('payType', $this->payType);
 		$criteria->compare('reconciled', $this->reconciled);
 		$criteria->compare('invalid', $this->invalid);
+        $criteria->compare('archived', $this->archived);
 		$criteria->compare('authorId', $this->authorId);
         $criteria->compare('reconciledId', $this->reconciledId);
         $criteria->compare('peyeeName', $this->peyeeName);

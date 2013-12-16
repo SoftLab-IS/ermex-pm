@@ -22,6 +22,9 @@ $form = $this->beginWidget('CActiveForm',
             <ul class="button-group">
                 <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
                 <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
+                <?php if($userLevel > 1): ?>
+                    <li><?php echo CHtml::submitButton('Arhiviraj odabrane', array('name' => 'arhivirajOdabrane', 'class' => 'button secondary small')); ?></li>
+                <?php endif; ?>
 <!--                <li>--><?php //echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
             </ul>
             <ul class="button-group">
