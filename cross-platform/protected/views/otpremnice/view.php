@@ -47,7 +47,9 @@
 
         <div class="columns large-12" >
             <p>Otpremnicu je napravio <strong><?php echo  $model->author->getFullName(); ?></strong> dana
-                <strong><?php echo date('d.m.Y.', $model->deliveryDate) ?></strong></p>
+                <strong><?php echo date('d.m.Y.', $model->deliveryDate) ?></strong> u
+                <strong><?php echo date('H:i', $model->deliveryDate) ?></strong> časova.
+            </p>
 
         </div>
     </div>
@@ -80,7 +82,12 @@
                 $i = 1;
                 foreach ($model->order as $order): ?>
                     <tr>
-                        <td><?php echo $i++ . ". " . $order->title; echo ($order->woId)? " (" . CHtml::link($order->wo->workAccountSerial, array('radniNalozi/view', 'id' => $order->wo->woId)) . ")" : "" ?></td>
+                        <td class="order-title">
+                            <p>
+                                <?php echo $i++ . ". " . $order->title; echo ($order->woId)? " (" . CHtml::link($order->wo->workAccountSerial, array('radniNalozi/view', 'id' => $order->wo->woId)) . ")" : ""; ?>
+                                <span><?php echo $order->description; ?></span>
+                            </p>
+                        </td>
                         <td><?php echo $order->amount . " " . $order->measurementUnit; ?></td>
                         <td><?php echo $order->price; ?> KM</td>
                     </tr>

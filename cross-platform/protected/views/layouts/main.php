@@ -53,11 +53,19 @@
             						array(
             							array(
             								'label' => 'Novi radni nalog', 
-            								'url' => array('/radniNalozi/create')
+            								'url' => array('/radniNalozi/create'),
+                                            'itemOptions' =>
+                                                array(
+                                                    'class' => 'separate-up',
+                                                ),
             								),
             							array(
             								'label' => 'Nova otpremnica', 
-            								'url' => array('/otpremnice/create')
+            								'url' => array('/otpremnice/create'),
+                                            'itemOptions' =>
+                                                array(
+                                                        'class' => 'separate-down',
+                                                    ),
             								),
             							array(
             								'label' => 'Radni nalozi',
@@ -75,23 +83,26 @@
             								'label' => 'Materijal', 
             								'url' => array('/materijali/index')
             								),
-                                                      array(
-                                                            'label' => 'Korisnici', 
-                                                            'url' => array('/korisnici/index'),
-                                                            'visible' => (Yii::app()->session['level'] == 3)
-                                                            ),
+                                        array(
+                                            'label' => 'Korisnici',
+                                            'url' => array('/korisnici/index'),
+                                            'visible' => (Yii::app()->session['level'] == 3)
+                                            ),
             							array(
-            								'label' => 'Odjava (' . Yii::app()->user->name . ')', 
+            								'label' => 'Odjava (' . Yii::app()->user->name . ')',
             								'url' => array('/site/logout'), 
-                                                            'visible' => !Yii::app()->user->isGuest
+                                            'visible' => !Yii::app()->user->isGuest,
+                                            'itemOptions' =>
+                                                array(
+                                                    'class' => 'separate-up',
+                                                ),
             								),
             							),
             							)); 
             				?>
             						</nav>
             						<div class="copyright">
-            							Copyright &copy; <?php echo date('Y'); ?> by Softlab.<br/>
-            							Sva prva pridržana.<br/>
+            							Copyright &copy; <?php echo date('Y'); ?> | by SoftLab.
             						</div>
             					</aside>
             				

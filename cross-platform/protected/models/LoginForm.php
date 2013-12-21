@@ -39,6 +39,8 @@ class LoginForm extends CFormModel
     {
         return array(
             'rememberMe' => 'Zapamti moje podatke za sledeći put',
+            'username' => 'Korisničko ime',
+            'password' => 'Šifra',
         );
     }
 

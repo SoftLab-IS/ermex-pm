@@ -56,7 +56,10 @@ $form = $this->beginWidget('CActiveForm',
                     'value' => '$data->amount." ".$data->measurementUnit',
                     'type' => 'raw',
                 ),
-                'price',
+                array(
+                    'name' => 'price',
+                    'value' => '$data->price." KM"'
+                ),
                 array(
                     'name' => 'wo.workAccountSerial',
                     'value' => '($data->woId) ? CHtml::link(WorkAccounts::model()->findByPk($data->woId)->workAccountSerial, array("radniNalozi/view", "id" => $data->woId)) : ""',

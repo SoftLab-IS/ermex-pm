@@ -45,7 +45,7 @@
             </div>
 
             <div class="row buttons">
-                <?php echo CHtml::submitButton('Login', array('class' => 'button small center')); ?>
+                <?php echo CHtml::submitButton('Prijavi me', array('class' => 'button small center')); ?>
             </div>
 
             <?php $this->endWidget(); ?>

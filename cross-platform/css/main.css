@@ -173,41 +173,67 @@ h3 {
         display: none;
     }
 
+
+/* SIDEBAR */
+
+.user-select select {
+    font-size: 1.2rem;
+    background: #43ac6a;
+    color: #fff;
+}
+
 /* MAIN MENU */
 
 .main-menu {
 
 }
-.main-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.main-menu ul li {
-    font-size: 1.1em;
-}
-.main-menu ul li a {
-    display: block;
-    padding: 7px 15px;
-    color: #fefefe;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-}
-.main-menu ul li a:hover {
-    background: #222;
-    color: #ccc;
-    border-top: 1px solid #111;
-    border-bottom: 1px solid #444;
-}
-.main-menu ul li.active a {
-    background: #222;
-    color: #ccc;
-    border-top: 1px solid #111;
-    border-bottom: 1px solid #444;
-}
-
+    .main-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+        .main-menu ul li {
+            font-size: 1.1em;
+        }
+            .main-menu ul li a {
+                display: block;
+                padding: 7px 15px;
+                color: #fefefe;
+                border-top: 1px solid transparent;
+                border-bottom: 1px solid transparent;
+            }
+                .main-menu ul li a:hover {
+                    background: #222;
+                    color: #ccc;
+                    border-top: 1px solid #111;
+                    border-bottom: 1px solid #444;
+                }
+            .main-menu ul li.active a {
+                background: #222;
+                color: #ccc;
+                border-top: 1px solid #111;
+                border-bottom: 1px solid #444;
+            }
+    .main-menu .separate-down {
+         margin-bottom: 1rem;
+     }
+    .main-menu .separate-up {
+        margin-top: 1rem;
+    }
 .grid-view input[type='checkbox'] {
     margin-bottom: 0;
+}
+
+/* ONE WORK ACCOUNT */
+
+.order-title p {
+    margin-bottom: 0;
+}
+.order-title span {
+    display: block;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+    color: #444;
 }
 
 /* FILTER */
@@ -239,7 +265,8 @@ h3 {
     position: absolute;
     bottom: 0;
     padding: 20px;
-    color: #ccc;
+    color: #999;
+    font-size: 0.8rem;
 }
 
 /* FORM */
