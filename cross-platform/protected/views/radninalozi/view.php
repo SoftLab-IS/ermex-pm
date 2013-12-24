@@ -139,10 +139,16 @@
     </div>
 	
 	<div class="clearfix">
-        <div class="large-12 columns">
+        <div class="large-8 columns">
             <fieldset>
                 <legend>Napomena</legend>
                 <?php echo $model->note; ?>
+            </fieldset>
+        </div>
+        <div class="large-4 columns">
+            <fieldset>
+                <legend>Mjesto isporuke</legend>
+                <?php if($model->deliveryPlace == 1) echo  "Štamparija"; elseif($model->deliveryPlace == 2) echo "Knjižara"; else echo "Na adresu"; ?>
             </fieldset>
         </div>
 	</div>
