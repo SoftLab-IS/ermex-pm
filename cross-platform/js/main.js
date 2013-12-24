@@ -14,8 +14,13 @@ $(document).ready(function (event)
     selectWorkers();
     bindShowFilterOptions();
 	bindAutoComplete();
+    bindTimePicker();
 });
 
+function bindTimePicker()
+{
+    $('#deliveryTime').timepicker({ 'timeFormat': 'H:i' });
+}
 function selectWorkers() {
 
 /**
@@ -145,3 +150,5 @@ function bindShowFilterOptions()
         $('.hidden-filter-options').slideToggle();
     });
 }
+
+

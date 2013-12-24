@@ -20,8 +20,6 @@
         'enableAjaxValidation'=>false,
     )); ?>
 
-    <p class="note">Polja označena sa <span class="required">*</span> su obavezna.</p>
-
     <?php echo $form->errorSummary($model); ?>
 
     <div class="clearfix">
@@ -30,7 +28,7 @@
             <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
             <?php echo $form->error($model,'payeeName'); ?>
         </div>
-        <div class="large-4 columns">
+        <div class="large-2 columns">
             <?php echo $form->labelEx($model,'deadlineDate');
             $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                 'name'=>'WorkAccounts[deadlineDate]',
@@ -53,6 +51,11 @@
             ));
             echo $form->error($model,'deadlineDate'); ?>
         </div>
+        <div class="large-2 columns">
+            <label>Vrijeme isporuke</label>
+            <input type="text" id="deliveryTime" class="" name="deadlineTime" value="<?php echo date('H:i', $model->deadlineDate); ?>"/>
+        </div>
+
         <div class="large-6 columns">
             <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
             <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>

@@ -147,8 +147,9 @@
         </div>
         <div class="large-4 columns">
             <fieldset>
-                <legend>Mjesto isporuke</legend>
-                <?php if($model->deliveryPlace == 1) echo  "Štamparija"; elseif($model->deliveryPlace == 2) echo "Knjižara"; else echo "Na adresu"; ?>
+                <legend>Isporuka</legend>
+                <p>Vrijeme: <strong><?php echo date('d.m.Y. H:i', $model->deadlineDate); ?></strong></p>
+                <p>Mjesto: <strong><?php if($model->deliveryPlace == 1) echo  "Štamparija"; elseif($model->deliveryPlace == 2) echo "Knjižara"; else echo "Na adresu"; ?></strong></p>
             </fieldset>
         </div>
 	</div>

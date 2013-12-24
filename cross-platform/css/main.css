@@ -130,6 +130,9 @@ h3 {
     line-heihght: 1.5;
     font-weight: 500;
 }
+header h2 {
+    padding-bottom: 15px;
+}
 .button.small {
     padding: 0.6rem 0.8rem 0.6rem;
 }
@@ -293,6 +296,10 @@ fieldset.no-margin {
 
 .ui-widget {
     font-family: 'Open Sans', sans-serif;
+}
+
+#deliveryTime {
+    postition: relative;
 }
 
 /* ==========================================================================

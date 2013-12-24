@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/normalize.css">
 	<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/foundation.css">
 	<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
+    <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/js/timepicker/jquery.timepicker.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modernizr.js"></script>
 
@@ -121,6 +122,7 @@ x                      	<script src="<?php echo Yii::app()->request->baseUrl; ?>
             			<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins.js"></script>
                       	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 
+                        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/timepicker/jquery.timepicker.min.js"></script>
             			<script>
             				var ermexBaseUrl = "<?php echo Yii::app()->baseUrl; ?>";
 
