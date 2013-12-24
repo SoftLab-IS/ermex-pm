@@ -102,7 +102,7 @@
             				?>
             						</nav>
             						<div class="copyright">
-            							Copyright &copy; <?php echo date('Y'); ?> | by SoftLab.
+            							Copyright &copy; <?php echo date('Y'); ?> | by <a target="_blank" href="http://softlab.etf.unssa.rs.ba">SoftLab.</a>
             						</div>
             					</aside>
             				
