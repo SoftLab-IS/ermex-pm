@@ -50,6 +50,7 @@
                     ),
                 'htmlOptions'=>array(
                     'style'=>'height:2.3125rem;',
+                    'required' =>'required',
                     ),
                 ));
                 echo $form->error($model,'deadlineDate'); ?>
