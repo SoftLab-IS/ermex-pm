@@ -18,6 +18,7 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
        'enableAjaxValidation'=>false,
+       'htmlOptions' => array('data-abide' => 'true'),
        )); ?>
 
        <p class="note">Polja označena sa <span class="required">*</span> su obavezna.</p>
@@ -27,8 +28,9 @@
     <div class="clearfix">
         <div class="large-8 columns">
             <?php echo $form->labelEx($model,'payeeName'); ?>
-            <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
-            <?php echo $form->error($model,'payeeName'); ?>
+            <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45,'required'=>'required')); ?>
+         	<small class="error"><?php echo ($form->error($model,'payeeName'))? $form->error($model,'payeeName') : "Ovo polje je obavezno" ; ?></small>
+            
         </div>
         <div class="large-4 columns">
             <?php echo $form->labelEx($model,'deadlineDate');
