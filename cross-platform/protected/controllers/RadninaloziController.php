@@ -91,6 +91,34 @@ class RadninaloziController extends Controller
                 $trenutniKorisnici = explode(',',$model->usersList);
                 $model->currentUser = (int)$trenutniKorisnici[0];
             }
+			$payees = Payees::model()->findAll();
+			$currentPayeeName = $model->payeeName;
+			$currentPayeeContactInfo = $model->payeeContactInfo;
+			
+			$existing = 0;
+			$payeeModel = new Payees;
+			
+			foreach ($payees as $payee) 
+			{
+				if($currentPayeeName == $payee->name)
+				{
+					$existing = 1;
+					if($currentPayeeContactInfo != $payee->contactInfo)
+					{
+						$payee->contactInfo = $currentPayeeContactInfo;
+						$payee->update();
+					}
+					break;	
+				}	
+			}
+			if($existing == 0)
+			{
+				$payeeModel->name = $currentPayeeName;
+				$payeeModel->contactInfo = $currentPayeeContactInfo;
+				$payeeModel->save();
+			}
+			
+			
 			if($model->save())
             {
                 if(isset($_POST['Order']))

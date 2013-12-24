@@ -79,7 +79,7 @@ class KorisniciController extends Controller
 			$model->verifyPassword = md5(strtolower($model->verifyPassword));
 
 			if($model->save())
-				$this->redirect(array('view','id' => $model->usId));
+				$this->redirect(array('index'));
 		}
 
 		$this->render('create',
