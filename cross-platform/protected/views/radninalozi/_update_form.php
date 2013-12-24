@@ -20,8 +20,6 @@
         'enableAjaxValidation'=>false,
     )); ?>
 
-    <p class="note">Polja označena sa <span class="required">*</span> su obavezna.</p>
-
     <?php echo $form->errorSummary($model); ?>
 
     <div class="clearfix">
@@ -30,7 +28,7 @@
             <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
             <?php echo $form->error($model,'payeeName'); ?>
         </div>
-        <div class="large-4 columns">
+        <div class="large-2 columns">
             <?php echo $form->labelEx($model,'deadlineDate');
             $this->widget('zii.widgets.jui.CJuiDatePicker',array(
                 'name'=>'WorkAccounts[deadlineDate]',
@@ -53,6 +51,11 @@
             ));
             echo $form->error($model,'deadlineDate'); ?>
         </div>
+        <div class="large-2 columns">
+            <label>Vrijeme isporuke</label>
+            <input type="text" id="deliveryTime" class="" name="deadlineTime" value="<?php echo date('H:i', $model->deadlineDate); ?>"/>
+        </div>
+
         <div class="large-6 columns">
             <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
             <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
@@ -127,6 +130,22 @@
                     </div>
                 </div>
             <?php endforeach; ?>
+        <?php else: ?>
+            <div class="material-select clearfix">
+                <div class="materials clearfix">
+                    <div class="large-10 columns">
+                        <select name="Materials[][maId]">
+                            <option></option>
+                            <?php foreach($materials->findAll() as $material): ?>
+                                <option value="<?php echo $material->maId; ?>"><?php echo $material->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="large-2 columns">
+                        <input type="text"  name="Materials[][amount]"/>
+                    </div>
+                </div>
+            </div>
         <?php endif; ?>
         <div class="clearfix add-materials large-12 columns">
             <input type="button" value="Dodaj material" class="btn-add-material button small secondary"/>

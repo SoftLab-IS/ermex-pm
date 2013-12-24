@@ -72,13 +72,12 @@ class RadninaloziController extends Controller
 		if(isset($_POST['WorkAccounts']))
 		{
 			$model->attributes = $_POST['WorkAccounts'];
-            $datum = explode('.', $model->deadlineDate);
 
             $oldSerial = WorkAccounts::model()->lastSerial()->find();
-
             $model->workAccountSerial = ($oldSerial === null)? 'RN1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
+
             $model->creationDate = time();
-            $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
+            $model->deadlineDate = DateTimeHelper::dateToUnix($model->deadlineDate, $_POST['deadlineTime']);
             $model->authorId = Yii::app()->session['id'];
 
             if(isset($_POST['user']))
@@ -92,6 +91,34 @@ class RadninaloziController extends Controller
                 $trenutniKorisnici = explode(',',$model->usersList);
                 $model->currentUser = (int)$trenutniKorisnici[0];
             }
+			$payees = Payees::model()->findAll();
+			$currentPayeeName = $model->payeeName;
+			$currentPayeeContactInfo = $model->payeeContactInfo;
+			
+			$existing = 0;
+			$payeeModel = new Payees;
+			
+			foreach ($payees as $payee) 
+			{
+				if($currentPayeeName == $payee->name)
+				{
+					$existing = 1;
+					if($currentPayeeContactInfo != $payee->contactInfo)
+					{
+						$payee->contactInfo = $currentPayeeContactInfo;
+						$payee->update();
+					}
+					break;	
+				}	
+			}
+			if($existing == 0)
+			{
+				$payeeModel->name = $currentPayeeName;
+				$payeeModel->contactInfo = $currentPayeeContactInfo;
+				$payeeModel->save();
+			}
+			
+			
 			if($model->save())
             {
                 if(isset($_POST['Order']))
@@ -161,10 +188,9 @@ class RadninaloziController extends Controller
 		{
             $model->usersList = null;
 			$model->attributes=$_POST['WorkAccounts'];
-            $datum = explode('.', $model->deadlineDate);
 
             $model->creationDate = time();
-            $model->deadlineDate = mktime(0, 0, 0, (int)$datum[1], (int)$datum[0], (int)$datum[2]);
+            $model->deadlineDate = DateTimeHelper::dateToUnix($model->deadlineDate, $_POST['deadlineTime']);
             $model->authorId = Yii::app()->session['id'];
 
             if(isset($_POST['user']))
@@ -226,9 +252,7 @@ class RadninaloziController extends Controller
                         $material->amount = str_replace(',','.',$materijali[$i+1]['amount']);
                         $material->workAccountId = $model->woId;
 
-                        if(!$material->save())
-                           print_r($material);
-
+                        !$material->save();
                     }
                 }
                 $this->redirect(array('view','id'=>$model->woId));
