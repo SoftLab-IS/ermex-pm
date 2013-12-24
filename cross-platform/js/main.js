@@ -19,11 +19,13 @@ $(document).ready(function (event)
 
 function bindTimePicker()
 {
-    $('#deliveryTime').timepicker({ 'timeFormat': 'H:i' });
+    if ($('#deliveryTime').length > 0)
+        $('#deliveryTime').timepicker({ 'timeFormat': 'H:i' });
 }
+
 function selectWorkers() {
 
-/**
+    /**
      * OnChange select workers Event
      *
      * @author Aleksandar Panic
@@ -62,6 +64,7 @@ $('.addO').click(function()
    var value = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[][title]"/></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[][amount]"/></div><div class="large-1 columns"><label>Mjera</label><input type="text" name="Order[][measurementUnit]"/></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[][price]"/></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[][description]"></textarea></div></div>';
    $(value).insertBefore(".addOrder");
 });
+
 /*novi proizvod iz otpremnice*/
 $('.addOO').click(function()
 {
@@ -69,21 +72,39 @@ $('.addOO').click(function()
     $(value).insertBefore(".addOrder");
 });
 
-
 function bindAutoComplete()
 {
-	if ($('#WorkAccounts_payeeName').length > 0)
-	 {
-        $('#WorkAccounts_payeeName').autocomplete({
-            "source" : ermexBaseUrl + "/site/narucilac",
-        });
-	 }
+    var ermexAutoCompleteInfoBox = null;
+    var ermexAutoCompleteSearchBox = null;
 
-    if ($('#Deliveries_peyeeName').length > 0)
+    if ($('#WorkAccounts_payeeName').length > 0)
     {
-        $('#Deliveries_peyeeName').autocomplete({
-            "source" : ermexBaseUrl + "/site/narucilac",
+        ermexAutoCompleteInfoBox = "#WorkAccounts_payeeContactInfo";
+        ermexAutoCompleteSearchBox = "#WorkAccounts_payeeName";
+    }
+    else if ($('#Deliveries_peyeeName').length > 0)
+    {
+        ermexAutoCompleteInfoBox = "#Deliveries_peyeeContactInfo";
+        ermexAutoCompleteSearchBox = "#Deliveries_peyeeName";
+    }
+
+    if ((ermexAutoCompleteInfoBox != null) && (ermexAutoCompleteSearchBox != null))
+    {
+        $(ermexAutoCompleteSearchBox).autocomplete({
+        source : ermexBaseUrl + "/site/narucilac",
+        autoFocus : true,
+        select : function(event, ui)
+                {
+                    event.preventDefault();
+                    $(this).val(ui.item.label);
+                    $(ermexAutoCompleteInfoBox).val(ui.item.value);
+                },
+        focus: function(event, ui) 
+                {
+                    event.preventDefault();
+                }
         });
+
     }
 }
 

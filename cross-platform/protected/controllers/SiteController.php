@@ -212,7 +212,10 @@ class SiteController extends Controller
             $result = array();
 
             foreach($payees as $p)
-                $result[] = $p->name;
+                $result[] = array(
+                	"label" => $p->name,
+                	"value" => $p->contactInfo
+                	);
 
             echo CJSON::encode($result);
         }

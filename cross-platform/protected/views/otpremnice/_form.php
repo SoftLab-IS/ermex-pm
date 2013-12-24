@@ -3,7 +3,13 @@
 /* @var $model Deliveries */
 /* @var $form CActiveForm */
 /* @autor Golub*/
+
+Yii::app()->clientScript->coreScriptPosition = CClientScript::POS_END;
+Yii::app()->clientScript->registerCoreScript("jquery.ui");
+Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUrl. '/jui/css/base/jquery-ui.css');
 ?>
+
+
 
 <div class="form">
 

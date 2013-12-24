@@ -114,15 +114,13 @@
             			</div>
 
             			<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
-            			<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/vendor/jquery-ui.min.js"></script>
-
-x                      	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation.min.js"></script>
-                      	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation.forms.js"></script>
-                      	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation.abide.js"></script>
+                        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/timepicker/jquery.timepicker.min.js"></script>
+                    	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation.min.js"></script>
+                      	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation/foundation.forms.js"></script>
+                      	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/foundation/foundation.abide.js"></script>
             			<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins.js"></script>
                       	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 
-                        <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/timepicker/jquery.timepicker.min.js"></script>
             			<script>
             				var ermexBaseUrl = "<?php echo Yii::app()->baseUrl; ?>";
 
