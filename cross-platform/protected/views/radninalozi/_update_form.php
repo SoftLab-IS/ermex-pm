@@ -127,6 +127,22 @@
                     </div>
                 </div>
             <?php endforeach; ?>
+        <?php else: ?>
+            <div class="material-select clearfix">
+                <div class="materials clearfix">
+                    <div class="large-10 columns">
+                        <select name="Materials[][maId]">
+                            <option></option>
+                            <?php foreach($materials->findAll() as $material): ?>
+                                <option value="<?php echo $material->maId; ?>"><?php echo $material->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="large-2 columns">
+                        <input type="text"  name="Materials[][amount]"/>
+                    </div>
+                </div>
+            </div>
         <?php endif; ?>
         <div class="clearfix add-materials large-12 columns">
             <input type="button" value="Dodaj material" class="btn-add-material button small secondary"/>
