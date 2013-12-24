@@ -231,12 +231,13 @@ class OtpremniceController extends Controller
         if (Yii::app()->session['level'] < 2)
         {
             $criteria = new CDbCriteria;
-            $criteria->condition='reconciled=:reconciled';
-            $criteria->params=array(':reconciled'=>0);
+            $criteria->condition='reconciled IS NULL AND archived IS NULL';
         }
         else
         {
             $criteria = new CDbCriteria;
+            $criteria->condition='archived IS NULL';
+
         }
 
         $dataProvider = new CActiveDataProvider(Deliveries::model(), array(
@@ -310,7 +311,7 @@ class OtpremniceController extends Controller
     public function actionArchive($id)
     {
         $this->archiveItems($id);
-        $this->redirect(array('view','id'=>$id));
+        $this->redirect(array('index'));
     }
 
     /**
