@@ -71,7 +71,7 @@
         <?php endif; ?>
 
         <div class="clearfix addOrder large-12 columns">
-            <input type="button" value="Dodaj postojeći proizvod" class="button small"/>
+            <a href="#" data-reveal-id="productsModal" class="button small">Dodaj postojeći proizvod</a>
             <input type="button" value="Upiši novi proizvod" class="addOO button small secondary"/>
         </div>
 

@@ -57,6 +57,19 @@ class OtpremniceController extends Controller
 	public function actionCreate()
 	{
 		$model=new Deliveries;
+        $products = new Order("search");
+//        $products = Order::model()->findAll();
+//        $productsDataProvider=new CArrayDataProvider($products, array(
+//            'id'=>'orderId',
+//            'sort'=>array(
+//                'attributes'=>array(
+//                    'orderId',
+//                ),
+//            ),
+//            'pagination'=>array(
+//                'pageSize'=>20,
+//            ),
+//        ));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -121,8 +134,9 @@ class OtpremniceController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
-            'orders' =>$orders,
+			'model'=> $model,
+            'orders' => $orders,
+            'products' => $products,
 		));
 	}
 
