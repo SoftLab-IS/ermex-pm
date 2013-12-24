@@ -35,7 +35,7 @@
 
             <div class="main-wrapper clearfix">
             		<aside class="large-2 columns">
-            			<div class="user-select">
+            			<div class="main-user-select">
             					<?php 
             						$this->widget('application.extensions.userlist.WUserList',
             							array(
@@ -102,7 +102,7 @@
             				?>
             						</nav>
             						<div class="copyright">
-            							Copyright &copy; <?php echo date('Y'); ?> | by SoftLab.
+            							Copyright &copy; <?php echo date('Y'); ?> | by <a target="_blank" href="http://softlab.etf.unssa.rs.ba">SoftLab.</a>
             						</div>
             					</aside>
             				
