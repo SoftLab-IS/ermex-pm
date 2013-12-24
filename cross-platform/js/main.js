@@ -13,7 +13,7 @@ $(document).ready(function (event)
     console.log($('.user-select'));
     selectWorkers();
     bindShowFilterOptions();
-	
+	bindAutoComplete();
 });
 
 function selectWorkers() {
@@ -51,28 +51,6 @@ function selectWorkers() {
     });
 }
 
-$('.materials').keyup(function()
-{
-	var searchTerm = $(this).val();
-	//alert("hello");
-	$.get(ermexBaseUrl + '/radninalozi/getmaterial',{name: searchTerm},function(done)
-	{
-		alert(done);
-		//$('.search-result').append(JSON.parse(done).array);
-		
-	}, "json");
-	/*
-	$.ajax({
-		url: 'getmaterial',
-		type: 'post',
-		data: searchTerm,
-		success: function(done)
-		{
-			alert(done);
-		}				
-	});
-	*/
-});
 
 $('.addO').click(function()
 {
@@ -86,14 +64,15 @@ $('.addOO').click(function()
     $(value).insertBefore(".addOrder");
 });
 
-$(document).ready(function ()
+
+function bindAutoComplete()
 {
-    if ($('#WorkAccounts_payeeName').length > 0)
-    {
+	if ($('#WorkAccounts_payeeName').length > 0)
+	 {
         $('#WorkAccounts_payeeName').autocomplete({
             "source" : ermexBaseUrl + "/site/narucilac",
         });
-    }
+	 }
 
     if ($('#Deliveries_peyeeName').length > 0)
     {
@@ -101,9 +80,7 @@ $(document).ready(function ()
             "source" : ermexBaseUrl + "/site/narucilac",
         });
     }
-});
-
-
+}
 
 var checkList = function()
 {
@@ -138,7 +115,7 @@ var checkList = function()
             }
         }
     }
-}
+};
 
 $('#worker-list select').change(checkList);
 

@@ -29,10 +29,6 @@
             <?php echo $form->labelEx($model,'payeeName'); ?>
             <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
             <?php echo $form->error($model,'payeeName'); ?>
-
-            <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
-            <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
-            <?php echo $form->error($model,'payeeContactInfo'); ?>
         </div>
         <div class="large-4 columns">
             <?php echo $form->labelEx($model,'deadlineDate');
@@ -56,11 +52,21 @@
                 ),
             ));
             echo $form->error($model,'deadlineDate'); ?>
-
-
+        </div>
+        <div class="large-6 columns">
+            <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
+            <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
+            <?php echo $form->error($model,'payeeContactInfo'); ?>
+        </div>
+        <div class="large-4 columns">
             <?php echo $form->labelEx($model,'additional'); ?>
             <?php echo $form->textArea($model,'additional',array('rows'=>6, 'cols'=>50)); ?>
             <?php echo $form->error($model,'additional'); ?>
+        </div>
+        <div class="large-2 columns">
+            <?php echo $form->labelEx($model,'deliveryPlace'); ?>
+            <?php echo $form->listBox($model,'deliveryPlace',array('1' => 'Štamparija', '2' => 'Knjižara', '3' => 'Na adresu'), array('size' => '0')); ?>
+            <?php echo $form->error($model,'payType'); ?>
         </div>
     </div>
 
@@ -130,10 +136,21 @@
     <div class="clearfix">
         <div class="large-4 columns">
             <fieldset class="no-margin">
+            	<script>
+                        var workerIds = [
+                            <?php
+                                $max = count($radnici);
+                                for ($i = 0; $i < $max; $i++)
+                                    echo $radnici[$i]->usId . (($i < $max - 1) ? "," : "");
+                            ?>
+                        ];
+                    </script>
                 <legend>Lista radnika</legend>
+                <div id="worker-list">
                 <?php $workers = explode(',',$model->usersList) ?>
                 <?php if($workers): ?>
                     <?php foreach($workers as $worker): ?>
+		        	 
                             <div class="user-select">
                                 <select name="user[]">
                                     <?php foreach($radnici as $radnik): ?>
@@ -143,6 +160,7 @@
                             </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                </div>
 
                 <div class="clearfix add-worker">
                     <input type="button" value="Dodaj radnika" class="btn-add-worker button small secondary"/>

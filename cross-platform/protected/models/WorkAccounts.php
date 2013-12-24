@@ -19,6 +19,7 @@
  * @property string $usersList
  * @property integer $reviewdId
  * @property integer $currentUser
+ * @property integer $deliveryPlace
  * The followings are the available model relations:
  * @property Deliveries[] $deliveries
  * @property UsedMaterials[] $usedMaterials
@@ -46,7 +47,7 @@ class WorkAccounts extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('payeeName, payeeContactInfo, creationDate, deadlineDate, workAccountSerial', 'required'),
-			array('invalid, reconciled, authorId, reconciledId, reviewdId, currentUser', 'numerical', 'integerOnly'=>true),
+			array('invalid, reconciled, authorId, reconciledId, reviewdId, currentUser, deliveryPlace', 'numerical', 'integerOnly'=>true),
 			array('workAccountSerial, usersList', 'length', 'max'=>90),
 			array('payeeName', 'length', 'max'=>45),
 			array('creationDate, deadlineDate', 'length', 'max'=>21),
@@ -140,6 +141,7 @@ class WorkAccounts extends CActiveRecord
             'usersList' => 'Lista radnika',
             'reviewdId' => 'Kontrolor',
             'currentUser' => 'Trenutni radnik',
+            'deliveryPlace' => 'Mjesto isporuke',
 		);
 	}
 
@@ -176,6 +178,7 @@ class WorkAccounts extends CActiveRecord
         $criteria->compare('usersList', $this->usersList);
         $criteria->compare('reviewdId', $this->reviewdId);
         $criteria->compare('currentUser', $this->currentUser);
+        $criteria->compare('deliveryPlace', $this->deliveryPlace);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

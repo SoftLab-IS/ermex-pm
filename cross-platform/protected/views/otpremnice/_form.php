@@ -35,7 +35,9 @@
             <?php echo $form->listBox($model,'payType',array('0' => 'Gotovina', '1' => 'Žiralno'), array('size' => '0')); ?>
             <?php echo $form->error($model,'payType'); ?>
 
-
+            <?php echo $form->labelEx($model,'deliveryPlace'); ?>
+            <?php echo $form->listBox($model,'deliveryPlace',array('1' => 'Štamparija', '2' => 'Knjižara', '3' => 'Na adresu'), array('size' => '0')); ?>
+            <?php echo $form->error($model,'payType'); ?>
         </div>
     </div>
 
