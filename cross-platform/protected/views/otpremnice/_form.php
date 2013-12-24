@@ -14,6 +14,7 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('data-abide' => 'true'),
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
@@ -21,12 +22,12 @@
     <div class="clearfix">
         <div class="large-8 columns">
             <?php echo $form->labelEx($model,'peyeeName'); ?>
-            <?php echo $form->textField($model,'peyeeName',array('size'=>45,'maxlength'=>45)); ?>
-            <?php echo $form->error($model,'peyeeName'); ?>
+            <?php echo $form->textField($model,'peyeeName',array('size'=>45, 'maxlength'=>45, 'required'=>'required')); ?>
+            <small class="error"><?php echo $form->error($model,'peyeeName')? $form->error($model,'peyeeName') : "Ovo polje je obavezno."?></small>
 
             <?php echo $form->labelEx($model,'peyeeContactInfo'); ?>
-            <?php echo $form->textArea($model,'peyeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
-            <?php echo $form->error($model,'peyeeContactInfo'); ?>
+            <?php echo $form->textArea($model,'peyeeContactInfo',array('rows'=>6, 'cols'=>50, 'required'=>'required')); ?>
+            <small class="error"><?php echo $form->error($model,'peyeeContactInfo')? $form->error($model,'peyeeContactInfo') : "Ovo polje je obavezno." ?></small>
         </div>
         <div class="large-4 columns">
             <?php echo $form->labelEx($model,'payType'); ?>

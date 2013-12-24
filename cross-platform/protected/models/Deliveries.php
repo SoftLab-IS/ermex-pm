@@ -41,7 +41,7 @@ class Deliveries extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('deliveryDate, payType, authorId, deliverySerial', 'required'),
+			array('peyeeName, peyeeContactInfo ,deliveryDate, authorId, deliverySerial', 'required'),
 			array('payType, reconciled, invalid, authorId, reconciledId, archived, deliveryPlace', 'numerical', 'integerOnly'=>true),
             array('note, peyeeContactInfo', 'safe'),
 			array('price', 'numerical'),

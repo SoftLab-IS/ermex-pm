@@ -27,7 +27,7 @@
         <div class="large-8 columns">
             <?php echo $form->labelEx($model,'payeeName'); ?>
             <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45,'required'=>'required')); ?>
-         	<small class="error"><?php echo ($form->error($model,'payeeName'))? $form->error($model,'payeeName') : "Ovo polje je obavezno" ; ?></small>
+         	<small class="error"><?php echo ($form->error($model,'payeeName'))? $form->error($model,'payeeName') : "Ovo polje je obavezno." ; ?></small>
             
         </div>
         <div class="large-2 columns">
@@ -51,16 +51,18 @@
                     'required' =>'required',
                     ),
                 ));
-                echo $form->error($model,'deadlineDate'); ?>
+                 ?>
+                <small class="error"><?php echo ($form->error($model,'deadlineDate'))? $form->error($model,'deadlineDate') : "Ovo polje je obavezno." ; ?></small>
         </div>
         <div class="large-2 columns">
-            <label>Vrijeme isporuke</label>
-            <input type="text" id="deliveryTime" class="" name="deadlineTime"/>
+            <label>Vrijeme isporuke *</label>
+            <input type="text" id="deliveryTime" required="required" class="" name="deadlineTime"/>
+            <small class="error">Ovo polje je obavezno.</small>
         </div>
         <div class="large-6 columns">
             <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
-            <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
-            <?php echo $form->error($model,'payeeContactInfo'); ?>
+            <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50,'required'=>'required')); ?>
+            <small class="error"><?php echo $form->error($model,'payeeContactInfo')? $form->error($model,'payeeContactInfo') : "Ovo polje je obavezno." ?></small>
         </div>
         <div class="large-4 columns">
             <?php echo $form->labelEx($model,'additional'); ?>
