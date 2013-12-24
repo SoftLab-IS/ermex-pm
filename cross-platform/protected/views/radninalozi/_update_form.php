@@ -130,10 +130,21 @@
     <div class="clearfix">
         <div class="large-4 columns">
             <fieldset class="no-margin">
+            	<script>
+                        var workerIds = [
+                            <?php
+                                $max = count($radnici);
+                                for ($i = 0; $i < $max; $i++)
+                                    echo $radnici[$i]->usId . (($i < $max - 1) ? "," : "");
+                            ?>
+                        ];
+                    </script>
                 <legend>Lista radnika</legend>
+                <div id="worker-list">
                 <?php $workers = explode(',',$model->usersList) ?>
                 <?php if($workers): ?>
                     <?php foreach($workers as $worker): ?>
+		        	 
                             <div class="user-select">
                                 <select name="user[]">
                                     <?php foreach($radnici as $radnik): ?>
@@ -143,6 +154,7 @@
                             </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                </div>
 
                 <div class="clearfix add-worker">
                     <input type="button" value="Dodaj radnika" class="btn-add-worker button small secondary"/>
