@@ -35,7 +35,7 @@
 
             <div class="main-wrapper clearfix">
             		<aside class="large-2 columns">
-            			<div class="user-select">
+            			<div class="main-user-select">
             					<?php 
             						$this->widget('application.extensions.userlist.WUserList',
             							array(
