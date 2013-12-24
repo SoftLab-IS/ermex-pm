@@ -17,6 +17,7 @@
  * @property integer $reconciledId
  * @property string $peyeeName
  * @property string $peyeeContactInfo
+ * @property integer $deliveryPlace
  *
  * The followings are the available model relations:
  * @property Users $author
@@ -41,14 +42,14 @@ class Deliveries extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('deliveryDate, payType, authorId, deliverySerial', 'required'),
-			array('payType, reconciled, invalid, authorId, reconciledId, archived', 'numerical', 'integerOnly'=>true),
+			array('payType, reconciled, invalid, authorId, reconciledId, archived, deliveryPlace', 'numerical', 'integerOnly'=>true),
             array('note, peyeeContactInfo', 'safe'),
 			array('price', 'numerical'),
             array('peyeeName', 'length', 'max'=>255),
 			array('deliveryDate', 'length', 'max'=>21),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('deId, deliveryDate, price, note, payType, reconciled, invalid, archived, authorId, reconciledId, peyeeName, peyeeContactInfo, deliverySerial', 'safe', 'on'=>'search'),
+			array('deId, deliveryDate, price, note, payType, reconciled, invalid, archived, authorId, reconciledId, peyeeName, peyeeContactInfo, deliverySerial, deliveryPlace', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,6 +97,7 @@ class Deliveries extends CActiveRecord
             'peyeeName' => 'Naručilac',
             'peyeeContactInfo' => 'Podaci o naručiocu',
             'deliverySerial' => 'Broj otpremnice',
+            'deliveryPlace' => 'Mjesto isporuke',
 		);
 	}
 
@@ -130,6 +132,7 @@ class Deliveries extends CActiveRecord
         $criteria->compare('peyeeName', $this->peyeeName);
         $criteria->compare('peyeeContactInfo', $this->peyeeContactInfo);
         $criteria->compare('deliverySerial', $this->deliverySerial);
+        $criteria->compare('deliveryPlace', $this->deliveryPlace);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

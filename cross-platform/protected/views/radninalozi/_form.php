@@ -24,15 +24,11 @@
 
        <?php echo $form->errorSummary($model); ?>
 
-       <div class="clearfix">
+    <div class="clearfix">
         <div class="large-8 columns">
             <?php echo $form->labelEx($model,'payeeName'); ?>
             <?php echo $form->textField($model,'payeeName',array('size'=>45,'maxlength'=>45)); ?>
             <?php echo $form->error($model,'payeeName'); ?>
-
-            <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
-            <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
-            <?php echo $form->error($model,'payeeContactInfo'); ?>
         </div>
         <div class="large-4 columns">
             <?php echo $form->labelEx($model,'deadlineDate');
@@ -55,13 +51,23 @@
                     ),
                 ));
                 echo $form->error($model,'deadlineDate'); ?>
-
-
-                <?php echo $form->labelEx($model,'additional'); ?>
-                <?php echo $form->textArea($model,'additional',array('rows'=>6, 'cols'=>50)); ?>
-                <?php echo $form->error($model,'additional'); ?>
-            </div>
         </div>
+        <div class="large-6 columns">
+            <?php echo $form->labelEx($model,'payeeContactInfo'); ?>
+            <?php echo $form->textArea($model,'payeeContactInfo',array('rows'=>6, 'cols'=>50)); ?>
+            <?php echo $form->error($model,'payeeContactInfo'); ?>
+        </div>
+        <div class="large-4 columns">
+            <?php echo $form->labelEx($model,'additional'); ?>
+            <?php echo $form->textArea($model,'additional',array('rows'=>6, 'cols'=>50)); ?>
+            <?php echo $form->error($model,'additional'); ?>
+        </div>
+        <div class="large-2 columns">
+            <?php echo $form->labelEx($model,'deliveryPlace'); ?>
+            <?php echo $form->listBox($model,'deliveryPlace',array('1' => 'Štamparija', '2' => 'Knjižara', '3' => 'Na adresu'), array('size' => '0')); ?>
+            <?php echo $form->error($model,'payType'); ?>
+        </div>
+    </div>
 
         <fieldset>
             <legend>Narudžba</legend>
