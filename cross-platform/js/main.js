@@ -58,18 +58,69 @@ function selectWorkers() {
     });
 }
 
-
-$('.addO').click(function()
+/**
+  * Add one product function
+  *
+  * @author Aleksandar Panic
+  *
+  * @param event e Passed event arguments
+  * @param JSONP data Data which will be parsed.
+  */
+var addOOProduct = function(e, data)
 {
-   var value = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[][title]"/></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[][amount]"/></div><div class="large-1 columns"><label>Mjera</label><input type="text" name="Order[][measurementUnit]"/></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[][price]"/></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[][description]"></textarea></div></div>';
-   $(value).insertBefore(".addOrder");
-});
+    var order = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[][title]" {NAZIV} /></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[][amount]" {KOLICINA} /></div><div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[][measurementUnit]" {MJERA} /></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[][price]" {CIJENA} /></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[][description]">{OPIS}</textarea></div>{ORDERID}</div>';
+    var value = "";
 
-/*novi proizvod iz otpremnice*/
-$('.addOO').click(function()
-{
-    var value = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[][title]"/></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[][amount]"/></div><div class="large-1 columns"><label>Mjera</label><input type="text" name="Order[][measurementUnit]"/></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[][price]"/></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[][description]"></textarea></div><input type="hidden" name="Order[][id]" value="0"/></div>';
+    if ($(this).hasClass('addOO') || (data != null))
+       order = order.replace("{ORDERID}", '<input type="hidden" name="Order[][id]" value="(ORDERID)"/>');
+    
+    if (data == null)
+    {
+        value = order.replace(/\{(.+?)\}/mig, "").replace("(ORDERID)", "0");
+    }
+    else
+    {
+        var oneOrder = "";
+        for (i = 0; i < data.length; i++)
+        {
+            oneOrder = order.replace("{NAZIV}", 'value="' + data[i].naziv + '"');
+            oneOrder = oneOrder.replace("{KOLICINA}", 'value="' + data[i].kolicina + '"');
+            oneOrder = oneOrder.replace("{MJERA}", 'value="' + data[i].mjera + '"');
+            oneOrder = oneOrder.replace("{CIJENA}", 'value="' + data[i].cijena + '"');
+            oneOrder = oneOrder.replace("{OPIS}", data[i].opis);
+            oneOrder = oneOrder.replace("(ORDERID)", 'value="' + data[i].id + '"');
+
+            value += oneOrder;
+        }
+    }
+
+
     $(value).insertBefore(".addOrder");
+}
+
+/* Novi proizvod za radni nalog */
+$('.addO').click(addOOProduct);
+
+/* Novi proizvod za otrpremnice */
+$('.addOO').click(addOOProduct);
+
+
+$('#proizvodiDodajPostojeci').click(function() 
+{
+    var arr = $('#order-grid').find('input[name="orderId[]"]');
+    var ids = "";
+    arr.each(function (index, element) 
+    {
+        if ($(element).is(":checked"))
+            ids += $(element).val() + ",";
+    });
+
+    ids = ids.substring(0, ids.length - 1);
+
+    $.post(ermexBaseUrl + "/proizvodi/vratiproizvode", { searchIds : ids }, function(data) 
+    {
+        addOOProduct(null, data);
+    }, "json")
 });
 
 function bindAutoComplete()
@@ -102,6 +153,7 @@ function bindAutoComplete()
         focus: function(event, ui) 
                 {
                     event.preventDefault();
+                    //$(this).val(ui.item.label);
                 }
         });
 

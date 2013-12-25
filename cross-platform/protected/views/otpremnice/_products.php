@@ -19,7 +19,7 @@
             'columns' =>
                 array(
                     array(
-                        'value' => 'CHtml::checkBox("orderId[]",null,array("value"=>$data->orderId,"id"=>"cid_".$data->woId))',
+                        'value' => 'CHtml::checkBox("orderId[]",null,array("value"=> $data->orderId,"id"=>"cid_".$data->woId))',
                         'type' => 'raw',
                     ),
                     array(
@@ -52,7 +52,11 @@
     ?>
 
     <div class="row buttons text-center">
-        <?php echo CHtml::submitButton('Dodaj proizvode', array('class' => 'button small')); ?>
+        <?php 
+            echo CHtml::button('Dodaj proizvode', array(
+                                                    'class' => 'button small', 
+                                                    "id" => "proizvodiDodajPostojeci")); 
+        ?>
     </div>
 
     <a class="close-reveal-modal">&#215;</a>
