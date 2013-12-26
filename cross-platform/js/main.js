@@ -88,7 +88,7 @@ var addOOProduct = function(e, data)
             oneOrder = oneOrder.replace("{MJERA}", 'value="' + data[i].mjera + '"');
             oneOrder = oneOrder.replace("{CIJENA}", 'value="' + data[i].cijena + '"');
             oneOrder = oneOrder.replace("{OPIS}", data[i].opis);
-            oneOrder = oneOrder.replace("(ORDERID)", 'value="' + data[i].id + '"');
+            oneOrder = oneOrder.replace("(ORDERID)", data[i].id);
 
             value += oneOrder;
         }
