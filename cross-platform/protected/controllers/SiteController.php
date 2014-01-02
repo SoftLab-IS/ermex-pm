@@ -180,7 +180,7 @@ class SiteController extends Controller
 				{
 		            Yii::app()->session['id'] = $user->usId;
 		            Yii::app()->session['level'] = $user->privilegeLevel;
-		            Yii::app()->session['fullname'] = $user->realName + " " + $user->realSurname;
+		            Yii::app()->session['fullname'] = $user->realName . " " . $user->realSurname;
 		            echo '{"done":true}';
 				}
 			}	

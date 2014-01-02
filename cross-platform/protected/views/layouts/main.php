@@ -90,7 +90,7 @@
                                             'visible' => (Yii::app()->session['level'] == 3)
                                             ),
             							array(
-            								'label' => 'Odjava (' . Yii::app()->user->name . ')',
+            								'label' => 'Odjava (' . Yii::app()->session['fullname'] . ')',
             								'url' => array('/site/logout'), 
                                             'visible' => !Yii::app()->user->isGuest,
                                             'itemOptions' =>

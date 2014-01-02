@@ -59,10 +59,10 @@ return array(
 
         'db' =>
         array(
-            'connectionString' => 'mysql:host=localhost;dbname=ermex_pm',
+            'connectionString' => 'mysql:host=localhost;dbname=ermex',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'arek',
+            'password' => '',
             'charset' => 'utf8',
         ),
 

@@ -39,7 +39,9 @@ class UserIdentity extends CUserIdentity
 
             Yii::app()->session['id'] = $user->usId;
             Yii::app()->session['level'] = $user->privilegeLevel;
-            Yii::app()->session['fullname'] = $user->realName + " " + $user->realSurname;
+            Yii::app()->session['fullname'] = $user->realName . " " . $user->realSurname;
+
+            Yii::app()->user->setState('name', $user->realName . " " . $user->realSurname);
 
             Config::model()->setLoginedByUserId($user->usId);
 

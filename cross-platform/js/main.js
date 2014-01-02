@@ -112,7 +112,11 @@ $('#proizvodiDodajPostojeci').click(function()
     arr.each(function (index, element) 
     {
         if ($(element).is(":checked"))
+        {
             ids += $(element).val() + ",";
+            $(element).prop('checked', false);
+            $(element).attr("disabled", true);
+        }
     });
 
     ids = ids.substring(0, ids.length - 1);
