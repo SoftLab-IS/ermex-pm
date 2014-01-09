@@ -110,8 +110,8 @@
                                 <span><?php echo $order->description; ?></span>
                             </p>
                         </td>
-                        <td><?php echo $order->amount . " " . $order->measurementUnit; ?></td>
-                        <td><?php echo $order->price; ?> KM</td>
+                        <td><?php echo $order->amount != "" ? $order->amount . " " . $order->measurementUnit : ""; ?></td>
+                        <td><?php echo $order->price > 0 ? $order->price . " KM" : ""; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
