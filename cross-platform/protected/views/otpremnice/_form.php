@@ -9,23 +9,21 @@ Yii::app()->clientScript->registerCoreScript("jquery.ui");
 Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUrl. '/jui/css/base/jquery-ui.css');
 ?>
 
-
-
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'deliveries-form',
+    <?php $form=$this->beginWidget('CActiveForm', array(
+     'id'=>'deliveries-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
-	'htmlOptions' => array('data-abide' => 'true'),
-)); ?>
+     'enableAjaxValidation'=>false,
+     'htmlOptions' => array('data-abide' => 'true'),
+     )); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+     <?php echo $form->errorSummary($model); ?>
 
-    <div class="clearfix">
+     <div class="clearfix">
         <div class="large-8 columns">
             <?php echo $form->labelEx($model,'peyeeName'); ?>
             <?php echo $form->textField($model,'peyeeName',array('size'=>45, 'maxlength'=>45, 'required'=>'required')); ?>
@@ -50,29 +48,29 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
         <legend>Proizvodi</legend>
         <?php if($orders): ?>
             <?php foreach($orders as $order): ?>
-                    <div class="clearfix oneOrder">
-                        <div class="large-9 columns">
-                            <label>Naziv</label>
-                            <input type="text" name="Order[][title]" value="<?php echo $order->title; ?>"/>
-                        </div>
-                        <div class="large-1 columns">
-                            <label>Količina</label>
-                            <input type="text" name="Order[][amount]" value="<?php echo $order->amount; ?>"/>
-                        </div>
-                        <div class="large-1 columns">
-                            <label>Mjera</label>
-                            <input type="text" name="Order[][measurementUnit]" value="<?php echo $order->measurementUnit; ?>"/>
-                        </div>
-                        <div class="large-1 columns">
-                            <label>Cijena</label>
-                            <input type="text" name="Order[][price]" value="<?php echo $order->price; ?>"/>
-                        </div>
-                        <div class="large-12 columns">
-                            <label>Opis</label>
-                            <textarea name="Order[][description]"><?php echo $order->description; ?></textarea>
-                        </div>
-                        <input type="hidden" name="Order[][id]" value="<?php echo $order->orderId; ?>"/>
+                <div class="clearfix oneOrder">
+                    <div class="large-9 columns">
+                        <label>Naziv</label>
+                        <input type="text" name="Order[][title]" value="<?php echo $order->title; ?>"/>
                     </div>
+                    <div class="large-1 columns">
+                        <label>Količina</label>
+                        <input type="text" name="Order[][amount]" value="<?php echo $order->amount; ?>"/>
+                    </div>
+                    <div class="large-1 columns">
+                        <label>Mjera</label>
+                        <input type="text" name="Order[][measurementUnit]" value="<?php echo $order->measurementUnit; ?>"/>
+                    </div>
+                    <div class="large-1 columns">
+                        <label>Cijena</label>
+                        <input type="text" name="Order[][price]" value="<?php echo $order->price; ?>"/>
+                    </div>
+                    <div class="large-12 columns">
+                        <label>Opis</label>
+                        <textarea name="Order[][description]"><?php echo $order->description; ?></textarea>
+                    </div>
+                    <input type="hidden" name="Order[][id]" value="<?php echo $order->orderId; ?>"/>
+                </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
@@ -83,24 +81,35 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
 
     </fieldset>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'price'); ?>
-		<?php echo $form->textField($model,'price'); ?>
-		<?php echo $form->error($model,'price'); ?>
-	</div>
+    <div class="row">
+      <?php echo $form->labelEx($model,'price'); ?>
+      <?php echo $form->textField($model,'price'); ?>
+      <?php echo $form->error($model,'price'); ?>
+  </div>
 
-    <div class="clearfix">
-        <div class="large-12 columns">
-            <?php echo $form->labelEx($model,'note'); ?>
-            <?php echo $form->textArea($model,'note',array('rows'=>6, 'cols'=>50)); ?>
-            <?php echo $form->error($model,'note'); ?>
-        </div>
+  <div class="clearfix">
+    <div class="large-12 columns">
+        <?php echo $form->labelEx($model,'note'); ?>
+        <?php echo $form->textArea($model,'note',array('rows'=>6, 'cols'=>50)); ?>
+        <?php echo $form->error($model,'note'); ?>
+    </div>
+</div>
+
+<div data-alert="" style="display:none" class="empty-proizvod alert-box alert hide">
+    Nije moguće kreirati otpremnicu bez unosa barem jednog proizvoda.
+    <a href="#" class="close">&times;</a>
+</div> 
+
+<div class="row buttons text-center">
+    <?php 
+    echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj otpremnicu' : 'Sačuvaj otpremnicu', array(
+        'class' => 'button small',
+        'id' => 'otpremnica-submit-button',
+        'data-otpremnica-ok' => '0'
+        )); 
+        ?>	
     </div>
 
-	<div class="row buttons text-center">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj otpremnicu' : 'Sačuvaj otpremnicu', array('class' => 'button small')); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div><!-- form -->

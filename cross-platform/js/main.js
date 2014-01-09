@@ -10,12 +10,39 @@
 
 $(document).ready(function (event)
 {
-    console.log($('.user-select'));
     selectWorkers();
     bindShowFilterOptions();
 	bindAutoComplete();
     bindTimePicker();
+    bindOtprmenicaSubmitCheck();
 });
+
+var displayError = function(errNum)
+{
+    switch(errNum)
+    {
+        case 0: // Nije moguce kreirati otpremnicu bez proizvoda
+          $('.empty-proizvod').fadeIn();
+          break;
+    }
+}
+
+function bindOtprmenicaSubmitCheck()
+{
+    $('#otpremnica-submit-button').click(function(e)
+    {
+        if ($(this).attr("data-otpremnica-ok") != "1")
+        {
+            e.preventDefault();
+            displayError(0);
+        }
+    });
+    $('.empty-proizvod > .close').click(function(e) 
+    {
+        e.preventDefault();
+        $('.empty-proizvod').fadeOut();
+    })
+}
 
 function bindTimePicker()
 {
@@ -101,8 +128,12 @@ var addOOProduct = function(e, data)
 /* Novi proizvod za radni nalog */
 $('.addO').click(addOOProduct);
 
-/* Novi proizvod za otrpremnice */
-$('.addOO').click(addOOProduct);
+/* Novi proizvod za otpremnice */
+$('.addOO').click(function (e)
+{
+    $('#otpremnica-submit-button').attr("data-otpremnica-ok", "1");
+    addOOProduct(e);
+});
 
 
 $('#proizvodiDodajPostojeci').click(function() 
@@ -124,6 +155,7 @@ $('#proizvodiDodajPostojeci').click(function()
     $.post(ermexBaseUrl + "/proizvodi/vratiproizvode", { searchIds : ids }, function(data) 
     {
         addOOProduct(null, data);
+        $('#otpremnica-submit-button').attr("data-otpremnica-ok", "1");
     }, "json")
 });
 
@@ -157,7 +189,6 @@ function bindAutoComplete()
         focus: function(event, ui) 
                 {
                     event.preventDefault();
-                    //$(this).val(ui.item.label);
                 }
         });
 
