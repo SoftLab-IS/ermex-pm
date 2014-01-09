@@ -95,11 +95,11 @@ function selectWorkers() {
   */
 var addOOProduct = function(e, data)
 {
-    var order = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[][title]" {NAZIV} /></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[][amount]" {KOLICINA} /></div><div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[][measurementUnit]" {MJERA} /></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[][price]" {CIJENA} /></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[][description]">{OPIS}</textarea></div>{ORDERID}</div>';
+    var order = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[title][]" {NAZIV} /></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[amount][]" {KOLICINA} /></div><div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[measurementUnit][]" {MJERA} /></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[price][]" {CIJENA} /></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[description][]">{OPIS}</textarea></div>{ORDERID}</div>';
     var value = "";
 
     if ($(this).hasClass('addOO') || (data != null))
-       order = order.replace("{ORDERID}", '<input type="hidden" name="Order[][id]" value="(ORDERID)"/>');
+       order = order.replace("{ORDERID}", '<input type="hidden" name="Order[id][]" value="(ORDERID)"/>');
     
     if (data == null)
     {

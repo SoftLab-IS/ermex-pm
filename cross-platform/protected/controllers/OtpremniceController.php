@@ -10,7 +10,7 @@ class OtpremniceController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-		);
+          );
 	}
 
 	/**
@@ -24,19 +24,19 @@ class OtpremniceController extends Controller
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
-			),
+             ),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update', 'reconcile', 'storn'),
 				'users'=>array('@'),
-			),
+             ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete', 'archive'),
 				'users'=>array('admin'),
-			),
+             ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
-		);
+             ),
+          );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class OtpremniceController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-		));
+          ));
 	}
 
 	/**
@@ -56,89 +56,84 @@ class OtpremniceController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Deliveries;
+
+		$model = new Deliveries;
         $products = new Order("search");
-//        $products = Order::model()->findAll();
-//        $productsDataProvider=new CArrayDataProvider($products, array(
-//            'id'=>'orderId',
-//            'sort'=>array(
-//                'attributes'=>array(
-//                    'orderId',
-//                ),
-//            ),
-//            'pagination'=>array(
-//                'pageSize'=>20,
-//            ),
-//        ));
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-        if(isset($_POST['orderId']))
+        if(isset($_POST['Deliveries']))
         {
-            $orderId = array();
-            foreach($_POST['orderId'] as $i)
-            {
-                array_push($orderId,$i);
-            }
-            $orders = Order::model()->findAllByPk($orderId);
-        }
-        else
-        {
-            $orders = null;
-        }
 
-		if(isset($_POST['Deliveries']))
-		{
-            $oldSerial = Deliveries::model()->lastSerial()->find();;
-			$model->attributes=$_POST['Deliveries'];
+            $oldSerial = Deliveries::model()->lastSerial()->find();
+            $model->attributes = $_POST['Deliveries'];
             $model->deliveryDate = time();
+            $model->reconciledId = Yii::app()->session['id'];
             $model->authorId = Yii::app()->session['id'];
-            $model->deliverySerial = ($oldSerial === null)? 'OT1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->deliverySerial);
+            $model->deliverySerial = ($oldSerial === null) ? 'OT1-' . date("m/Y") : SerialGenerator::generateSerial($oldSerial->deliverySerial);
+            
             if($model->save())
             {
                 if(isset($_POST['Order']))
                 {
+                    $order = new Order();
+
                     $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe);$i+=6)
+
+                    for($i = 0; $i < count($narudzbe); $i++)
                     {
-                        if(isset($narudzbe[$i]['title']))
+                        if(isset($narudzbe['title'][$i]))
                         {
-                            if($narudzbe[$i+5]['id'] === '0')
-                                $order = new Order();
-                            else
-                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
+                            $order->isNewRecord = true;
+                            $order->unsetAttributes();
 
-                            $order->title = $narudzbe[$i]['title'];
-                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                            $order->description = $narudzbe[$i+4]['description'];
-                            $order->orderId = $narudzbe[$i+5]['id'];
-                            $order->deId = $model->deId;
-
-                            if($order->orderId === '0')
-                            {
-                                $order->done = 1;
-                                $order->woId = NULL;
-                                $order->save();
-                            }
-
-                            else
-                                $order->update();
+                            $order->title = $narudzbe['title'][$i];
+                            $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                            $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                            $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
+                            $order->description = $narudzbe['description'][$i];
+                            
+                            $order->deId = $model->primaryKey; 
+                            // Svaka narudzba mora da ima deliveryID od modela da bi se
+                            // mogla snimiti i povezati sa otpremnicom.
+                            // Jedini nacin da se ovo rijesi jeste da se svaki put kreira nova
+                            // narudzba a ne da se radi update.
+                            // Ako se radi update onda ce (unesene preko proizvoda) narudzbe
+                            // biti azurirane na novu optremnicu i izbacenee iz stare.
+                            // Ovo je potrebno rijesiti.
+                            
+                            $order->done = 1;
+                            $order->woId = NULL;
+                            //$order->save(); 
                         }
                     }
                 }
-                $this->redirect(array('view','id'=>$model->deId));
+                $this->redirect(array('view','id' => $model->deId));
             }
 
-		}
+        }
+        else
+        {
+            if(isset($_POST['orderId']))
+            {
+                $orderId = array();
+                foreach($_POST['orderId'] as $i)
+                {
+                    array_push($orderId, $i);
+                }
 
-		$this->render('create',array(
-			'model'=> $model,
-            'orders' => $orders,
-            'products' => $products,
-		));
-	}
+                $orders = Order::model()->findAllByPk($orderId);
+            }
+            else
+            {
+                $orders = null;
+            }
+        }
+
+        $this->render('create',array(
+         'model'=> $model,
+         'orders' => $orders,
+         'products' => $products,
+         ));
+    }
 
 	/**
 	 * Updates a particular model.
@@ -152,55 +147,55 @@ class OtpremniceController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Deliveries']))
-		{
-			$model->attributes=$_POST['Deliveries'];
-            $model->deliveryDate = time();
-            $model->authorId = Yii::app()->session['id'];
-			if($model->save())
+        if(isset($_POST['Deliveries']))
+        {
+         $model->attributes=$_POST['Deliveries'];
+         $model->deliveryDate = time();
+         $model->authorId = Yii::app()->session['id'];
+         if($model->save())
+         {
+            if(isset($_POST['Order']))
             {
-                if(isset($_POST['Order']))
+                $narudzbe = $_POST['Order'];
+                for($i=0;$i<count($narudzbe);$i+=6)
                 {
-                    $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe);$i+=6)
+                    if(isset($narudzbe[$i]['title']))
                     {
-                        if(isset($narudzbe[$i]['title']))
+                        if($narudzbe[$i+5]['id'] === '0')
+                            $order = new Order();
+                        else
+                            $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
+
+                        $order->title = $narudzbe[$i]['title'];
+                        $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                        $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                        $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                        $order->description = $narudzbe[$i+4]['description'];
+                        $order->orderId = $narudzbe[$i+5]['id'];
+                        $order->deId = $model->deId;
+
+                        if($order->orderId === '0')
                         {
-                            if($narudzbe[$i+5]['id'] === '0')
-                                $order = new Order();
-                            else
-                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
-
-                            $order->title = $narudzbe[$i]['title'];
-                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                            $order->description = $narudzbe[$i+4]['description'];
-                            $order->orderId = $narudzbe[$i+5]['id'];
-                            $order->deId = $model->deId;
-
-                            if($order->orderId === '0')
-                            {
-                                $order->done = 1;
-                                $order->woId = NULL;
-                                $order->save();
-                            }
-
-                            else
-                                $order->update();
+                            $order->done = 1;
+                            $order->woId = NULL;
+                            $order->save();
                         }
+
+                        else
+                            $order->update();
                     }
                 }
-                $this->redirect(array('view','id'=>$model->deId));
             }
+            $this->redirect(array('view','id'=>$model->deId));
+        }
 
-		}
+    }
 
-		$this->render('update',array(
-			'model'=>$model,
-            'orders'=>$orders,
-		));
-	}
+    $this->render('update',array(
+     'model'=>$model,
+     'orders'=>$orders,
+     ));
+}
 
 	/**
 	 * Deletes a particular model.
@@ -258,14 +253,14 @@ class OtpremniceController extends Controller
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 25,
-            ),
-        ));
+                ),
+            ));
 
         $this->render('index',array(
             'dataProvider'=>$dataProvider,
             'userLevel' => Yii::app()->session['level'],
-        ));
-	}
+            ));
+    }
 
 	/**
 	 * Manages all models.
@@ -279,7 +274,7 @@ class OtpremniceController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
-		));
+          ));
 	}
 
 	/**
@@ -338,7 +333,7 @@ class OtpremniceController extends Controller
         Deliveries::model()->updateByPk($safePks,
             array(
                 'invalid' => '1'
-            ));
+                ));
     }
 
     /**
@@ -352,7 +347,7 @@ class OtpremniceController extends Controller
             array(
                 'reconciled' => '1',
                 'reconciledId' => Yii::app()->session['id'],
-            ));
+                ));
     }
 
     public function archiveItems($safePks)
@@ -360,6 +355,6 @@ class OtpremniceController extends Controller
         Deliveries::model()->updateByPk($safePks,
             array(
                 'archived' => '1',
-            ));
+                ));
     }
 }
