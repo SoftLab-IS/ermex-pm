@@ -124,21 +124,25 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe);$i+=5)
+                    for($i = 0; $i < count($narudzbe); $i++)
                     {
-                        if(isset($narudzbe[$i]['title']))
+                        if(isset($narudzbe['title'][$i]))
                         {
                             //TODO wrap in transaction
                             $order = new Order();
-                            $order->title = $narudzbe[$i]['title'];
-                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                            $order->description = $narudzbe[$i+4]['description'];
-                            $order->woId = $model->woId;
-                            $order->deId =NULL;
+                            $order->title = $narudzbe['title'][$i];
+                            $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                            $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                            $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
+                            $order->description = $narudzbe['description'][$i];
+                            $order->woId = $model->primaryKey;
+                            $order->deId = NULL;
 
-                            if(!$order->save());
+                            if (!$order->save())
+                            {
+                                echo 'greska u snimanju narudzbi.';
+                                die();
+                            }
                         }
                     }
                 }
