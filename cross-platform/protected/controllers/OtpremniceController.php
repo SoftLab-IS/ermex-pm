@@ -74,16 +74,20 @@ class OtpremniceController extends Controller
             {
                 if(isset($_POST['Order']))
                 {
-                    $order = new Order();
-
                     $narudzbe = $_POST['Order'];
 
                     for($i = 0; $i < count($narudzbe); $i++)
                     {
                         if(isset($narudzbe['title'][$i]))
                         {
-                            $order->isNewRecord = true;
-                            $order->unsetAttributes();
+                            if ($narudzbe['id'][$i] == '0')
+                            {
+                                $order = new Order();
+                                $order->done = 1;
+                                $order->woId = NULL;
+                            }
+                            else
+                                $order = Order::model()->findByPk($narudzbe['id'][$i]);
 
                             $order->title = $narudzbe['title'][$i];
                             $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
@@ -91,18 +95,9 @@ class OtpremniceController extends Controller
                             $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
                             $order->description = $narudzbe['description'][$i];
                             
-                            $order->deId = $model->primaryKey; 
-                            // Svaka narudzba mora da ima deliveryID od modela da bi se
-                            // mogla snimiti i povezati sa otpremnicom.
-                            // Jedini nacin da se ovo rijesi jeste da se svaki put kreira nova
-                            // narudzba a ne da se radi update.
-                            // Ako se radi update onda ce (unesene preko proizvoda) narudzbe
-                            // biti azurirane na novu optremnicu i izbacenee iz stare.
-                            // Ovo je potrebno rijesiti.
+                            $order->deId = $model->primaryKey;
                             
-                            $order->done = 1;
-                            $order->woId = NULL;
-                            //$order->save(); 
+                            $order->save(); 
                         }
                     }
                 }
