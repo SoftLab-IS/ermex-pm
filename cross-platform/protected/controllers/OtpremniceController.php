@@ -339,11 +339,15 @@ class OtpremniceController extends Controller
     public function reconcileItems($safePks)
     {
         Deliveries::model()->updateByPk($safePks,
-            array(
+        array(
                 'reconciled' => '1',
-                'delivered' => '1',
                 'reconciledId' => Yii::app()->session['id'],
-                ));
+        ));
+
+        Order::model()->updateAll($safePks,
+        array(
+            'delivered' => '1'
+        ), 'deId IN (' . implode(",", $safePks) . ')');
     }
 
     public function archiveItems($safePks)
