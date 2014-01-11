@@ -124,11 +124,12 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    for($i = 0; $i < count($narudzbe); $i++)
+                    $max = count($narudzbe['title']);
+                    for($i = 0; $i < $max; $i++)
                     {
-                        if(isset($narudzbe['title'][$i]))
+                        if(isset($narudzbe['title'][$i]) && $narudzbe['title'][$i] != '')
                         {
-                            //TODO wrap in transaction
+                            //TODO wrap in transaction (Golubu nije jasno zasto?)
                             $order = new Order();
                             $order->title = $narudzbe['title'][$i];
                             $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
@@ -139,9 +140,9 @@ class RadninaloziController extends Controller
                             $order->deId = NULL;
 
                             if (!$order->save())
-                            {
-                                echo 'greska u snimanju narudzbi.';
+                            {echo 'greska u snimanju narudzbi.';
                                 die();
+                                
                             }
                         }
                     }
@@ -212,32 +213,30 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe);$i+=6)
+                    $max = count($narudzbe['title']);
+
+                    for($i = 0; $i < $max; $i++)
                     {
-                        if(isset($narudzbe[$i]['title']))
+                        if(isset($narudzbe['title'][$i]))
                         {
-                            if($narudzbe[$i+5]['id'] === '0')
-                                $order = new Order();
-                            else
-                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
-
-                            $order->title = $narudzbe[$i]['title'];
-                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                            $order->description = $narudzbe[$i+4]['description'];
-                            $order->orderId = $narudzbe[$i+5]['id'];
-                            $order->woId = $model->woId;
-
-                            if($order->orderId === '0')
+                            if($narudzbe['id'][$i] === '0')
                             {
+                                $order = new Order();
                                 $order->done = 1;
                                 $order->deId = NULL;
-                                $order->save();
                             }
-
                             else
-                                $order->update();
+                                $order = Order::model()->findByPk($narudzbe['id'][$i]);
+
+                            $order->title = $narudzbe['title'][$i];
+                            $order->amount = str_replace(',','.',$narudzbe['amount'][$i]);
+                            $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                            $order->price = str_replace(',','.',$narudzbe['price'][$i]);
+                            $order->description = $narudzbe['description'][$i];
+                            $order->orderId = $narudzbe['id'][$i];
+                            $order->woId = $model->woId;
+
+                            $order->save();
                         }
                     }
                 }

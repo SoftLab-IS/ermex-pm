@@ -82,23 +82,23 @@
             <div class="clearfix oneOrder">
                 <div class="large-9 columns">
                     <label>Naziv</label>
-                    <input type="text" name="Order[][title]"/>
+                    <input type="text" name="Order[title][]"/>
                 </div>
                 <div class="large-1 columns">
                     <label>Količina</label>
-                    <input type="text" name="Order[][amount]"/>
+                    <input type="text" name="Order[amount][]" pattern="integer"/>
                 </div>
                 <div class="large-1 columns">
                     <label>Mjera</label>
-                    <input type="text" name="Order[][measurementUnit]"/>
+                    <input type="text" name="Order[measurementUnit][]"/>
                 </div>
                 <div class="large-1 columns">
                     <label>Cijena</label>
-                    <input type="text" name="Order[][price]"/>
+                    <input type="text" name="Order[price][]" pattern="integer"/>
                 </div>
                 <div class="large-12 columns">
                     <label>Opis</label>
-                    <textarea name="Order[][description]"></textarea>
+                    <textarea name="Order[description][]"></textarea>
                 </div>
             </div>
 
@@ -122,7 +122,8 @@
                         </select>
                     </div>
                     <div class="large-2 columns">
-                        <input type="text"  name="Materials[][amount]"/>
+                        <input type="text"  name="Materials[][amount]" pattern="integer"/>
+                        <small class="error">Količina mora biti broj.</small>
                     </div>
                 </div>
             </div>

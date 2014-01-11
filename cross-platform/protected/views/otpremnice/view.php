@@ -17,7 +17,7 @@
                     <?php if($model->invalid == 0): ?>
                         <li><?php echo CHtml::link('Storniraj otpremnicu', array('otpremnice/storn/'.$model->deId), array('class' => 'button small secondary')); ?></li>
                     <?php endif; ?>
-                    <?php if($model->archived == 0): ?>
+                    <?php if($model->archived == 0 and $model->reconciled == 1): ?>
                         <li><?php echo CHtml::link('Arhiviraj otpremnicu', array('otpremnice/archive/'.$model->deId), array('class' => 'button small secondary')); ?></li>
                     <?php endif; ?>
                     <?php if($model->invalid == 0): ?>

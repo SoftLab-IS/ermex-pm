@@ -51,25 +51,25 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
                 <div class="clearfix oneOrder">
                     <div class="large-9 columns">
                         <label>Naziv</label>
-                        <input type="text" name="Order[][title]" value="<?php echo $order->title; ?>"/>
+                        <input type="text" name="Order[title][]" value="<?php echo $order->title; ?>"/>
                     </div>
                     <div class="large-1 columns">
                         <label>Količina</label>
-                        <input type="text" name="Order[][amount]" value="<?php echo $order->amount; ?>"/>
+                        <input type="text" name="Order[amount][]" value="<?php echo $order->amount; ?>"/>
                     </div>
                     <div class="large-1 columns">
                         <label>Mjera</label>
-                        <input type="text" name="Order[][measurementUnit]" value="<?php echo $order->measurementUnit; ?>"/>
+                        <input type="text" name="Order[measurementUnit][]" value="<?php echo $order->measurementUnit; ?>"/>
                     </div>
                     <div class="large-1 columns">
                         <label>Cijena</label>
-                        <input type="text" name="Order[][price]" value="<?php echo $order->price; ?>"/>
+                        <input type="text" name="Order[price][]" value="<?php echo $order->price; ?>"/>
                     </div>
                     <div class="large-12 columns">
                         <label>Opis</label>
-                        <textarea name="Order[][description]"><?php echo $order->description; ?></textarea>
+                        <textarea name="Order[description][]"><?php echo $order->description; ?></textarea>
                     </div>
-                    <input type="hidden" name="Order[][id]" value="<?php echo $order->orderId; ?>"/>
+                    <input type="hidden" name="Order[id][]" value="<?php echo $order->orderId; ?>"/>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -81,10 +81,12 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
 
     </fieldset>
 
-    <div class="row">
-      <?php echo $form->labelEx($model,'price'); ?>
-      <?php echo $form->textField($model,'price'); ?>
-      <?php echo $form->error($model,'price'); ?>
+    <div class="clearfix">
+      <div class="large-4 large-push-8 columns">
+          <?php echo $form->labelEx($model,'price'); ?>
+          <?php echo $form->textField($model,'price',array('pattern'=>'integer')); ?>
+          <?php echo $form->error($model,'price'); ?>
+      </div>
   </div>
 
   <div class="clearfix">
@@ -105,7 +107,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
     echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj otpremnicu' : 'Sačuvaj otpremnicu', array(
         'class' => 'button small',
         'id' => 'otpremnica-submit-button',
-        'data-otpremnica-ok' => '0'
+        'data-otpremnica-ok' => $model->isNewRecord ? '0' : '1',
         )); 
         ?>	
     </div>
