@@ -81,10 +81,12 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
 
     </fieldset>
 
-    <div class="row">
-      <?php echo $form->labelEx($model,'price'); ?>
-      <?php echo $form->textField($model,'price'); ?>
-      <?php echo $form->error($model,'price'); ?>
+    <div class="clearfix">
+      <div class="large-4 large-push-8 columns">
+          <?php echo $form->labelEx($model,'price'); ?>
+          <?php echo $form->textField($model,'price'); ?>
+          <?php echo $form->error($model,'price'); ?>
+      </div>
   </div>
 
   <div class="clearfix">

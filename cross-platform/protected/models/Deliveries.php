@@ -86,7 +86,7 @@ class Deliveries extends CActiveRecord
 		return array(
 			'deId' => 'De',
 			'deliveryDate' => 'Datum kreiranja',
-			'price' => 'Cijena',
+			'price' => 'Ukupna cijena',
 			'note' => 'Napomena',
 			'payType' => 'Način plaćanja',
 			'reconciled' => 'Zaključen',
