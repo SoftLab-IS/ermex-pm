@@ -160,7 +160,11 @@ class OtpremniceController extends Controller
                     if(isset($narudzbe['title'][$i]))
                     {
                         if($narudzbe['id'][$i] === '0')
+                        {
                             $order = new Order();
+                            $order->done = 1;
+                            $order->woId = NULL;
+                        }
                         else
                             $order = Order::model()->findByPk($narudzbe['id'][$i]);
 
@@ -172,15 +176,7 @@ class OtpremniceController extends Controller
                         $order->orderId = $narudzbe['id'][$i];
                         $order->deId = $model->deId;
 
-                        if($order->orderId === '0')
-                        {
-                            $order->done = 1;
-                            $order->woId = NULL;
-                            $order->save();
-                        }
-
-                        else
-                            $order->update();
+                        $order->save();
                     }
                 }
             }
