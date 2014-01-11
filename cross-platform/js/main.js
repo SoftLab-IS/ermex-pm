@@ -95,7 +95,7 @@ function selectWorkers() {
   */
 var addOOProduct = function(e, data)
 {
-    var order = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[title][]" {NAZIV} /></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[amount][]" {KOLICINA} /></div><div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[measurementUnit][]" {MJERA} /></div><div class="large-1 columns"><label>Cijena</label><input type="text" name="Order[price][]" {CIJENA} /></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[description][]">{OPIS}</textarea></div><input type="hidden" name="Order[id][]" value="(ORDERID)"/></div>';
+    var order = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[title][]" {NAZIV} /></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[amount][]"  pattern="integer" {KOLICINA} /></div><div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[measurementUnit][]" {MJERA} /></div><div class="large-1 columns"><label>Cijena</label><input type="text" pattern="integer" name="Order[price][]" {CIJENA} /></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[description][]">{OPIS}</textarea></div><input type="hidden" name="Order[id][]" value="(ORDERID)"/></div>';
     var value = "";
     
     if (data == null)

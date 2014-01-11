@@ -86,7 +86,7 @@
                 </div>
                 <div class="large-1 columns">
                     <label>Količina</label>
-                    <input type="text" name="Order[amount][]"/>
+                    <input type="text" name="Order[amount][]" pattern="integer"/>
                 </div>
                 <div class="large-1 columns">
                     <label>Mjera</label>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="large-1 columns">
                     <label>Cijena</label>
-                    <input type="text" name="Order[price][]"/>
+                    <input type="text" name="Order[price][]" pattern="integer"/>
                 </div>
                 <div class="large-12 columns">
                     <label>Opis</label>
@@ -122,7 +122,8 @@
                         </select>
                     </div>
                     <div class="large-2 columns">
-                        <input type="text"  name="Materials[][amount]"/>
+                        <input type="text"  name="Materials[][amount]" pattern="integer"/>
+                        <small class="error">Količina mora biti broj.</small>
                     </div>
                 </div>
             </div>

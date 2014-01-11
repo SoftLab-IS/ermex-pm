@@ -84,7 +84,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
     <div class="clearfix">
       <div class="large-4 large-push-8 columns">
           <?php echo $form->labelEx($model,'price'); ?>
-          <?php echo $form->textField($model,'price'); ?>
+          <?php echo $form->textField($model,'price',array('pattern'=>'integer')); ?>
           <?php echo $form->error($model,'price'); ?>
       </div>
   </div>
