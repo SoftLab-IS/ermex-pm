@@ -126,9 +126,9 @@ class RadninaloziController extends Controller
                     $narudzbe = $_POST['Order'];
                     for($i = 0; $i < count($narudzbe); $i++)
                     {
-                        if(isset($narudzbe['title'][$i]))
+                        if(isset($narudzbe['title'][$i]) && $narudzbe['title'][$i] != '')
                         {
-                            //TODO wrap in transaction
+                            //TODO wrap in transaction (Golubu nije jasno zasto?)
                             $order = new Order();
                             $order->title = $narudzbe['title'][$i];
                             $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
