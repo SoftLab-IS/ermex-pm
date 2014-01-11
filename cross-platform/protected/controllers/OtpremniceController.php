@@ -103,7 +103,7 @@ class OtpremniceController extends Controller
                 }
                 $this->redirect(array('view','id' => $model->deId));
             }
-
+            
         }
         else
         {
@@ -336,18 +336,36 @@ class OtpremniceController extends Controller
      *
      * @param $safePks - array of primary keys
      */
-    public function reconcileItems($safePks)
+    public function reconcileItems($pk)
     {
-        Deliveries::model()->updateByPk($safePks,
-        array(
-                'reconciled' => '1',
-                'reconciledId' => Yii::app()->session['id'],
-        ));
+        if (is_array($pk))
+        {
+            Deliveries::model()->updateByPk($pk,
+            array(
+                    'reconciled' => '1',
+                    'reconciledId' => Yii::app()->session['id'],
+            ));
 
-        Order::model()->updateAll($safePks,
-        array(
-            'delivered' => '1'
-        ), 'deId IN (' . implode(",", $safePks) . ')');
+            Order::model()->updateAll(
+            array(
+                'delivered' => '1'
+            ), 'deId IN (' . implode(",", $pk) . ')');
+        }
+        else if (is_string($pk))
+        {
+            $pk = (int)$pk;
+            Deliveries::model()->updateByPk($pk,
+            array(
+                    'reconciled' => '1',
+                    'reconciledId' => Yii::app()->session['id'],
+            ));
+
+            Order::model()->updateAll(
+            array(
+                'delivered' => '1'
+            ), 'deId = ' . $pk);
+        }
+
     }
 
     public function archiveItems($safePks)
