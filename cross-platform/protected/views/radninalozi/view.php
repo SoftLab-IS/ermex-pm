@@ -13,10 +13,13 @@
             <div>
                 <ul class="button-group">
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Izmjeni radni nalog', array('radniNalozi/update/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Izmjeni', array('radniNalozi/update/'.$model->woId), array('class' => 'button small secondary')); ?></li>
                     <?php endif; ?>
                     <?php if($model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Storniraj radni nalog', array('radniNalozi/storn/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Storniraj', array('radniNalozi/storn/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                    <?php endif; ?>
+                    <?php if($model->invalid == 0): ?>
+                        <li><?php echo CHtml::link('Odštampaj', array('stampanje/radninalog/'.$model->woId), array('class' => 'button small secondary', 'target' => '_blank')); ?></li>
                     <?php endif; ?>
                 </ul>
                 <ul class="button-group">
