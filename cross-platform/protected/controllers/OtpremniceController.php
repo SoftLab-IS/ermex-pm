@@ -9,7 +9,6 @@ class OtpremniceController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
           );
 	}
 
@@ -24,18 +23,18 @@ class OtpremniceController extends Controller
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
-             ),
+               ),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update', 'reconcile', 'storn'),
 				'users'=>array('@'),
-             ),
+               ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete', 'archive'),
 				'users'=>array('admin'),
-             ),
+               ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-             ),
+               ),
           );
 	}
 
@@ -45,9 +44,10 @@ class OtpremniceController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-          ));
+		$this->render('view',
+        array(
+			'model' => $this->loadModel($id),
+        ));
 	}
 
 	/**
@@ -75,8 +75,8 @@ class OtpremniceController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-
-                    for($i = 0; $i < count($narudzbe); $i++)
+                    $max = count($narudzbe['title']);
+                    for($i = 0; $i < $max; $i++)
                     {
                         if(isset($narudzbe['title'][$i]))
                         {
@@ -103,7 +103,7 @@ class OtpremniceController extends Controller
                 }
                 $this->redirect(array('view','id' => $model->deId));
             }
-            
+
         }
         else
         {
@@ -123,11 +123,12 @@ class OtpremniceController extends Controller
             }
         }
 
-        $this->render('create',array(
-         'model'=> $model,
-         'orders' => $orders,
-         'products' => $products,
-         ));
+        $this->render('create',
+        array(
+           'model' => $model,
+           'orders' => $orders,
+           'products' => $products,
+        ));
     }
 
 	/**
@@ -137,36 +138,38 @@ class OtpremniceController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = $this->loadModel($id);
         $orders = Order::model()->findAllByAttributes(array('deId' => $id));
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+
 
         if(isset($_POST['Deliveries']))
         {
-         $model->attributes=$_POST['Deliveries'];
-         $model->deliveryDate = time();
-         $model->authorId = Yii::app()->session['id'];
-         if($model->save())
-         {
+           $model->attributes = $_POST['Deliveries'];
+           $model->deliveryDate = time();
+           $model->authorId = Yii::app()->session['id'];
+
+           if($model->save())
+           {
             if(isset($_POST['Order']))
             {
                 $narudzbe = $_POST['Order'];
-                for($i=0;$i<count($narudzbe);$i+=6)
+                $max = count($narudzbe['title']);
+
+                for($i = 0; $i < $max; $i++)
                 {
-                    if(isset($narudzbe[$i]['title']))
+                    if(isset($narudzbe['title'][$i]))
                     {
-                        if($narudzbe[$i+5]['id'] === '0')
+                        if($narudzbe['id'][$i] === '0')
                             $order = new Order();
                         else
-                            $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
+                            $order = Order::model()->findByPk($narudzbe['id'][$i]);
 
-                        $order->title = $narudzbe[$i]['title'];
-                        $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                        $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                        $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                        $order->description = $narudzbe[$i+4]['description'];
-                        $order->orderId = $narudzbe[$i+5]['id'];
+                        $order->title = $narudzbe['title'][$i];
+                        $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                        $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                        $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
+                        $order->description = $narudzbe['description'][$i];
+                        $order->orderId = $narudzbe['id'][$i];
                         $order->deId = $model->deId;
 
                         if($order->orderId === '0')
@@ -181,16 +184,18 @@ class OtpremniceController extends Controller
                     }
                 }
             }
-            $this->redirect(array('view','id'=>$model->deId));
+
+            $this->redirect(array('view','id' => $model->deId));
         }
 
     }
 
-    $this->render('update',array(
-     'model'=>$model,
-     'orders'=>$orders,
-     ));
-}
+    $this->render('update',
+        array(
+           'model' => $model,
+           'orders' => $orders,
+           ));
+    }
 
 	/**
 	 * Deletes a particular model.
@@ -341,29 +346,29 @@ class OtpremniceController extends Controller
         if (is_array($pk))
         {
             Deliveries::model()->updateByPk($pk,
-            array(
+                array(
                     'reconciled' => '1',
                     'reconciledId' => Yii::app()->session['id'],
-            ));
+                    ));
 
             Order::model()->updateAll(
-            array(
-                'delivered' => '1'
-            ), 'deId IN (' . implode(",", $pk) . ')');
+                array(
+                    'delivered' => '1'
+                    ), 'deId IN (' . implode(",", $pk) . ')');
         }
         else if (is_string($pk))
         {
             $pk = (int)$pk;
             Deliveries::model()->updateByPk($pk,
-            array(
+                array(
                     'reconciled' => '1',
                     'reconciledId' => Yii::app()->session['id'],
-            ));
+                    ));
 
             Order::model()->updateAll(
-            array(
-                'delivered' => '1'
-            ), 'deId = ' . $pk);
+                array(
+                    'delivered' => '1'
+                    ), 'deId = ' . $pk);
         }
 
     }
