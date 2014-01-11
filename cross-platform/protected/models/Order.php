@@ -15,6 +15,7 @@
  * @property double $totalePrice
  * @property string $pdv
  * @property integer $done
+ * @property integer $delivered
  *
  * The followings are the available model relations:
  * @property WorkAccounts $wo
@@ -39,7 +40,7 @@ class Order extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'required'),
-			array('woId, deId, done', 'numerical', 'integerOnly'=>true),
+			array('woId, deId, done, delivered', 'numerical', 'integerOnly'=>true),
 			array('price, totalePrice', 'numerical'),
 			array('title', 'length', 'max'=>255),
 			array('amount, measurementUnit, pdv', 'length', 'max'=>45),
@@ -61,6 +62,19 @@ class Order extends CActiveRecord
 			'wo' => array(self::BELONGS_TO, 'WorkAccounts', 'woId'),
 			'de' => array(self::BELONGS_TO, 'Deliveries', 'deId'),
 
+		);
+	}
+
+	/**
+	 * @return array of scope configuration
+	**/
+	public function scopes()
+	{
+		return array(
+			'products' => 
+			array(
+				'condition' => "{$this->tableAlias}.delivered = 0 AND {$this->tableAlias}.done = 1",
+			),
 		);
 	}
 
@@ -113,6 +127,7 @@ class Order extends CActiveRecord
 		$criteria->compare('totalePrice', $this->totalePrice);
 		$criteria->compare('pdv', $this->pdv, true);
 		$criteria->compare('done', 1);
+		$criteria->compare('delivered', 0);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

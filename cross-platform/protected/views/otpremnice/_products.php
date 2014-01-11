@@ -34,12 +34,12 @@
                     ),
                     array(
                         'name' => 'amount',
-                        'value' => '$data->amount." ".$data->measurementUnit',
+                        'value' => '$data->amount != "" ? $data->amount ." ". $data->measurementUnit : ""',
                         'type' => 'raw',
                     ),
                     array(
                         'name' => 'price',
-                        'value' => '$data->price." KM"'
+                        'value' => '$data->price > 0 ? $data->price." KM" : ""'
                     ),
                     array(
                         'name' => 'wo.workAccountSerial',

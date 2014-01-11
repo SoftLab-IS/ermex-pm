@@ -341,6 +341,7 @@ class OtpremniceController extends Controller
         Deliveries::model()->updateByPk($safePks,
             array(
                 'reconciled' => '1',
+                'delivered' => '1',
                 'reconciledId' => Yii::app()->session['id'],
                 ));
     }
