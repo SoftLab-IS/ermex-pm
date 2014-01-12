@@ -19,8 +19,8 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=ermex_pm',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'icefire007',
+			'username' => 'ermexpmadmin',
+			'password' => 'ermex2014pm',
 			'charset' => 'utf8',
 		),
 
