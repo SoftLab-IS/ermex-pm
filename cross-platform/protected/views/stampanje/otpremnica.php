@@ -102,7 +102,7 @@ $this->pageTitle = "Otpremnica #" . $model->deliverySerial;
                             <div class="small-container">
                                 <strong>Otpremio:</strong>
                                 <div class="small-block">
-                                    <span><?php echo $model->reconciled0->getFullName(); ?></span>
+                                    <span><?php echo Yii::app()->session['fullname']; ?></span>
                                 </div>
                             </div>
                         </td>
