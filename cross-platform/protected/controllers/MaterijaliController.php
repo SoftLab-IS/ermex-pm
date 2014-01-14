@@ -46,11 +46,26 @@ class MaterijaliController extends Controller
 	}
 
 	/**
+	 * Checks whether or not user has allowed privileges or redirect is performed.
+	 *
+	 * @author Aleksandar Panic
+	 *
+	 */
+	public function userCheck()
+	{
+		if (Yii::app()->session['level'] != 3)
+			$this->redirect(Yii::app()->baseUrl);
+	}
+
+
+	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
 	{
+		$this->userCheck();
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -62,6 +77,8 @@ class MaterijaliController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->userCheck();
+
 		$model=new Materials;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -88,6 +105,8 @@ class MaterijaliController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->userCheck();
+
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -112,6 +131,8 @@ class MaterijaliController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+		$this->userCheck();
+
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -124,6 +145,8 @@ class MaterijaliController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->userCheck();
+
 		$dataProvider=new CActiveDataProvider('Materials',
 		array(
             'pagination' => array(
@@ -142,6 +165,8 @@ class MaterijaliController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->userCheck();
+		
 		$model=new Materials('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Materials']))

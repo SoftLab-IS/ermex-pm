@@ -82,7 +82,8 @@
             								),
             							array(
             								'label' => 'Materijal', 
-            								'url' => array('/materijali/index')
+            								'url' => array('/materijali/index'),
+                                            'visible' => (Yii::app()->session['level'] == 3)
             								),
                                         array(
                                             'label' => 'Korisnici',
