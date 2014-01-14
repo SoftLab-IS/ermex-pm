@@ -233,17 +233,13 @@ class OtpremniceController extends Controller
             }
         }
 
+        $criteria = new CDbCriteria;
+        $criteria->order = Deliveries::model()->tableAlias . ".deId DESC";
+        
         if (Yii::app()->session['level'] < 2)
-        {
-            $criteria = new CDbCriteria;
-            $criteria->condition='reconciled IS NULL AND archived IS NULL';
-        }
+           $criteria->condition='reconciled IS NULL AND archived IS NULL';
         else
-        {
-            $criteria = new CDbCriteria;
             $criteria->condition='archived IS NULL';
-
-        }
 
         $dataProvider = new CActiveDataProvider(Deliveries::model(), array(
             'criteria' => $criteria,
