@@ -22,7 +22,7 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-        $user = Users::model()->getUser($this->username, $this->password);
+        $user = Users::model()->getUser($this->username, md5(strtolower($this->password)));
 
         if ($user == null)
         {

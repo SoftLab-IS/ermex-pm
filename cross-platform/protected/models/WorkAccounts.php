@@ -175,16 +175,17 @@ class WorkAccounts extends CActiveRecord
 		$criteria->compare('reconciled', $this->reconciled);
 		$criteria->compare('authorId', $this->authorId);
 		$criteria->compare('reconciledId', $this->reconciledId);
-        $criteria->compare('usersList', $this->usersList);
-        $criteria->compare('reviewdId', $this->reviewdId);
-        $criteria->compare('currentUser', $this->currentUser);
-        $criteria->compare('deliveryPlace', $this->deliveryPlace);
-
+	        $criteria->compare('usersList', $this->usersList);
+	        $criteria->compare('reviewdId', $this->reviewdId);
+	        $criteria->compare('currentUser', $this->currentUser);
+	        $criteria->compare('deliveryPlace', $this->deliveryPlace);
+		$criteria->order = $this->tableAlias . ".woId DESC";
+		
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 25,
-            ),
+	            'pagination' => array(
+	                'pageSize' => 25,
+	            ),
 		));
 	}
 

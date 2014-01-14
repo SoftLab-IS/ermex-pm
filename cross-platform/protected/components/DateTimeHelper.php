@@ -35,4 +35,9 @@ class DateTimeHelper {
 
         return mktime($hours, $minutes, $seconds, $month, $day, $year);
     }
+
+    public static function unixToDate($inputTimestamp)
+    {
+
+    }
 } 

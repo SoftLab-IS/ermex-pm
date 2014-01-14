@@ -15,6 +15,7 @@ $(document).ready(function (event)
 	bindAutoComplete();
     bindTimePicker();
     bindOtprmenicaSubmitCheck();
+    bindCloseAddExistingProductsModal()
 });
 
 var displayError = function(errNum)
@@ -256,4 +257,9 @@ function bindShowFilterOptions()
     });
 }
 
-
+function bindCloseAddExistingProductsModal()
+{
+    $('#proizvodiDodajPostojeci').click(function(){
+        $('.reveal-modal-bg').click();
+    });
+}

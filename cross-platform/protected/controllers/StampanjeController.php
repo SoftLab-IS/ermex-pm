@@ -40,12 +40,31 @@ class StampanjeController extends Controller
 
 	public function actionOtpremnica($id)
 	{
-		$this->render('otpremnica');
+        $cijena = 0;
+        if(isset($_GET['cijena']))
+        {
+            if($_GET['cijena'] == 1)
+                $cijena = 1;
+        }
+        $model=Deliveries::model()->findByPk($id);
+        $this->render('otpremnica',
+            array(
+                'model' => $model,
+                'saCijenom' => $cijena,
+            ));
 	}
 
 	public function actionRadninalog($id)
 	{
-		$this->render('radninalog');
+        $model = WorkAccounts::model()->findByPk($id);
+        $usersList = $this->showWorkers($model->usersList);
+        $usedMaterials = UsedMaterials::model()->findAllByAttributes(array('workAccountId' => $id));
+		$this->render('radninalog',
+        array(
+            'model' => $model,
+            'workers' => $usersList,
+            'materials' => $usedMaterials,
+        ));
 	}
 
 	public function actionViseotpremnica()
@@ -57,4 +76,15 @@ class StampanjeController extends Controller
 	{
 		$this->render('radninalog');
 	}
+
+    public function showWorkers($list)
+    {
+        $indexes = explode(",", $list);
+        $users = array();
+        foreach($indexes as $index)
+        {
+            array_push($users, Users::model()->findByPk($index));
+        }
+        return $users;
+    }
 }

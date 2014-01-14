@@ -54,11 +54,11 @@
     <div class="row buttons text-center">
         <?php 
             echo CHtml::button('Dodaj proizvode', array(
-                                                    'class' => 'button small', 
+                                                    'class' => 'button small',
                                                     "id" => "proizvodiDodajPostojeci")); 
         ?>
     </div>
 
-    <a class="close-reveal-modal">&#215;</a>
+    <a class="close-reveal-modal" id="close-products-modal">&#215;</a>
 </div>
 
