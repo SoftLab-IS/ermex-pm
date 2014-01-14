@@ -124,8 +124,7 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    $max = count($narudzbe['title']);
-                    for($i = 0; $i < $max; $i++)
+                    for($i = 0; $i < count($narudzbe); $i++)
                     {
                         if(isset($narudzbe['title'][$i]) && $narudzbe['title'][$i] != '')
                         {
@@ -140,9 +139,9 @@ class RadninaloziController extends Controller
                             $order->deId = NULL;
 
                             if (!$order->save())
-                            {echo 'greska u snimanju narudzbi.';
+                            {
+                                echo 'greska u snimanju narudzbi.';
                                 die();
-                                
                             }
                         }
                     }
@@ -213,30 +212,32 @@ class RadninaloziController extends Controller
                 if(isset($_POST['Order']))
                 {
                     $narudzbe = $_POST['Order'];
-                    $max = count($narudzbe['title']);
-
-                    for($i = 0; $i < $max; $i++)
+                    for($i=0;$i<count($narudzbe);$i+=6)
                     {
-                        if(isset($narudzbe['title'][$i]))
+                        if(isset($narudzbe[$i]['title']))
                         {
-                            if($narudzbe['id'][$i] === '0')
-                            {
+                            if($narudzbe[$i+5]['id'] === '0')
                                 $order = new Order();
-                                $order->done = 1;
-                                $order->deId = NULL;
-                            }
                             else
-                                $order = Order::model()->findByPk($narudzbe['id'][$i]);
+                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
 
-                            $order->title = $narudzbe['title'][$i];
-                            $order->amount = str_replace(',','.',$narudzbe['amount'][$i]);
-                            $order->measurementUnit = $narudzbe['measurementUnit'][$i];
-                            $order->price = str_replace(',','.',$narudzbe['price'][$i]);
-                            $order->description = $narudzbe['description'][$i];
-                            $order->orderId = $narudzbe['id'][$i];
+                            $order->title = $narudzbe[$i]['title'];
+                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
+                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
+                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
+                            $order->description = $narudzbe[$i+4]['description'];
+                            $order->orderId = $narudzbe[$i+5]['id'];
                             $order->woId = $model->woId;
 
-                            $order->save();
+                            if($order->orderId === '0')
+                            {
+                                $order->done = 1;
+                                $order->deId = NULL;
+                                $order->save();
+                            }
+
+                            else
+                                $order->update();
                         }
                     }
                 }
