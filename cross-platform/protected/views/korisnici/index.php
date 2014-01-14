@@ -43,7 +43,7 @@ array(
 
 		array(
 			'name' => 'privilegeLevel',
-			'value' => '($data->privilegeLevel == 0) ? "Nema pristup" : (($data->privilegeLevel == 1) ? "Radnik" : (($data->privilegeLevel == 2) ? "Racunovođa" : (($data->privilegeLevel == 3) ? "Administrator" : "Nepoznato")))'
+			'value' => '($data->privilegeLevel == 0) ? "Nema pristup" : (($data->privilegeLevel == 1) ? "Radnik" : (($data->privilegeLevel == 2) ? "Računovođa" : (($data->privilegeLevel == 3) ? "Administrator" : "Nepoznato")))'
 		),
 		array(
 			'class'=>'CButtonColumn',

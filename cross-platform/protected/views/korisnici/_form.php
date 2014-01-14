@@ -76,7 +76,7 @@
 		array(
 			'0' => 'Nema pristup',
 			'1' => 'Radnik',
-			'2' => 'Racunovođa',
+			'2' => 'Računovođa',
 			'3' => 'Administrator'
 		)); ?>
 		<?php echo $form->error($model, 'privilegeLevel'); ?>
