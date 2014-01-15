@@ -110,4 +110,16 @@ class UsedMaterials extends CActiveRecord
         $materials->update();
     }
 
+    public function return_materials_to_stok($rnIds)
+    {
+        $usedMaterials = $this->findAllByAttributes(array('workAccountId' => $rnIds));
+        foreach($usedMaterials as $um)
+        {
+            $material = Materials::model()->findByAttributes(array('maId' => $um->materialId));
+            $material->amount -= $um->amount;
+            $material->update();
+        }
+
+    }
+
 }

@@ -513,6 +513,7 @@ class RadninaloziController extends Controller
             array(
                 'invalid' => '1'
             ));
+        UsedMaterials::model()->return_materials_to_stok($safePks);
     }
 
     /**
