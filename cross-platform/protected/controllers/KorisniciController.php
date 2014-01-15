@@ -114,7 +114,7 @@ class KorisniciController extends Controller
 			}
 
 			if($model->save())
-				$this->redirect(array('view','id' => $model->usId));
+                $this->redirect(array('index'));
 		}
 
 		$this->render('update',
