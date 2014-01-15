@@ -31,7 +31,8 @@ class UsedMaterials extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('amount, materialId, workAccountId', 'required'),
-			array('amount, materialId, workAccountId', 'numerical', 'integerOnly'=>true),
+			array('materialId, workAccountId', 'numerical', 'integerOnly'=>true),
+            array('amount', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('amount, materialId, workAccountId', 'safe', 'on'=>'search'),
