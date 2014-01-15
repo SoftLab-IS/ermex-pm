@@ -56,7 +56,7 @@
         </div>
         <div class="large-2 columns">
             <label>Vrijeme isporuke *</label>
-            <input type="text" id="deliveryTime" required="required" class="" name="deadlineTime"/>
+            <input type="text" id="deliveryTime" required="required" class="" name="deadlineTime" value="10:00"/>
             <small class="error">Ovo polje je obavezno.</small>
         </div>
         <div class="large-6 columns">
