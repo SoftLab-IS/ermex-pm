@@ -10,6 +10,7 @@
  * @property double $amount
  * @property string $enterDate
  * @property string $dimensionUnit
+ * @property integer $invalid
  *
  * The followings are the available model relations:
  * @property UsedMaterials[] $usedMaterials
@@ -109,9 +110,13 @@ class Materials extends CActiveRecord
 		$criteria->compare('amount',$this->amount);
 		$criteria->compare('enterDate',$this->enterDate,true);
 		$criteria->compare('dimensionUnit',$this->dimensionUnit,true);
+		$criteria->compare('invalid', 0);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
 		));
 	}
 
