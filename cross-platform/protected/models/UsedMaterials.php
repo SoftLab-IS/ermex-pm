@@ -116,7 +116,7 @@ class UsedMaterials extends CActiveRecord
         foreach($usedMaterials as $um)
         {
             $material = Materials::model()->findByAttributes(array('maId' => $um->materialId));
-            $material->amount -= $um->amount;
+            $material->amount += $um->amount;
             $material->update();
         }
 
