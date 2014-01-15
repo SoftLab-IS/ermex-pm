@@ -158,13 +158,16 @@ class RadninaloziController extends Controller
                         {
                             for($i = 0; $i < $max; $i++)
                             {
-                                $material = new UsedMaterials();
-                                $material->materialId = $materijali['maId'][$i];
-                                $material->amount = str_replace(',', '.', $materijali['amount'][$i]);
-                                $material->workAccountId = $model->woId;
+                                if ($materijali['maId'][$i] != "")
+                                {
+                                    $material = new UsedMaterials();
+                                    $material->materialId = $materijali['maId'][$i];
+                                    $material->amount = str_replace(',', '.', $materijali['amount'][$i]);
+                                    $material->workAccountId = $model->woId;
 
-                                if(!$material->save())
-                                    throw new CDbException('Greška pri snimanju materijala.');
+                                    if(!$material->save())
+                                        throw new CDbException('Greška pri snimanju materijala.');
+                                }
                             }
                         }
                     }
@@ -275,14 +278,16 @@ class RadninaloziController extends Controller
 
                             for($i = 0; $i < $max; $i++)
                             {
-                                $material = new UsedMaterials();
-                                $material->materialId = $materijali['maId'][$i];
-                                $material->amount = str_replace(',', '.', $materijali['amount'][$i]);
-                                $material->workAccountId = $model->woId;
+                                if ($materijali['maId'][$i] != "")
+                                {
+                                    $material = new UsedMaterials();
+                                    $material->materialId = $materijali['maId'][$i];
+                                    $material->amount = str_replace(',', '.', $materijali['amount'][$i]);
+                                    $material->workAccountId = $model->woId;
 
-                                if (!$material->save())
-                                    throw new CDbException('Greška pri snimanju materijala.');
-
+                                    if (!$material->save())
+                                        throw new CDbException('Greška pri snimanju materijala.');
+                                }
                             }
                         }
                     }
