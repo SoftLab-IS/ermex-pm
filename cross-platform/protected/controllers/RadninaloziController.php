@@ -274,6 +274,15 @@ class RadninaloziController extends Controller
 
                         if (!(($max == 1) && ($materijali['maId'][0] == "")))
                         {
+                            $ums = UsedMaterials::model()->findAllByAttributes(array('workAccountId' => $model->woId));
+                            
+                            foreach($ums as $u)
+                            {
+                                $m = Materials::model()->findByAttributes(array('maId' => $u->materialId));
+                                $m->amount += $u->amount;
+                                $m->save();
+                            }
+
                             UsedMaterials::model()->deleteAllByAttributes(array('workAccountId' => $model->woId));
 
                             for($i = 0; $i < $max; $i++)
