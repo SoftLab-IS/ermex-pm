@@ -78,10 +78,10 @@ class ProizvodiController extends Controller
                 foreach($data as $d)
                     $result[] = array(
                         "naziv" => $d->title,
-                        "kolicina" => $d->amount,
-                        "mjera" => $d->measurementUnit,
-                        "cijena" => $d->price,
-                        "opis" => $d->description,
+                        "kolicina" => $d->amount != NULL ? $d->amount : "",
+                        "mjera" => $d->measurementUnit != NULL ? $d->measurementUnit : "",
+                        "cijena" => $d->price != NULL ? $d->price : "",
+                        "opis" => $d->description != NULL ? $d->description : "",
                         "id" => $d->orderId
                     );
                 

@@ -20,17 +20,9 @@ class OtpremniceController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-               ),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'reconcile', 'storn'),
+				'actions'=>array('index','view','create','update', 'reconcile', 'storn', 'archive'),
 				'users'=>array('@'),
-               ),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'archive'),
-				'users'=>array('admin'),
                ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -69,39 +61,60 @@ class OtpremniceController extends Controller
             $model->reconciledId = Yii::app()->session['id'];
             $model->authorId = Yii::app()->session['id'];
             $model->deliverySerial = ($oldSerial === null) ? 'OT1-' . date("m/Y") : SerialGenerator::generateSerial($oldSerial->deliverySerial);
-            
-            if($model->save())
-            {
-                if(isset($_POST['Order']))
-                {
-                    $narudzbe = $_POST['Order'];
-                    $max = count($narudzbe['title']);
-                    for($i = 0; $i < $max; $i++)
-                    {
-                        if(isset($narudzbe['title'][$i]))
-                        {
-                            if ($narudzbe['id'][$i] == '0')
-                            {
-                                $order = new Order();
-                                $order->done = 1;
-                                $order->woId = NULL;
-                            }
-                            else
-                                $order = Order::model()->findByPk($narudzbe['id'][$i]);
+            $model->reconciled = 0;
+            $model->invalid = 0;
+            $model->archived = 0;
 
-                            $order->title = $narudzbe['title'][$i];
-                            $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
-                            $order->measurementUnit = $narudzbe['measurementUnit'][$i];
-                            $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
-                            $order->description = $narudzbe['description'][$i];
-                            
-                            $order->deId = $model->primaryKey;
-                            
-                            $order->save(); 
+            $t = Yii::app()->db->beginTransaction();
+
+            try
+            {
+                if($model->save())
+                {
+                    if(isset($_POST['Order']))
+                    {
+                        $narudzbe = $_POST['Order'];
+                        $max = count($narudzbe['title']);
+                        for($i = 0; $i < $max; $i++)
+                        {
+                            if(isset($narudzbe['title'][$i]))
+                            {
+                                if ($narudzbe['id'][$i] == '0')
+                                {
+                                    $order = new Order();
+                                    $order->done = 1;
+                                    $order->woId = NULL;
+                                }
+                                else
+                                    $order = Order::model()->findByPk($narudzbe['id'][$i]);
+
+                                $order->title = $narudzbe['title'][$i];
+                                $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                                $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                                $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
+                                $order->description = $narudzbe['description'][$i];
+                                
+                                $order->deId = $model->primaryKey;
+                                
+                                if (!$order->save())
+                                    throw new CDbException('Greška pri snimanju narudžbe.');
+                            }
                         }
                     }
+
                 }
+                else
+                    throw new CDbException('Greška pri snimanju otpremnice.');
+
+                $t->commit();
+
                 $this->redirect(array('view','id' => $model->deId));
+
+            }
+            catch(Exception $e)
+            {
+                $t->rollback();
+                throw $e;
             }
 
         }
@@ -148,41 +161,58 @@ class OtpremniceController extends Controller
            $model->deliveryDate = time();
            $model->authorId = Yii::app()->session['id'];
 
-           if($model->save())
+           $t = Yii::app()->db->beginTransaction();
+
+           try
            {
-            if(isset($_POST['Order']))
-            {
-                $narudzbe = $_POST['Order'];
-                $max = count($narudzbe['title']);
 
-                for($i = 0; $i < $max; $i++)
-                {
-                    if(isset($narudzbe['title'][$i]))
+               if($model->save())
+               {
+                    if(isset($_POST['Order']))
                     {
-                        if($narudzbe['id'][$i] === '0')
+                        $narudzbe = $_POST['Order'];
+                        $max = count($narudzbe['title']);
+
+                        for($i = 0; $i < $max; $i++)
                         {
-                            $order = new Order();
-                            $order->done = 1;
-                            $order->woId = NULL;
+                            if(isset($narudzbe['title'][$i]))
+                            {
+                                if($narudzbe['id'][$i] === '0')
+                                {
+                                    $order = new Order();
+                                    $order->done = 1;
+                                    $order->woId = NULL;
+                                }
+                                else
+                                    $order = Order::model()->findByPk($narudzbe['id'][$i]);
+
+                                $order->title = $narudzbe['title'][$i];
+                                $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                                $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                                $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
+                                $order->description = $narudzbe['description'][$i];
+                                $order->deId = $model->deId;
+
+                                if (!$order->save())
+                                    throw new CDbException('Greška pri snimanju narudžbe.');
+                            }
                         }
-                        else
-                            $order = Order::model()->findByPk($narudzbe['id'][$i]);
-
-                        $order->title = $narudzbe['title'][$i];
-                        $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
-                        $order->measurementUnit = $narudzbe['measurementUnit'][$i];
-                        $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
-                        $order->description = $narudzbe['description'][$i];
-                        $order->orderId = $narudzbe['id'][$i];
-                        $order->deId = $model->deId;
-
-                        $order->save();
                     }
-                }
-            }
 
-            $this->redirect(array('view','id' => $model->deId));
-        }
+                }
+                else
+                    throw new CDbException('Greška pri snimanju otpremnice.');
+
+                $t->commit();
+
+                $this->redirect(array('view','id' => $model->deId));
+
+            }
+            catch(Exception $e)
+            {
+                $t->rollback();
+                throw $e;
+            }
 
     }
 
@@ -233,23 +263,28 @@ class OtpremniceController extends Controller
             }
         }
 
-        $criteria = new CDbCriteria;
-        $criteria->order = Deliveries::model()->tableAlias . ".deId DESC";
-        
-        if (Yii::app()->session['level'] < 2)
-           $criteria->condition='reconciled IS NULL AND archived IS NULL';
-        else
-            $criteria->condition='archived IS NULL';
+        $model = new Deliveries('search');
+        $model->unsetAttributes();
 
-        $dataProvider = new CActiveDataProvider(Deliveries::model(), array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 25,
-                ),
-            ));
+        if(isset($_GET['Deliveries']))
+        {
+            $model->attributes = $_GET['Deliveries'];
+
+
+            if ($model->authorId == 0)
+                $model->authorId = null;
+
+            if ($model->reconciledId == 0)
+                $model->reconciledId = null;
+
+            if (is_string($model->deliveryDate) && $model->deliveryDate != "")
+                $model->deliveryDate = DateTimeHelper::dateToUnix($model->deliveryDate);
+
+        }
 
         $this->render('index',array(
-            'dataProvider'=>$dataProvider,
+            'users' => Users::model()->findAll(),
+            'model' => $model,
             'userLevel' => Yii::app()->session['level'],
             ));
     }
