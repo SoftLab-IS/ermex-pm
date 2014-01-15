@@ -21,7 +21,7 @@ class OtpremniceController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update', 'reconcile', 'storn', 'archive'),
+				'actions'=>array('index','view','create','update', 'reconcile', 'storn', 'archive', 'archived'),
 				'users'=>array('@'),
                ),
 			array('deny',  // deny all users
@@ -406,5 +406,19 @@ class OtpremniceController extends Controller
             array(
                 'archived' => '1',
                 ));
+    }
+
+    public function actionArchived()
+    {
+        $model = new Deliveries('search');
+        $criteria = new CDbCriteria();
+        $criteria->compare('archived' , 1);
+        $deliveries = new CActiveDataProvider($model, array('criteria' => $criteria,));
+        $this->render('archived',array(
+            'model'=> $model,
+            'deliveries' => $deliveries,
+            'userLevel' => Yii::app()->session['level'],
+            'users' => Users::model()->findAll(),
+        ));
     }
 }

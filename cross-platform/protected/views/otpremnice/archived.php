@@ -8,18 +8,7 @@
 ?>
 
 <?php
-if($userLevel > 1)
-{
-    $this->renderPartial('_search',
-        array(
-            'model' => $model,
-            'users' => $users,
-        ));
-}
-?>
 
-
-<?php
 $form = $this->beginWidget('CActiveForm',
     array(
         'id' => 'delivery-form',
@@ -27,18 +16,16 @@ $form = $this->beginWidget('CActiveForm',
 ?>
 
 <header class="clearfix">
-    <h2 class="large-5 columns">Otpremnice</h2>
+    <h2 class="large-5 columns">Arhivirane Otpremnice</h2>
 
     <div class="button-bar large-7 columns context-options">
         <div>
             <ul class="button-group">
-                <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
+
                 <?php if($userLevel > 1): ?>
-                    <li><?php echo CHtml::submitButton('Arhiviraj odabrane', array('name' => 'arhivirajOdabrane', 'class' => 'button secondary small')); ?></li>
-                    <li><?php echo CHtml::link('Prikaži arhivirane', array('archived'), array('class' => 'button secondary small')); ?></li>
+                    <li><?php echo CHtml::link('Prikaži sve', array('index'), array('class' => 'button secondary small')); ?></li>
                 <?php endif; ?>
-<!--                <li>--><?php //echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
+                <!--                <li>--><?php //echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
             </ul>
             <ul class="button-group">
                 <li><?php echo CHtml::link('Napravi otpremnicu', array('otpremnice/create'), array('class' => 'button small')); ?>
@@ -50,10 +37,10 @@ $form = $this->beginWidget('CActiveForm',
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
         'id'=>'delivery-grid',
-        'dataProvider'=> $model->search(),
+        'dataProvider'=> $deliveries,
         'emptyText' => 'Trenutno nema dostupnih otpremnica.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} otpremnica.',
-       'rowCssClassExpression' => '
+        'rowCssClassExpression' => '
         (($row % 2) ? $this->rowCssClass[1] : $this->rowCssClass[0]) .
         (($data->reconciled == 1) ? " reconciled-item" : "") .
         (($data->invalid == 1) ? " invalid-item" : "")
