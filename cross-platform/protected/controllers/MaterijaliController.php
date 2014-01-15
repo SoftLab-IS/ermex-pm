@@ -15,7 +15,7 @@ class MaterijaliController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -27,17 +27,9 @@ class MaterijaliController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'index','view','delete'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -133,11 +125,14 @@ class MaterijaliController extends Controller
 	{
 		$this->userCheck();
 
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+
+		$model->invalid = 1;
+		$model->save();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**
@@ -147,33 +142,10 @@ class MaterijaliController extends Controller
 	{
 		$this->userCheck();
 
-		$dataProvider=new CActiveDataProvider('Materials',
-		array(
-            'pagination' => array(
-                'pageSize' => 25,
-            ),
-		));
+		$model = new Materials('search');
 		
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$this->userCheck();
-		
-		$model=new Materials('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Materials']))
-			$model->attributes=$_GET['Materials'];
-
-		$this->render('admin',array(
-			'model'=>$model,
+			'dataProvider'=> $model->search()
 		));
 	}
 
