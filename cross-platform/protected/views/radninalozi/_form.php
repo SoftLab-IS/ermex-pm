@@ -114,7 +114,7 @@
             <div class="material-select clearfix">
                 <div class="materials clearfix">
                     <div class="large-10 columns">
-                        <select name="Materials[][maId]">
+                        <select name="Materials[maId][]">
                             <option></option>
                             <?php foreach($materials->findAll() as $material): ?>
                                 <option value="<?php echo $material->maId; ?>"><?php echo $material->name; ?></option>
@@ -122,7 +122,7 @@
                         </select>
                     </div>
                     <div class="large-2 columns">
-                        <input type="text"  name="Materials[][amount]" pattern="integer"/>
+                        <input type="text"  name="Materials[amount][]" pattern="integer"/>
                         <small class="error">Količina mora biti broj.</small>
                     </div>
                 </div>

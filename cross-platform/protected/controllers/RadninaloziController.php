@@ -74,7 +74,7 @@ class RadninaloziController extends Controller
 			$model->attributes = $_POST['WorkAccounts'];
 
             $oldSerial = WorkAccounts::model()->lastSerial()->find();
-            $model->workAccountSerial = ($oldSerial === null)? 'RN1-'.date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
+            $model->workAccountSerial = ($oldSerial === null)? 'RN1-' . date("m/Y") : SerialGenerator::generateSerial($oldSerial->workAccountSerial);
 
             $model->creationDate = time();
             $model->deadlineDate = DateTimeHelper::dateToUnix($model->deadlineDate, $_POST['deadlineTime']);
@@ -118,51 +118,73 @@ class RadninaloziController extends Controller
 				$payeeModel->save();
 			}
 			
-			
-			if($model->save())
-            {
-                if(isset($_POST['Order']))
-                {
-                    $narudzbe = $_POST['Order'];
-                    for($i = 0; $i < count($narudzbe); $i++)
-                    {
-                        if(isset($narudzbe['title'][$i]) && $narudzbe['title'][$i] != '')
-                        {
-                            //TODO wrap in transaction (Golubu nije jasno zasto?)
-                            $order = new Order();
-                            $order->title = $narudzbe['title'][$i];
-                            $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
-                            $order->measurementUnit = $narudzbe['measurementUnit'][$i];
-                            $order->price = str_replace(',', '.', $narudzbe['price'][$i]);
-                            $order->description = $narudzbe['description'][$i];
-                            $order->woId = $model->primaryKey;
-                            $order->deId = NULL;
+            $t = Yii::app()->db->beginTransaction();
 
-                            if (!$order->save())
+			try
+            {
+    			if($model->save())
+                {
+                    if(isset($_POST['Order']))
+                    {
+                        $narudzbe = $_POST['Order'];
+                        $max = count($narudzbe['title']);
+                        for($i = 0; $i < $max; $i++)
+                        {
+                            if(isset($narudzbe['title'][$i]))
                             {
-                                echo 'greska u snimanju narudzbi.';
-                                die();
+                                $order = new Order();
+                                $order->done = 1;
+                                $order->deId = NULL;
+                                
+                                $order->title = $narudzbe['title'][$i];
+                                $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                                $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                                $order->price = str_replace(',','.',$narudzbe['price'][$i]);
+                                $order->description = $narudzbe['description'][$i];
+                                $order->woId = $model->woId;
+
+                                if (!$order->save())
+                                    throw new CDbException('Greška pri snimanju narudžbe.');
+                            }
+                        }
+                    }
+                    if(isset($_POST['Materials']))
+                    {
+                        $materijali = $_POST['Materials'];
+
+                        $max = count($materijali['maId']);
+
+                        if (!(($max == 1) && ($materijali['maId'][0] == "")))
+                        {
+                            for($i = 0; $i < $max; $i++)
+                            {
+                                $material = new UsedMaterials();
+                                $material->materialId = $materijali['maId'][$i];
+                                $material->amount = str_replace(',', '.', $materijali['amount'][$i]);
+                                $material->workAccountId = $model->woId;
+
+                                if(!$material->save())
+                                    throw new CDbException('Greška pri snimanju materijala.');
                             }
                         }
                     }
                 }
-                if(isset($_POST['Materials']))
-                {
-                    $materijali = $_POST['Materials'];
-                    for($i=0;$i<count($materijali);$i+=2)
-                    {
-                        $material = new UsedMaterials();
-                        $material->materialId = $materijali[$i]['maId'];
-                        $material->amount = str_replace(',','.',$materijali[$i+1]['amount']);
-                        $material->workAccountId = $model->woId;
+                else
+                    throw new CDbException('Greška pri snimanju radnog naloga.');
 
-                        if(!$material->save())
-							echo "nije dobro!";
-                    }
-                }
+                $t->commit();
+                
+                $this->redirect(array('view','id' => $model->woId));
+    		    
             }
-		    $this->redirect(array('view','id'=>$model->woId));
-		}
+            catch(Exception $e)
+            {
+                $t->rollback();
+                throw $e;
+            }
+
+            
+        }
 
 
 		$this->render('create',array(
@@ -185,13 +207,10 @@ class RadninaloziController extends Controller
         $orders = Order::model()->findAllByAttributes(array('woId' => $id));
         $usedMaterials = UsedMaterials::model()->findAllByAttributes(array('workAccountId' => $id));
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['WorkAccounts']))
 		{
             $model->usersList = null;
-			$model->attributes=$_POST['WorkAccounts'];
+			$model->attributes = $_POST['WorkAccounts'];
 
             $model->creationDate = time();
             $model->deadlineDate = DateTimeHelper::dateToUnix($model->deadlineDate, $_POST['deadlineTime']);
@@ -202,64 +221,82 @@ class RadninaloziController extends Controller
                 $trenutniKorisnici = $_POST['user'];
                 foreach($trenutniKorisnici as $trenutniKorisnik)
                 {
-                    $model->usersList .= $trenutniKorisnik.',';
+                    $model->usersList .= $trenutniKorisnik . ',';
                 }
-                $model->usersList = rtrim($model->usersList,',');
+                $model->usersList = rtrim($model->usersList, ',');
             }
 
-			if($model->save())
+            $t = Yii::app()->db->beginTransaction();
+
+            try
             {
-                if(isset($_POST['Order']))
+
+    			if($model->save())
                 {
-                    $narudzbe = $_POST['Order'];
-                    for($i=0;$i<count($narudzbe);$i+=6)
+                    if(isset($_POST['Order']))
                     {
-                        if(isset($narudzbe[$i]['title']))
+                        $narudzbe = $_POST['Order'];
+                        $max = count($narudzbe['title']);
+                        for($i = 0; $i < $max; $i++)
                         {
-                            if($narudzbe[$i+5]['id'] === '0')
-                                $order = new Order();
-                            else
-                                $order = Order::model()->findByPk($narudzbe[$i+5]['id']);
-
-                            $order->title = $narudzbe[$i]['title'];
-                            $order->amount = str_replace(',','.',$narudzbe[$i+1]['amount']);
-                            $order->measurementUnit = $narudzbe[$i+2]['measurementUnit'];
-                            $order->price = str_replace(',','.',$narudzbe[$i+3]['price']);
-                            $order->description = $narudzbe[$i+4]['description'];
-                            $order->orderId = $narudzbe[$i+5]['id'];
-                            $order->woId = $model->woId;
-
-                            if($order->orderId === '0')
+                            if(isset($narudzbe['title'][$i]))
                             {
-                                $order->done = 1;
-                                $order->deId = NULL;
-                                $order->save();
+                                if ($narudzbe['id'][$i] === '0')
+                                {
+                                    $order = new Order();
+                                    $order->done = 1;
+                                    $order->deId = NULL;
+                                }
+                                else
+                                    $order = Order::model()->findByPk($narudzbe['id'][$i]);
+
+                                $order->title = $narudzbe['title'][$i];
+                                $order->amount = str_replace(',', '.', $narudzbe['amount'][$i]);
+                                $order->measurementUnit = $narudzbe['measurementUnit'][$i];
+                                $order->price = str_replace(',','.',$narudzbe['price'][$i]);
+                                $order->description = $narudzbe['description'][$i];
+                                
+                                $order->woId = $model->woId;
+
+                                if (!$order->save())
+                                    throw new CDbException('Greška pri snimanju narudžbe.');
                             }
-
-                            else
-                                $order->update();
                         }
                     }
-                }
-                if(isset($_POST['Materials']))
-                {
-                    $materijali = $_POST['Materials'];
-                    for($i=0;$i<count($materijali);$i+=2)
+
+                    if(isset($_POST['Materials']))
                     {
-                        $usedMaterial = UsedMaterials::model()->findByAttributes(array('materialId' => $materijali[$i]['maId'], 'workAccountId' => $model->woId));
-                        if($usedMaterial)
-                        {
-                            UsedMaterials::model()->deleteALL('materialId = :materialId AND workAccountId = :workAccountId',array('materialId' => $materijali[$i]['maId'], 'workAccountId' => $model->woId));
-                        }
-                        $material = new UsedMaterials();
-                        $material->materialId = $materijali[$i]['maId'];
-                        $material->amount = str_replace(',','.',$materijali[$i+1]['amount']);
-                        $material->workAccountId = $model->woId;
+                        $materijali = $_POST['Materials'];
+                        $max = count($materijali['maId']);
 
-                        !$material->save();
+                        if (!(($max == 1) && ($materijali['maId'][0] == "")))
+                        {
+                            UsedMaterials::model()->deleteAllByAttributes(array('workAccountId' => $model->woId));
+
+                            for($i = 0; $i < $max; $i++)
+                            {
+                                $material = new UsedMaterials();
+                                $material->materialId = $materijali['maId'][$i];
+                                $material->amount = str_replace(',', '.', $materijali['amount'][$i]);
+                                $material->workAccountId = $model->woId;
+
+                                if (!$material->save())
+                                    throw new CDbException('Greška pri snimanju materijala.');
+
+                            }
+                        }
                     }
                 }
-                $this->redirect(array('view','id'=>$model->woId));
+                else
+                    throw new CDbException('Greška pri snimanju radnog naloga.');
+
+                $t->commit();
+
+                $this->redirect(array('view','id' => $model->woId));
+            }
+            catch(Exception $e)
+            {
+                $t->rollback();
             }
 
 		}

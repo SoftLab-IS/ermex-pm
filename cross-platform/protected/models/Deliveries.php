@@ -117,25 +117,24 @@ class Deliveries extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
+ 		
+		if (Yii::app()->session['level'] < 2)
+           $criteria->condition = "{$this->tableAlias}.reconciled = 0 AND {$this->tableAlias}.archived = 0";
+        else
+           $criteria->condition = "{$this->tableAlias}.archived = 0";
 
-		$criteria->compare('deId', $this->deId);
-		$criteria->compare('deliveryDate', $this->deliveryDate, true);
-		$criteria->compare('price', $this->price);
-		$criteria->compare('note', $this->note, true);
-		$criteria->compare('payType', $this->payType);
-		$criteria->compare('reconciled', $this->reconciled);
-		$criteria->compare('invalid', $this->invalid);
-        $criteria->compare('archived', $this->archived);
-		$criteria->compare('authorId', $this->authorId);
-        $criteria->compare('reconciledId', $this->reconciledId);
-        $criteria->compare('peyeeName', $this->peyeeName);
-        $criteria->compare('peyeeContactInfo', $this->peyeeContactInfo);
-        $criteria->compare('deliverySerial', $this->deliverySerial);
-        $criteria->compare('deliveryPlace', $this->deliveryPlace);
+        $criteria->compare('peyeeName', $this->peyeeName, true);
+		$criteria->compare('deliveryDate >', $this->deliveryDate, false);
+		$criteria->compare('reconciled', $this->reconciled, false);
+		$criteria->compare('invalid', $this->invalid, false);
+		$criteria->compare('authorId', $this->authorId, false);
+		$criteria->compare('reconciledId', $this->reconciledId, false);
+
+        $criteria->order = $this->tableAlias . ".deId DESC";
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria'=> $criteria,
             'pagination' => array(
                 'pageSize' => 25,
             ),

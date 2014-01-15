@@ -245,7 +245,7 @@ $('.btn-add-worker').click(function() {
 
 $('.btn-add-material').click(function(){
     var selectField = $('.new-work-account .material-select > div').clone();
-    console.log(selectField);
+    $(selectField).find('input').val('');
     $(selectField).insertBefore('.add-materials').wrap('<div></div>');
 
 });

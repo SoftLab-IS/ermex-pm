@@ -8,6 +8,18 @@
 ?>
 
 <?php
+if($userLevel > 1)
+{
+    $this->renderPartial('_search',
+        array(
+            'model' => $model,
+            'users' => $users,
+        ));
+}
+?>
+
+
+<?php
 $form = $this->beginWidget('CActiveForm',
     array(
         'id' => 'delivery-form',
@@ -37,7 +49,7 @@ $form = $this->beginWidget('CActiveForm',
 <?php $this->widget('zii.widgets.grid.CGridView',
     array(
         'id'=>'delivery-grid',
-        'dataProvider'=> $dataProvider,
+        'dataProvider'=> $model->search(),
         'emptyText' => 'Trenutno nema dostupnih otpremnica.',
         'summaryText' => 'Prikazano {page} od {pages} dostupnih stranica. Ukupno {count} otpremnica.',
        'rowCssClassExpression' => '
