@@ -3,3 +3,5 @@
 /cross-platform/runtime
 /cross-platform/protected/runtime
 /.idea
+*.sublime-project
+*.sublime-workspace
