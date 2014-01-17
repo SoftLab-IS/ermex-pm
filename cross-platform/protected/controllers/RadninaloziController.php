@@ -130,7 +130,7 @@ class RadninaloziController extends Controller
                         $max = count($narudzbe['title']);
                         for($i = 0; $i < $max; $i++)
                         {
-                            if(isset($narudzbe['title'][$i]))
+                            if(isset($narudzbe['title'][$i]) && ($narudzbe['title'][$i] != ""))
                             {
                                 $order = new Order();
                                 $order->done = 1;
@@ -148,6 +148,7 @@ class RadninaloziController extends Controller
                             }
                         }
                     }
+
                     if(isset($_POST['Materials']))
                     {
                         $materijali = $_POST['Materials'];
@@ -242,7 +243,7 @@ class RadninaloziController extends Controller
                         $max = count($narudzbe['title']);
                         for($i = 0; $i < $max; $i++)
                         {
-                            if(isset($narudzbe['title'][$i]))
+                            if(isset($narudzbe['title'][$i]) && ($narudzbe['title'][$i] != ""))
                             {
                                 if ($narudzbe['id'][$i] === '0')
                                 {
