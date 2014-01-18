@@ -410,6 +410,7 @@ class OtpremniceController extends Controller
         $model = new Deliveries('search');
         $criteria = new CDbCriteria();
         $criteria->compare('archived' , 1);
+        $criteria->order = 'deID DESC';
         $deliveries = new CActiveDataProvider($model, array('criteria' => $criteria,));
         $this->render('archived',array(
             'model'=> $model,
