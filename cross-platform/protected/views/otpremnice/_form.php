@@ -107,7 +107,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
     echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj otpremnicu' : 'Sačuvaj otpremnicu', array(
         'class' => 'button small',
         'id' => 'otpremnica-submit-button',
-        'data-otpremnica-ok' => '0'
+        'data-otpremnica-ok' => $model->isNewRecord ? '0' : '1',
         )); 
         ?>	
     </div>
