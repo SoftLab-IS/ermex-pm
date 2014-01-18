@@ -276,10 +276,6 @@ class OtpremniceController extends Controller
 
             if ($model->reconciledId == 0)
                 $model->reconciledId = null;
-
-            if (is_string($model->deliveryDate) && $model->deliveryDate != "")
-                $model->deliveryDate = DateTimeHelper::dateToUnix($model->deliveryDate);
-
         }
 
         $this->render('index',array(

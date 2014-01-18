@@ -125,7 +125,6 @@ class Deliveries extends CActiveRecord
            $criteria->condition = "{$this->tableAlias}.archived = 0";
 
         $criteria->compare('peyeeName', $this->peyeeName, true);
-		$criteria->compare('deliveryDate >', $this->deliveryDate, false);
 		$criteria->compare('reconciled', $this->reconciled, false);
 		$criteria->compare('invalid', $this->invalid, false);
 		$criteria->compare('authorId', $this->authorId, false);

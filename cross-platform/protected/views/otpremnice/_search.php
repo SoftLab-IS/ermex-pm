@@ -51,30 +51,6 @@ foreach($users as $u)
         </div>
     </div>
     <div class="clearfix hidden-filter-options">
-        <div class="large-2 columns">
-            <?php //
-                $this->widget('zii.widgets.jui.CJuiDatePicker',
-                    array(
-                        'name' => 'Deliveries[deliveryDate]',
-                        'id' => 'Deliveries_deliveryDate',
-                        'options' => array(
-                            'showAnim' => 'fold',
-                            'dayNamesMin' =>  array('Ned' ,'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'),
-                            'dateFormat' => "dd.mm.yy",
-                            'firstDay' => 1,
-                            'monthNames' => array('Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni', 'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'),
-                            'monthNamesShort' => array('Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'),
-                            'changeMonth' => true,
-                            'changeYear' => true
-                        ),
-                        'htmlOptions' => array(
-                            'style' => 'height:2.3125rem;',
-                            'placeholder' => 'Datum isporuke',
-                        ),
-                        'value' => ($model->deliveryDate > 0) ? date("d.m.Y", $model->deliveryDate) : "",
-                    ));
-            ?>
-        </div>
 
         <div class="large-1 columns text-right">
             <?php echo $form->label($model,'authorId'); ?>
