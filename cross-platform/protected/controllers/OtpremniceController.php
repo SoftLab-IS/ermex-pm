@@ -153,7 +153,7 @@ class OtpremniceController extends Controller
 	{
 		$model = $this->loadModel($id);
         $orders = Order::model()->findAllByAttributes(array('deId' => $id));
-
+        $products = new Order("search");
 
         if(isset($_POST['Deliveries']))
         {
@@ -220,6 +220,7 @@ class OtpremniceController extends Controller
         array(
            'model' => $model,
            'orders' => $orders,
+           'products' => $products,
            ));
     }
 
