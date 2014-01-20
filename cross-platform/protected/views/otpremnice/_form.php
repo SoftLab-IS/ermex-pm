@@ -97,7 +97,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
     </div>
 </div>
 
-<div data-alert="" style="display:none" class="empty-proizvod alert-box alert hide">
+<div data-alert="" data-options="animation_speed:500;" style="display:none" class="empty-proizvod alert-box alert hide">
     Nije moguće kreirati otpremnicu bez unosa barem jednog proizvoda.
     <a href="#" class="close">&times;</a>
 </div> 
