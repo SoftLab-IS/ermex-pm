@@ -7,4 +7,5 @@
 
 <h1>Izmjeni otpremnicu <?php echo $model->deliverySerial; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'orders'=>$orders)); ?>
+<?php $this->renderPartial('_form', array('model' => $model, 'orders' => $orders)); ?>
+<?php $this->renderPartial('_products', array('products' => $products)); ?>

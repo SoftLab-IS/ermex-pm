@@ -102,12 +102,17 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->coreScriptUr
     <a href="#" class="close">&times;</a>
 </div> 
 
+<div data-alert="" style="display:none" class="empty-proizvod-2 alert-box alert hide">
+    Svi nazivi proizvoda moraju biti popunjeni.
+    <a href="#" class="close">&times;</a>
+</div> 
+
 <div class="row buttons text-center">
     <?php 
     echo CHtml::submitButton($model->isNewRecord ? 'Kreiraj otpremnicu' : 'Sačuvaj otpremnicu', array(
         'class' => 'button small',
         'id' => 'otpremnica-submit-button',
-        'data-otpremnica-ok' => '0'
+        'data-otpremnica-ok' => $model->isNewRecord ? '0' : '1',
         )); 
         ?>	
     </div>

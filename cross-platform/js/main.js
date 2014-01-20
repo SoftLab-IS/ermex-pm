@@ -25,6 +25,9 @@ var displayError = function(errNum)
         case 0: // Nije moguce kreirati otpremnicu bez proizvoda
           $('.empty-proizvod').fadeIn();
           break;
+        case 1: // Morate popuniti nazive svih proizvoda.
+          $('.empty-proizvod-2').fadeIn();
+          break;
     }
 }
 
@@ -37,6 +40,15 @@ function bindOtprmenicaSubmitCheck()
             e.preventDefault();
             displayError(0);
         }
+
+        $('input[name="Order[title][]"]').each(function(index, element)
+        {
+            if ($(element).val() == "")
+            {
+                e.preventDefault();
+                displayError(1);
+            }
+        });
     });
     $('.empty-proizvod > .close').click(function(e) 
     {

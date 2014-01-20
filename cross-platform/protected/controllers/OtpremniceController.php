@@ -153,7 +153,7 @@ class OtpremniceController extends Controller
 	{
 		$model = $this->loadModel($id);
         $orders = Order::model()->findAllByAttributes(array('deId' => $id));
-
+        $products = new Order("search");
 
         if(isset($_POST['Deliveries']))
         {
@@ -220,6 +220,7 @@ class OtpremniceController extends Controller
         array(
            'model' => $model,
            'orders' => $orders,
+           'products' => $products,
            ));
     }
 
@@ -276,10 +277,6 @@ class OtpremniceController extends Controller
 
             if ($model->reconciledId == 0)
                 $model->reconciledId = null;
-
-            if (is_string($model->deliveryDate) && $model->deliveryDate != "")
-                $model->deliveryDate = DateTimeHelper::dateToUnix($model->deliveryDate);
-
         }
 
         $this->render('index',array(
@@ -413,6 +410,7 @@ class OtpremniceController extends Controller
         $model = new Deliveries('search');
         $criteria = new CDbCriteria();
         $criteria->compare('archived' , 1);
+        $criteria->order = 'deID DESC';
         $deliveries = new CActiveDataProvider($model, array('criteria' => $criteria,));
         $this->render('archived',array(
             'model'=> $model,
