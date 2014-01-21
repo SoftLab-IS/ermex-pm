@@ -108,7 +108,19 @@ function selectWorkers() {
   */
 var addOOProduct = function(e, data)
 {
-    var order = '<div class="clearfix oneOrder"><div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[title][]" {NAZIV} /></div><div class="large-1 columns"><label>Količina</label><input type="text" name="Order[amount][]"  pattern="integer" {KOLICINA} /></div><div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[measurementUnit][]" {MJERA} /></div><div class="large-1 columns"><label>Cijena</label><input type="text" pattern="integer" name="Order[price][]" {CIJENA} /></div><div class="large-12 columns"><label>Opis</label><textarea name="Order[description][]">{OPIS}</textarea></div><input type="hidden" name="Order[id][]" value="(ORDERID)"/></div>';
+    var separator = "";
+    if($('.oneOrder').find())
+    {
+        separator = "<hr/>";
+    }
+    var order = '<div class="order-field clearfix oneOrder">' + separator +
+        '<div class="large-9 columns"><label>Naziv</label><input type="text" name="Order[title][]" required {NAZIV} /><small class="error">Naziv proizvoda je obavezan</small></div>' +
+        '<div class="large-1 columns"><label>Količina</label><input type="text" name="Order[amount][]"  pattern="integer" {KOLICINA} required pattern="integer" /><small class="error">Unesite broj</small></div>' +
+        '<div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[measurementUnit][]" {MJERA} required/><small class="error">Mjerna jedinica</small></div>' +
+        '<div class="large-1 columns"><label>Cijena</label><input type="text" pattern="integer" name="Order[price][]" {CIJENA} pattern="number"/><small class="error">Unesite broj</small></div>' +
+        '<div class="large-10 columns"><label>Opis</label><textarea name="Order[description][]">{OPIS}</textarea></div>' +
+        '<div class="large-2 columns text-right"><br/><br/><br/><br/><br/><a class="button small secondary text-right removeThisOrder" href="#">Izbriši narudžbu</a></div>'
+        '<input type="hidden" name="Order[id][]" value="(ORDERID)"/></div>';
     var value = "";
     
     if (data == null)
@@ -130,10 +142,14 @@ var addOOProduct = function(e, data)
             value += oneOrder;
         }
     }
-
-
     $(value).insertBefore(".addOrder");
 }
+
+$('body').on('click', '.removeThisOrder', function(e){
+    console.log('konj');
+    $(this).parent('div').parent('.order-field').remove();
+    e.preventDefault();
+});
 
 /* Novi proizvod za radni nalog */
 $('.addO').click(addOOProduct);

@@ -18,6 +18,7 @@
         // There is a call to performAjaxValidation() commented in generated controller code.
         // See class documentation of CActiveForm for details on this.
         'enableAjaxValidation'=>false,
+        'htmlOptions' => array('data-abide' => 'true'),
     )); ?>
 
     <?php echo $form->errorSummary($model); ?>
@@ -81,30 +82,36 @@
                 <div class="clearfix oneOrder">
                     <div class="large-9 columns">
                         <label>Naziv</label>
-                        <input type="text" name="Order[title][]" value="<?php echo $order->title; ?>"/>
+                        <input type="text" name="Order[title][]" value="<?php echo $order->title; ?>" required/>
+                        <small class="error">Naziv proizvoda je obavezan</small>
                     </div>
                     <div class="large-1 columns">
                         <label>Količina</label>
-                        <input type="text" name="Order[amount][]" value="<?php echo $order->amount; ?>"/>
+                        <input type="text" name="Order[amount][]" value="<?php echo $order->amount; ?>" pattern="integer" required/>
+                        <small class="error">Unesite broj</small>
                     </div>
                     <div class="large-1 columns">
                         <label>Mjera</label>
-                        <input type="text" name="Order[measurementUnit][]" value="<?php echo $order->measurementUnit; ?>"/>
+                        <input type="text" name="Order[measurementUnit][]" value="<?php echo $order->measurementUnit; ?>" required/>
+                        <small class="error">Mjerna jedinica</small>
                     </div>
                     <div class="large-1 columns">
                         <label>Cijena</label>
-                        <input type="text" name="Order[price][]" value="<?php echo $order->price; ?>"/>
+                        <input type="text" name="Order[price][]" value="<?php echo $order->price; ?>" pattern="number"/>
+                        <small class="error">Unesite broj</small>
                     </div>
                     <div class="large-12 columns">
                         <label>Opis</label>
                         <textarea name="Order[description][]"><?php echo $order->description; ?></textarea>
                     </div>
+
                     <input type="hidden" name="Order[id][]" value="<?php echo $order->orderId; ?>"/>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
         <div class="clearfix addOrder large-12 columns">
+
             <input type="button" value="Dodaj narudžbu" class="addOO button small secondary"/>
         </div>
 

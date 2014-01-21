@@ -326,6 +326,12 @@ strong {
 .opis {
    width: 120mm;
 }
+.order-title {
+    font-size: 1rem;
+}
+    .order-title span {
+
+    }
 
 /* OTPREMNICA */
 
@@ -470,6 +476,10 @@ strong {
 }
 .text-right {
     text-align: right;
+}
+.text-smaller {
+    font-size: .8rem;
+    margin: .2rem 0 0;
 }
 
 /* ==========================================================================

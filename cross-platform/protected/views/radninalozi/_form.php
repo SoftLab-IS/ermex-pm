@@ -56,7 +56,7 @@
         </div>
         <div class="large-2 columns">
             <label>Vrijeme isporuke *</label>
-            <input type="text" id="deliveryTime" required="required" class="" name="deadlineTime" value="10:00"/>
+            <input type="text" id="deliveryTime" name="deadlineTime" value="10:00" required/>
             <small class="error">Ovo polje je obavezno.</small>
         </div>
         <div class="large-6 columns">
@@ -82,19 +82,23 @@
             <div class="clearfix oneOrder">
                 <div class="large-9 columns">
                     <label>Naziv</label>
-                    <input type="text" name="Order[title][]"/>
+                    <input type="text" name="Order[title][]" required/>
+                    <small class="error">Naziv proizvoda je obavezan</small>
                 </div>
                 <div class="large-1 columns">
                     <label>Količina</label>
-                    <input type="text" name="Order[amount][]" pattern="integer"/>
+                    <input type="text" name="Order[amount][]" pattern="integer" required/>
+                    <small class="error">Unesite broj</small>
                 </div>
                 <div class="large-1 columns">
                     <label>Mjera</label>
-                    <input type="text" name="Order[measurementUnit][]"/>
+                    <input type="text" name="Order[measurementUnit][]" required/>
+                    <small class="error">Mjerna jedinica</small>
                 </div>
                 <div class="large-1 columns">
                     <label>Cijena</label>
-                    <input type="text" name="Order[price][]" pattern="integer"/>
+                    <input type="text" name="Order[price][]" pattern="number"/>
+                    <small class="error">Unesite broj</small>
                 </div>
                 <div class="large-12 columns">
                     <label>Opis</label>

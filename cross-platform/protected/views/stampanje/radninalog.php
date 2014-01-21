@@ -84,7 +84,7 @@ $this->pageTitle = "Radni Nalog #" . $model->workAccountSerial;
                 foreach($model->order as $order): ?>
                     <tr>
                         <td class="text-center"><?php echo $i++ . '.'; ?></td>
-                        <td><?php echo $order->title; ?></td>
+                        <td ><?php echo $order->title; ?><p class="text-smaller"><?php echo $order->description; ?></p></td>
                         <td class="text-right"><?php echo $order->amount . " " . $order->measurementUnit; ?></td>
                         <td class="text-right"><?php echo ($order->price)? $order->price . " KM" : ""; ?></td>
                     </tr>
