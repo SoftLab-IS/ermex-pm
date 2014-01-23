@@ -119,7 +119,7 @@ var addOOProduct = function(e, data)
         '<div class="large-1 columns"><label>Mjera</label> <input type="text" name="Order[measurementUnit][]" {MJERA} required/><small class="error">Mjerna jedinica</small></div>' +
         '<div class="large-1 columns"><label>Cijena</label><input type="text" pattern="integer" name="Order[price][]" {CIJENA} pattern="number"/><small class="error">Unesite broj</small></div>' +
         '<div class="large-10 columns"><label>Opis</label><textarea name="Order[description][]">{OPIS}</textarea></div>' +
-        '<div class="large-2 columns text-right"><br/><br/><br/><br/><br/><a class="button small secondary text-right removeThisOrder" href="#">Izbriši narudžbu</a></div>'
+        '<div class="large-2 columns text-right"><br/><br/><br/><br/><br/><a class="button small secondary text-right removeThisOrder" href="#">Izbriši narudžbu</a></div>' +
         '<input type="hidden" name="Order[id][]" value="(ORDERID)"/></div>';
     var value = "";
     
