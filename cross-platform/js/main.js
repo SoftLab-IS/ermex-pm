@@ -35,20 +35,17 @@ function bindOtprmenicaSubmitCheck()
 {
     $('#otpremnica-submit-button').click(function(e)
     {
-        if ($(this).attr("data-otpremnica-ok") != "1")
+        //TODO dodati validaciju da se ne moze snimiti otpremnica bez proizvoda
+//        if ($(this).attr("data-otpremnica-ok") != "1")
+//        {
+//            e.preventDefault();
+//            displayError(0);
+//        }
+/*        if (!$('.oneOrder').find())
         {
             e.preventDefault();
             displayError(0);
-        }
-
-        $('input[name="Order[title][]"]').each(function(index, element)
-        {
-            if ($(element).val() == "")
-            {
-                e.preventDefault();
-                displayError(1);
-            }
-        });
+        }*/
     });
     $('.empty-proizvod > .close').click(function(e) 
     {
