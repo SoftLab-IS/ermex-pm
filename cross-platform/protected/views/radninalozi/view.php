@@ -13,21 +13,21 @@
             <div>
                 <ul class="button-group">
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Izmjeni', array('radniNalozi/update/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Izmjeni', array('radniNalozi/update/'.$model->woId), array('class' => 'button small secondary', 'title' => 'Izmjeni radni nalog')); ?></li>
                     <?php endif; ?>
                     <?php if($model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Storniraj', array('radniNalozi/storn/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Storniraj', array('radniNalozi/storn/'.$model->woId), array('class' => 'button small secondary', 'title' => 'Storniraj radni nalog')); ?></li>
                     <?php endif; ?>
                     <?php if($model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Odštampaj', array('stampanje/radninalog/'.$model->woId), array('class' => 'button small secondary', 'target' => '_blank')); ?></li>
+                        <li><?php echo CHtml::link('Odštampaj', array('stampanje/radninalog/'.$model->woId), array('class' => 'button small secondary', 'target' => '_blank', 'title' => 'Odštampaj radni nalog')); ?></li>
                     <?php endif; ?>
                 </ul>
                 <ul class="button-group">
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Zaključi radni nalog', array('radniNalozi/reconcile/'.$model->woId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Zaključi', array('radniNalozi/reconcile/'.$model->woId), array('class' => 'button small secondary', 'title' => 'Zaključi radni nalog')); ?></li>
                     <?php endif; ?>
                     <?php if($model->currentUser == Yii::app()->session['id']): ?>
-                        <li><?php echo CHtml::link('Proslijedi dalje', array('radniNalozi/nextWorker/'.$model->woId), array('class' => 'button small')); ?></li>
+                        <li><?php echo CHtml::link('Proslijedi dalje', array('radniNalozi/nextWorker/'.$model->woId), array('class' => 'button small', 'title' => 'Proslijedi nalog na sledećeg radnika')); ?></li>
                     <?php endif; ?>
                 </ul>
             </div>

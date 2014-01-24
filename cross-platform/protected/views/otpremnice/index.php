@@ -27,21 +27,20 @@ $form = $this->beginWidget('CActiveForm',
 ?>
 
 <header class="clearfix">
-    <h2 class="large-5 columns">Otpremnice</h2>
+    <h2 class="large-4 columns">Otpremnice</h2>
 
-    <div class="button-bar large-7 columns context-options">
+    <div class="button-bar large-8 columns context-options">
         <div>
             <ul class="button-group">
-                <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
+                <li><?php echo CHtml::submitButton('Storniraj', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small', 'title' => 'Storniraj izabrane otpremnice')); ?></li>
+                <li><?php echo CHtml::submitButton('Zaključi', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small', 'title' => 'Zaključi izabrane otpremnice')); ?></li>
                 <?php if($userLevel > 1): ?>
-                    <li><?php echo CHtml::submitButton('Arhiviraj odabrane', array('name' => 'arhivirajOdabrane', 'class' => 'button secondary small')); ?></li>
-                    <li><?php echo CHtml::link('Prikaži arhivirane', array('archived'), array('class' => 'button secondary small')); ?></li>
+                    <li><?php echo CHtml::submitButton('Arhiviraj', array('name' => 'arhivirajOdabrane', 'class' => 'button secondary small', 'title' => 'Arhiviraj izabrane otpremnice')); ?></li>
+                    <li><?php echo CHtml::link('Prikaz arhive', array('archived'), array('class' => 'button secondary small', 'title' => 'Prikaži arhivu otpremnica')); ?></li>
                 <?php endif; ?>
-<!--                <li>--><?php //echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); //TODO ?>
             </ul>
             <ul class="button-group">
-                <li><?php echo CHtml::link('Napravi otpremnicu', array('otpremnice/create'), array('class' => 'button small')); ?>
+                <li><?php echo CHtml::link('Nova otpremnica', array('otpremnice/create'), array('class' => 'button small', 'title' => 'Napravi novu otpremnicu')); ?>
             </ul>
         </div>
     </div>

@@ -23,7 +23,7 @@ $form = $this->beginWidget('CActiveForm',
         <div class="button-bar large-7 columns context-options">
             <div>
                 <ul class="button-group">
-                    <li><?php echo CHtml::submitButton('Otpremi proizvode', array('name' => 'otpremiProizvode', 'class' => 'button secondary small')); ?></li>
+                    <li><?php echo CHtml::submitButton('Otpremi proizvode', array('name' => 'otpremiProizvode', 'class' => 'button secondary small', 'title' => 'Otpremi izabrane proizvode')); ?></li>
                 </ul>
             </div>
         </div>

@@ -33,13 +33,12 @@ $form = $this->beginWidget('CActiveForm',
     <div class="button-bar large-8 columns context-options">
         <div>
             <ul class="button-group">
-                <li><?php echo CHtml::submitButton('Proslijedi dalje', array('name' => 'zavrsiOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::submitButton('Storniraj odabrane', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small')); ?></li>
-                <li><?php echo CHtml::submitButton('Zaključi odabrane', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small')); ?></li>
-<!--                <li>--><?php //echo CHtml::link('Odštampaj odabrane', array('#'), array('class' => 'button secondary small')); ?><!--</li>-->
+                <li><?php echo CHtml::submitButton('Proslijedi dalje', array('name' => 'zavrsiOdabrane', 'class' => 'button secondary small', 'title' => 'Proslijedi nalog na sledećeg radnika')); ?></li>
+                <li><?php echo CHtml::submitButton('Storniraj', array('name' => 'stornirajOdabrane', 'class' => 'button secondary small', 'title' => 'Storniraj izabrane radne naloge')); ?></li>
+                <li><?php echo CHtml::submitButton('Zaključi', array('name' => 'zakljuciOdabrane', 'class' => 'button secondary small', 'title' => 'Zaključi izabrane radne naloge')); ?></li>
             </ul>
             <ul class="button-group">
-                <li><?php echo CHtml::link('Dodaj radni nalog', array('radniNalozi/create'), array('class' => 'button small')); ?></li>
+                <li><?php echo CHtml::link('Novi radni nalog', array('radniNalozi/create'), array('class' => 'button small', 'title' => 'Napravi novi radni nalog')); ?></li>
             </ul>
         </div>
     </div>

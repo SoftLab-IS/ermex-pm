@@ -12,21 +12,21 @@
             <div>
                 <ul class="button-group">
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Izmjeni otpremnicu', array('otpremnice/update/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Izmjeni', array('otpremnice/update/'.$model->deId), array('class' => 'button small secondary', 'title' => 'Izmjeni otpremnicu')); ?></li>
                     <?php endif; ?>
                     <?php if($model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Storniraj otpremnicu', array('otpremnice/storn/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Storniraj', array('otpremnice/storn/'.$model->deId), array('class' => 'button small secondary', 'title' => 'Storniraj otpremnicu')); ?></li>
                     <?php endif; ?>
                     <?php if($model->archived == 0 and $model->reconciled == 1): ?>
-                        <li><?php echo CHtml::link('Arhiviraj otpremnicu', array('otpremnice/archive/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Arhiviraj', array('otpremnice/archive/'.$model->deId), array('class' => 'button small secondary', 'title' => 'Arhiviraj otpremnicu')); ?></li>
                     <?php endif; ?>
                     <?php if($model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Odštampaj', array('stampanje/otpremnica/'.$model->deId), array('class' => 'button small secondary', 'target' => '_blank')); ?></li>
+                        <li><?php echo CHtml::link('Odštampaj', array('stampanje/otpremnica/'.$model->deId), array('class' => 'button small secondary', 'target' => '_blank', 'title' => 'Odštampaj otpremnicu')); ?></li>
                     <?php endif; ?>
                 </ul>
                 <ul class="button-group">
                     <?php if($model->reconciled == 0 && $model->invalid == 0): ?>
-                        <li><?php echo CHtml::link('Zaključi otpremnicu', array('otpremnice/reconcile/'.$model->deId), array('class' => 'button small secondary')); ?></li>
+                        <li><?php echo CHtml::link('Zaključi', array('otpremnice/reconcile/'.$model->deId), array('class' => 'button small secondary', 'title' => 'Zaključi otpremnicu')); ?></li>
                     <?php endif; ?>
                 </ul>
             </div>
