@@ -14,7 +14,8 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'users-form',
-    'htmlOptions' => array('data-abide' => 'true'),
+    'enableAjaxValidation'=>true,
+    //'htmlOptions' => array('data-abide' => 'true'),
 )); ?>
 
 <div class="clearfix">

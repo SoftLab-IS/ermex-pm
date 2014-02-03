@@ -63,12 +63,10 @@ class KorisniciController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$this->userCheck();
-
 		$model = new Users('register');
+		$this->performAjaxValidation($model);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->userCheck();
 
 		if(isset($_POST['Users']))
 		{
@@ -95,9 +93,11 @@ class KorisniciController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$this->userCheck();
-
 		$model = $this->loadModel($id);
+
+		$this->performAjaxValidation($model);
+
+		$this->userCheck();
 
 		if(isset($_POST['Users']))
 		{

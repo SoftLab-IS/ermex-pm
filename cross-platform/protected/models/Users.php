@@ -42,10 +42,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, verifyPassword, realName, realSurname, registerDate', 'required'),
+			array('username, password, verifyPassword, realName, realSurname', 'required'),
 			array('registerDate', 'required', 'on' => 'register'),
 			array('privilegeLevel', 'numerical', 'integerOnly' => true),
-			array('username, password, verifyPassword, realName, realSurname', 'length', 'max' => 45),
+			array('username, realName, realSurname', 'length', 'max' => 45),
+			array('username', 'unique', 'on' => 'register'),
 			array('registerDate', 'length', 'max' => 21),
 			array('verifyPassword', 'compare', 'compareAttribute' => 'password'),
 			// The following rule is used by search().
