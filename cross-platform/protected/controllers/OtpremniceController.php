@@ -358,6 +358,7 @@ class OtpremniceController extends Controller
             array(
                 'invalid' => '1'
                 ));
+        Order::model()->stornOtOrders($safePks);
     }
 
     /**

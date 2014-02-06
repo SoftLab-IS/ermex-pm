@@ -16,6 +16,7 @@
  * @property string $pdv
  * @property integer $done
  * @property integer $delivered
+ * @property integer $invalid
  *
  * The followings are the available model relations:
  * @property WorkAccounts $wo
@@ -40,7 +41,7 @@ class Order extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'required'),
-			array('woId, deId, done, delivered', 'numerical', 'integerOnly'=>true),
+			array('woId, deId, done, delivered, invalid', 'numerical', 'integerOnly'=>true),
 			array('price, totalePrice', 'numerical'),
 			array('title', 'length', 'max'=>255),
 			array('amount, measurementUnit, pdv', 'length', 'max'=>45),
@@ -128,6 +129,7 @@ class Order extends CActiveRecord
 		$criteria->compare('pdv', $this->pdv, true);
 		$criteria->compare('done', 1);
 		$criteria->compare('delivered', 0);
+		$criteria->compare('invalid', 0);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
@@ -152,5 +154,27 @@ class Order extends CActiveRecord
     {
         foreach($safePks as $woId)
         Order::model()->updateAll(array('done' => 1),'woId = :woId',array('woId' => $woId));
+    }
+    public function stornRnOrders($safePks)
+    {
+        if(!is_array($safePks))
+        {
+            $safePks = array($safePks);
+        }
+        foreach($safePks as $woId)
+        Order::model()->updateAll(array('invalid' => 1),'woId = :woId',array('woId' => $woId));
+    }
+    public function stornOtOrders($safePks)
+    {
+        if(!is_array($safePks))
+        {
+            $safePks = array($safePks);
+        }
+        foreach($safePks as $deId)
+        {
+            Order::model()->updateAll(array('invalid' => 1),'deId = :deId AND woId IS NULL',array('deId' => $deId));
+            Order::model()->updateAll(array('deId' => NULL),'deId = :deId AND woId IS NOT NULL',array('deId' => $deId));
+        }
+
     }
 }
