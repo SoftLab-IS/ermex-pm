@@ -27,7 +27,6 @@
     <div class="large-6 columns">
         <?php echo $form->labelEx($model, 'username'); ?>
         <?php echo $form->textField($model, 'username', array('size' => 45, 'maxlength' => 45, 'required' => "required")); ?>
-        <small class="error"><?php echo $form->error($model, 'username'); ?></small>
     </div>
 </div>
 
@@ -42,25 +41,21 @@
         <div class="large-3 columns">
             <?php echo $form->labelEx($model, 'password'); ?>
             <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'required' => "required")); ?>
-            <small class="error"><?php echo $form->error($model, 'password'); ?></small>
         </div>
 
         <div class="large-3 columns">
             <?php echo $form->labelEx($model, 'verifyPassword'); ?>
             <?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45, 'required' => "required")); ?>
-            <small class="error"><?php echo $form->error($model, 'verifyPassword'); ?></small>
         </div>
     <?php else: ?>
         <div class="large-3 columns">
             <?php echo $form->labelEx($model, 'newPassword'); ?>
-            <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "", 'required' => "required")); ?>
-            <small class="error"><?php echo $form->error($model, 'password'); ?></small>
+            <?php echo $form->passwordField($model, 'password', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
         </div>
 
         <div class="large-3 columns">
             <?php echo $form->labelEx($model, 'verifyPassword'); ?>
-            <?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45, 'value' => "", 'required' => "required")); ?>
-            <small class="error"><?php echo $form->error($model, 'verifyPassword'); ?></small>
+            <?php echo $form->passwordField($model, 'verifyPassword', array('size' => 45, 'maxlength' => 45, 'value' => "")); ?>
         </div>
     <?php endif; ?>
 

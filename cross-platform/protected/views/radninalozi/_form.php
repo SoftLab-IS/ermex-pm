@@ -121,12 +121,14 @@
                         <select name="Materials[maId][]">
                             <option></option>
                             <?php foreach($materials->findAll() as $material): ?>
-                                <option value="<?php echo $material->maId; ?>"><?php echo $material->name; ?></option>
+                                <?php if ($material->amount > 0): ?>
+                                    <option value="<?php echo $material->maId; ?>" ><?php echo $material->name . " - ( na stanju " . $material->amount . " " . $material->dimensionUnit . " )"; ?></option>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="large-2 columns">
-                        <input type="text"  name="Materials[amount][]" pattern="integer"/>
+                        <input type="text"  name="Materials[amount][]" pattern="integer" max="10"/>
                         <small class="error">Količina mora biti broj.</small>
                     </div>
                 </div>
