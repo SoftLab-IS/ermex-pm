@@ -43,7 +43,7 @@ $totalPrice = 0;
                 </td>
                 <td class="text-right">
                     <?php
-                    $total = $order->price + ((17 / 100) * $order->price);
+                    $total = ($order->price + ((17 / 100) * $order->price)) * $order->amount;
                     echo $total > 0 ? $total . " KM" : "";
                     ?>
                 </td>
@@ -61,17 +61,17 @@ $totalPrice = 0;
     <table class="">
         <tr>
             <th class="width-70">Ukupna vrijednost bez PDV-a:</th>
-            <td class="text-right"><?php echo $totalPrice . " KM"; ?></td>
+            <td class="text-right"><?php echo $totalPrice * $order->amount . " KM"; ?></td>
         </tr>
 
         <tr>
             <th class="">PDV 17%:</th>
-            <td class="text-right"><?php echo ((17 / 100) * $totalPrice) . " KM"; ?></td>
+            <td class="text-right"><?php echo ((17 / 100) * $totalPrice) * $order->amount . " KM"; ?></td>
         </tr>
 
         <tr>
             <th class="">Prodajna vrijednost sa PDV-om:</th>
-            <td class="text-right"><?php echo ((17 / 100) * $totalPrice) + $totalPrice . " KM"; ?></td>
+            <td class="text-right"><?php echo (((17 / 100) * $totalPrice) + $totalPrice) * $order->amount . " KM"; ?></td>
         </tr>
 
     </table>
