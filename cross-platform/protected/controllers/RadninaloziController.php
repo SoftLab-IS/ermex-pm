@@ -259,6 +259,7 @@ class RadninaloziController extends Controller
                                 $order->measurementUnit = $narudzbe['measurementUnit'][$i];
                                 $order->price = str_replace(',','.',$narudzbe['price'][$i]);
                                 $order->description = $narudzbe['description'][$i];
+                                $order->done = 0;
                                 
                                 $order->woId = $model->woId;
 
