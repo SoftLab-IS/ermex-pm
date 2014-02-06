@@ -133,7 +133,7 @@ class RadninaloziController extends Controller
                             if(isset($narudzbe['title'][$i]) && ($narudzbe['title'][$i] != ""))
                             {
                                 $order = new Order();
-                                $order->done = 1;
+                                $order->done = 0;
                                 $order->deId = NULL;
                                 
                                 $order->title = $narudzbe['title'][$i];
@@ -248,7 +248,7 @@ class RadninaloziController extends Controller
                                 if ($narudzbe['id'][$i] === '0')
                                 {
                                     $order = new Order();
-                                    $order->done = 1;
+                                    $order->done = 0;
                                     $order->deId = NULL;
                                 }
                                 else
